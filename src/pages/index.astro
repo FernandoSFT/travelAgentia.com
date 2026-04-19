@@ -1,0 +1,47 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getSecciones } from '../lib/notion';
+
+const secciones = await getSecciones();
+const homeSecciones = secciones.filter(s => s.Página === "Home");
+const hero = homeSecciones.find(s => s.Slug === "hero");
+---
+
+<Layout title="Consultoría de IA para Agencias de Viajes">
+	<main>
+		{hero ? (
+			<section class="min-h-screen flex items-center justify-center relative overflow-hidden bg-background">
+				<!-- bg overlay -->
+				<div class="absolute inset-0 bg-[url('/noise.png')] opacity-5 pointer-events-none"></div>
+				<div class="absolute inset-0 bg-gradient-to-b from-transparent to-background/90"></div>
+				
+				<div class="container mx-auto px-4 relative z-10 text-center max-w-4xl">
+					<span class="font-jetbrains text-primary text-sm uppercase tracking-widest mb-6 block">
+						{hero.Subtítulo || "DE AGENTE A AGENTE"}
+					</span>
+					
+					<h1 class="text-5xl md:text-7xl mb-8 leading-tight text-gradient">
+						{hero.Título}
+					</h1>
+					
+					<div class="text-lg md:text-xl text-gray-300 mb-12 max-w-2xl mx-auto leading-relaxed whitespace-pre-line">
+						{hero.Cuerpo}
+					</div>
+					
+					<div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+						<a href={hero["CTA link"] || "/contacto"} class="bg-primary text-background font-inter font-bold uppercase tracking-widest px-8 py-4 rounded hover:-translate-y-1 hover:shadow-[0_4px_15px_rgba(201,168,76,0.4)] transition-all duration-300">
+							{hero["CTA texto"] || "EMPIEZA AHORA"}
+						</a>
+						<a href="/servicios" class="border border-primary text-primary font-inter font-bold uppercase tracking-widest px-8 py-4 rounded hover:bg-primary hover:text-background hover:-translate-y-1 transition-all duration-300">
+							VER CÓMO FUNCIONA
+						</a>
+					</div>
+				</div>
+			</section>
+		) : (
+			<div class="min-h-screen flex items-center justify-center">
+				<p>Configura la sección 'hero' en Notion para la página Home.</p>
+			</div>
+		)}
+	</main>
+</Layout>
