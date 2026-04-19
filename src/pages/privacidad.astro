@@ -1,21 +1,41 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { getSecciones } from '../lib/notion';
-import { marked } from 'marked';
-
-const secciones = await getSecciones();
-const data = secciones.find(s => s.Slug === "legal-privacidad" || s.Página === "Legal");
 ---
 
-<Layout title={data?.Título || "Política de Privacidad"}>
-	<main class="min-h-screen pt-32 pb-20 bg-background relative">
-		<div class="absolute inset-0 bg-[url('/noise.png')] opacity-5 pointer-events-none"></div>
-		
-		<div class="container mx-auto px-4 relative z-10 max-w-3xl">
-			<h1 class="text-4xl md:text-5xl mb-12 text-gradient font-playfair">{data?.Título || "Política de Privacidad"}</h1>
-			{data?.Cuerpo && (
-				<div class="prose prose-invert prose-p:text-gray-300 prose-headings:text-primary max-w-none prose-a:text-primaryHover" set:html={marked.parse(data.Cuerpo)} />
-			)}
-		</div>
-	</main>
+<Layout title="Política de Privacidad | TravelAgentIA">
+  <main class="pt-32 pb-20">
+    <div class="container-custom max-w-4xl">
+      <span class="label-gold">LEGAL</span>
+      <h1 class="text-5xl md:text-6xl mb-12 text-gradient font-playfair">Política de Privacidad</h1>
+      
+      <div class="glass p-8 md:p-12 space-y-8 text-text-muted leading-relaxed">
+        <section>
+          <h2 class="text-xl text-white font-playfair mb-4">1. Responsable del Tratamiento</h2>
+          <p>El responsable del tratamiento de sus datos es Fernando Córdoba, con domicilio profesional en Andújar, Jaén. Puede contactar con nosotros a través de <a href="mailto:automatiza2@automatiza2.com" class="text-gold-primary hover:underline">automatiza2@automatiza2.com</a>.</p>
+        </section>
+
+        <section>
+          <h2 class="text-xl text-white font-playfair mb-4">2. Finalidad del Tratamiento</h2>
+          <p>Tratamos sus datos personales para las siguientes finalidades:</p>
+          <ul class="list-disc pl-5 mt-2 space-y-2">
+            <li>Gestionar las solicitudes de información y reservas de consultoría.</li>
+            <li>Envío de comunicaciones comerciales relacionadas con nuestros servicios (solo si lo autoriza).</li>
+            <li>Gestión de la comunidad de agentes de viajes.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-xl text-white font-playfair mb-4">3. Legitimación</h2>
+          <p>La base legal para el tratamiento de sus datos es el consentimiento del interesado al contactar con nosotros o contratar nuestros servicios.</p>
+        </section>
+
+        <section>
+          <h2 class="text-xl text-white font-playfair mb-4">4. Derechos</h2>
+          <p>Usted tiene derecho a acceder, rectificar y suprimir sus datos, así como otros derechos explicados en la información adicional que puede solicitar por correo electrónico.</p>
+        </section>
+
+        <p class="text-sm italic mt-8 border-t border-bg-border pt-8">Última actualización: Abril de 2026.</p>
+      </div>
+    </div>
+  </main>
 </Layout>

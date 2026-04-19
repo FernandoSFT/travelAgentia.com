@@ -1,43 +1,116 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getServicios, getSecciones } from '../../lib/notion';
-import { marked } from 'marked';
-
-const servicios = await getServicios();
-const secciones = await getSecciones();
-const hero = secciones.find(s => s.Página === "Servicios" && s.Slug.includes("hero"));
+import { Users, Compass, Key, Check, Zap, Layers, BarChart3, Bot } from 'lucide-react';
 ---
 
-<Layout title={hero?.Título || "Servicios | TravelAgentIA"}>
-	<main class="min-h-screen pt-32 pb-20 bg-bg-dark relative">
-		<div class="absolute inset-0 bg-noise pointer-events-none"></div>
-		
-		<div class="container-custom relative z-10">
-			{hero && (
-				<div class="text-center mb-20 max-w-3xl mx-auto">
-          <span class="label-gold">NUESTROS SERVICIOS</span>
-					<h1 class="text-4xl md:text-6xl mb-6 text-gradient font-playfair">{hero.Título}</h1>
-					<div class="text-xl text-text-muted" set:html={marked.parse(hero.Cuerpo || "")} />
-				</div>
-			)}
+<Layout title="Servicios de IA para Agencias de Viajes | TravelAgentIA">
+  <main class="pt-32 pb-20">
+    <div class="container-custom">
+      <div class="text-center max-w-3xl mx-auto mb-20">
+        <span class="label-gold">CATÁLOGO DE SERVICIOS</span>
+        <h1 class="text-5xl md:text-6xl mb-6 text-gradient font-playfair">Tres caminos hacia la eficiencia</h1>
+        <p class="text-lg text-text-muted">
+          Desde el aprendizaje colaborativo hasta la implementación llave en mano. Elige el nivel de acompañamiento que tu agencia necesita hoy.
+        </p>
+      </div>
 
-			<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-				{servicios.map((servicio) => (
-					<div class="premium-card flex flex-col h-full group">
-						<div class="text-4xl mb-4 group-hover:scale-110 transition-transform inline-block">{servicio.Icono || "✨"}</div>
-						<h2 class="text-2xl font-playfair text-white mb-4 group-hover:text-gold-primary transition-colors">{servicio.Nombre}</h2>
-						<p class="text-text-muted mb-6 flex-grow">{servicio["Descripción corta"]}</p>
-						<div class="flex items-center justify-between mt-auto pt-6 border-t border-bg-border">
-							{servicio["Precio desde (€)"] > 0 && (
-								<span class="text-sm font-jetbrains text-text-muted">Desde {servicio["Precio desde (€)"]}€</span>
-							)}
-							<a href={`/servicios/${servicio["Slug URL"]}`} class="text-gold-primary font-bold uppercase tracking-wider text-sm hover:text-gold-light transition-colors">
-								Saber más →
-							</a>
-						</div>
-					</div>
-				))}
-			</div>
-		</div>
-	</main>
+      <!-- SERVICIOS DETALLADOS -->
+      <div class="space-y-32">
+        <!-- 1. Comunidad -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div>
+            <Users class="w-16 h-16 text-gold-primary mb-8" />
+            <h2 class="text-4xl mb-6 text-white font-playfair">La Comunidad TravelAgentIA</h2>
+            <p class="text-lg text-text-muted mb-8">El punto de entrada ideal para agentes que quieren aprender a su ritmo pero no quieren estar solos. Un ecosistema vivo de profesionales compartiendo lo que funciona.</p>
+            <ul class="space-y-4 mb-10">
+              {[
+                'Sesiones grupales semanales de actualización.',
+                'Biblioteca de "BecarIAs" (prompts y flujos listos para usar).',
+                'Foro privado de dudas y soporte entre colegas.',
+                'Actualización constante sobre herramientas del sector.'
+              ].map(item => (
+                <li class="flex items-start gap-3 text-text-main">
+                  <Check class="w-5 h-5 text-gold-primary shrink-0 mt-1" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+            <a href="https://comunidad.travelagentia.com" class="btn-secondary py-3 px-8">MÁS INFORMACIÓN</a>
+          </div>
+          <div class="premium-card bg-bg-dark border-gold-primary/20">
+            <div class="aspect-video bg-bg-card rounded-lg overflow-hidden flex items-center justify-center border border-bg-border">
+              <span class="text-gold-primary text-sm font-jetbrains uppercase tracking-widest">Vista previa de la comunidad</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. Consultoría Hazlo Conmigo -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center lg:flex-row-reverse">
+          <div class="lg:order-2">
+            <Compass class="w-16 h-16 text-gold-primary mb-8" />
+            <h2 class="text-4xl mb-6 text-white font-playfair">Consultoría "Hazlo Conmigo"</h2>
+            <p class="text-lg text-text-muted mb-8">Un acompañamiento 1 a 1 donde yo diseño la arquitectura y tú aprendes a manejarla. Ideal para agencias que quieren control total sobre su tecnología.</p>
+            <ul class="space-y-4 mb-10">
+              {[
+                'Auditoría profunda de tus procesos actuales.',
+                'Diseño de tu espacio de trabajo en Notion.',
+                'Automatización de tareas repetitivas (emails, expedientes).',
+                '4 Sesiones personalizadas de implementación guiada.'
+              ].map(item => (
+                <li class="flex items-start gap-3 text-text-main">
+                  <Check class="w-5 h-5 text-gold-primary shrink-0 mt-1" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+            <a href="/reservar" class="btn-primary py-3 px-8">RESERVAR DIAGNÓSTICO</a>
+          </div>
+          <div class="lg:order-1 premium-card bg-bg-dark border-gold-primary/50 shadow-[0_0_50px_rgba(201,168,76,0.1)]">
+            <div class="aspect-video bg-bg-card rounded-lg overflow-hidden flex items-center justify-center border border-bg-border">
+              <span class="text-gold-primary text-sm font-jetbrains uppercase tracking-widest">Arquitectura personalizada</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. Lo Hacemos Por Ti -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div>
+            <Key class="w-16 h-16 text-gold-primary mb-8" />
+            <h2 class="text-4xl mb-6 text-white font-playfair">"Lo Hacemos Por Ti"</h2>
+            <p class="text-lg text-text-muted mb-8">Delegación total. Construimos tu ecosistema de IA completo, lo probamos y te lo entregamos listo para facturar más con menos esfuerzo.</p>
+            <ul class="space-y-4 mb-10">
+              {[
+                'Implementación de más de 20 agentes IA coordinados.',
+                'Integración total entre Notion, n8n y tu CRM/Email.',
+                'Automatización de propuestas comerciales premium.',
+                'Soporte prioritario post-implementación.'
+              ].map(item => (
+                <li class="flex items-start gap-3 text-text-main">
+                  <Check class="w-5 h-5 text-gold-primary shrink-0 mt-1" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+            <a href="/reservar" class="btn-secondary py-3 px-8">SOLICITAR PRESUPUESTO</a>
+          </div>
+          <div class="premium-card bg-bg-dark border-gold-primary/20">
+             <div class="grid grid-cols-2 gap-4">
+                {[Zap, Layers, BarChart3, Bot].map(Icon => (
+                  <div class="bg-bg-card p-6 rounded-lg border border-bg-border flex items-center justify-center">
+                    <Icon class="w-8 h-8 text-gold-primary" />
+                  </div>
+                ))}
+             </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- FAQ SECCIÓN FINAL -->
+      <section class="mt-32 pt-20 border-t border-bg-border text-center">
+        <h2 class="text-3xl font-playfair mb-8 text-white">¿No sabes por dónde empezar?</h2>
+        <p class="text-text-muted mb-10">La mayoría de agencias empiezan por una sesión de diagnóstico para ver qué camino es el más rentable para ellas.</p>
+        <a href="/reservar" class="btn-primary px-12 py-4">RESERVAR MI SESIÓN AHORA</a>
+      </section>
+    </div>
+  </main>
 </Layout>

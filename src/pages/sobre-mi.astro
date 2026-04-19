@@ -1,50 +1,61 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { getSecciones, getHitos } from '../lib/notion';
-import { marked } from 'marked';
-
-const secciones = await getSecciones();
-const pageData = secciones.filter(s => s.Página === "Sobre mí");
-const hero = pageData.find(s => s.Slug === "sobre-mi-hero" || s.Slug.includes("hero"));
-const hitos = await getHitos();
+import { GraduationCap, Briefcase, Mic2, ShieldCheck, Users, Wrench, Check } from 'lucide-react';
 ---
 
-<Layout title={hero?.Título || "Sobre mí | TravelAgentIA"}>
-	<main class="min-h-screen pt-32 pb-20 bg-bg-dark relative">
-		<div class="absolute inset-0 bg-noise pointer-events-none"></div>
-		
-		<div class="container-custom relative z-10">
-			{hero && (
-				<section class="mb-24 text-center max-w-3xl mx-auto">
-					<span class="label-gold">
-						{hero.Subtítulo || "TRAYECTORIA"}
-					</span>
-					<h1 class="text-4xl md:text-6xl mb-8 text-gradient font-playfair">{hero.Título}</h1>
-					<div class="text-text-muted text-lg leading-relaxed" set:html={marked.parse(hero.Cuerpo || "")} />
-				</section>
-			)}
+<Layout title="Sobre Mí | Fernando Córdoba | Consultor IA para Agencias de Viajes">
+  <main class="pt-32 pb-20">
+    <div class="container-custom">
+      <!-- HERO SOBRE MÍ -->
+      <section class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-32">
+        <div class="relative group">
+          <div class="absolute -inset-4 bg-gold-primary/10 rounded-2xl blur-xl"></div>
+          <div class="relative aspect-[4/5] bg-bg-dark border border-bg-border rounded-xl overflow-hidden shadow-2xl">
+            <img src="/images/hero.jpg" alt="Fernando Córdoba" class="w-full h-full object-cover" />
+            <div class="absolute inset-0 bg-gradient-to-t from-bg-dark via-transparent to-transparent"></div>
+          </div>
+        </div>
+        
+        <div>
+          <span class="label-gold">CONOCE MI HISTORIA</span>
+          <h1 class="text-5xl md:text-6xl mb-8 text-gradient font-playfair">Fernando Córdoba</h1>
+          <h2 class="text-xl text-gold-light mb-8 font-inter">Agente de viajes en activo y Consultor de IA</h2>
+          
+          <div class="space-y-6 text-text-muted text-lg mb-12">
+            <p>Llevo más de 15 años gestionando viajes desde mi propia agencia, <strong>SAFE TOUR</strong>, en Andújar. No soy un consultor teórico que ha leído sobre IA; soy alguien que abre su agencia cada mañana y se enfrenta a los mismos problemas que tú.</p>
+            <p>Hace tres años decidí que la tecnología debía trabajar para nosotros y no al revés. Empecé a automatizar procesos críticos: desde la gestión de expedientes hasta el seguimiento comercial y el marketing. Hoy, mi agencia opera con un ecosistema de agentes de IA coordinados.</p>
+            <p>Mi misión es ayudarte a que tú también recuperes tu tiempo y te centres en lo que realmente importa: vender viajes y cuidar a tus clientes.</p>
+          </div>
+        </div>
+      </section>
 
-			{hitos.length > 0 && (
-				<section class="mt-20">
-					<h2 class="text-3xl font-playfair text-center mb-16 text-gold-primary">Hitos clave</h2>
-					<div class="relative border-l border-bg-border max-w-2xl mx-auto">
-						{hitos.map((hito) => (
-							<div class="mb-12 ml-8 relative">
-								<span class="absolute -left-12 flex items-center justify-center w-8 h-8 bg-bg-dark border border-gold-primary rounded-full text-xl z-10 shadow-[0_0_10px_rgba(201,168,76,0.3)]">
-									{hito["Icono / Emoji"] || "✦"}
-								</span>
-								<div class="premium-card py-6">
-                  <div class="flex items-center justify-between mb-2">
-                    <h3 class="text-xl font-bold text-white">{hito.Título}</h3>
-                    <span class="text-gold-primary font-jetbrains text-sm">{hito.Año}</span>
-                  </div>
-								  {hito.Descripción && <p class="text-sm text-text-muted">{hito.Descripción}</p>}
-                </div>
-							</div>
-						))}
-					</div>
-				</section>
-			)}
-		</div>
-	</main>
+      <!-- HITOS Y CREDENCIALES -->
+      <section class="mb-32">
+        <h2 class="text-3xl font-playfair text-center mb-16 text-gold-primary">Experiencia y Credenciales</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {[
+            { icon: GraduationCap, title: 'Formación Especializada', desc: 'Curso Superior en IA Generativa por la UCAM, adaptando la tecnología al sector turístico.' },
+            { icon: Briefcase, title: '+15 años de Gestión', desc: 'Gerente y fundador de SAFE TOUR desde 2008. Conocimiento real del día a día de una agencia.' },
+            { icon: Mic2, title: 'Ponente Sectorial', desc: 'Divulgador de IA en foros como AEVAV, Salón del Viaje y congresos de grupos de gestión.' },
+            { icon: ShieldCheck, title: 'Partner Tecnológico', desc: 'Responsable de la estrategia de formación en IA para el grupo Traveltool (más de 500 agencias).' },
+            { icon: Users, title: 'Líder de Comunidad', desc: 'Mentor de más de 70 agentes de viajes que ya están implementando IA en sus negocios.' },
+            { icon: Wrench, title: 'Arquitecto de Sistemas', desc: 'Experto en el desarrollo de flujos de trabajo sobre Notion, n8n y modelos LLM avanzados.' }
+          ].map(h => (
+            <div class="premium-card">
+              <h.icon class="w-10 h-10 text-gold-primary mb-6" />
+              <h3 class="text-xl mb-4 text-white font-playfair">{h.title}</h3>
+              <p class="text-sm text-text-muted leading-relaxed">{h.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="glass p-12 text-center rounded-3xl border-gold-primary/20">
+        <h2 class="text-3xl md:text-4xl mb-6 text-white font-playfair">¿Quieres que analicemos tu caso?</h2>
+        <p class="text-text-muted mb-10 max-w-2xl mx-auto">Hablemos de cómo podemos aplicar lo que yo ya uso en mi agencia a la tuya. De profesional a profesional.</p>
+        <a href="/reservar" class="btn-primary px-12 py-4">RESERVAR SESIÓN GRATUITA</a>
+      </section>
+    </div>
+  </main>
 </Layout>
