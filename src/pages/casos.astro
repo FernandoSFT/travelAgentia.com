@@ -1,0 +1,77 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Mail, FileText, Zap, BarChart3, Check } from 'lucide-react';
+---
+
+<Layout title="Casos Reales de Éxito | TravelAgentIA">
+  <main class="pt-32 pb-20">
+    <div class="container-custom">
+      <div class="text-center max-w-3xl mx-auto mb-20">
+        <span class="label-gold">RESULTADOS MEDIBLES</span>
+        <h1 class="text-5xl md:text-6xl mb-6 text-gradient font-playfair">Casos Reales</h1>
+        <p class="text-lg text-text-muted">
+          No teorizamos. Implementamos. Aquí tienes ejemplos reales de cómo la IA ha transformado la operativa diaria de SAFE TOUR y otras agencias colaboradoras.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 gap-12">
+        {[
+          { 
+            icon: Mail, 
+            title: 'De email a expediente en segundos', 
+            desc: 'Un agente de IA lee el correo del cliente, extrae los datos clave y crea automáticamente la ficha del expediente en Notion, notificando al agente por WhatsApp.',
+            before: '15-20 minutos manuales de copia-pega.',
+            after: '30 segundos de procesamiento automático.',
+            result: 'Ahorro del 95% del tiempo administrativo inicial.'
+          },
+          { 
+            icon: FileText, 
+            title: 'Generación de Propuestas Premium', 
+            desc: 'La IA toma el itinerario básico y genera una propuesta visualmente impactante, con descripciones seductoras y fotos de alta calidad, personalizada para el cliente.',
+            before: '2-3 horas buscando fotos y redactando.',
+            after: '20 minutos para revisión y personalización final.',
+            result: 'Aumento del 40% en la tasa de cierre de presupuestos.'
+          },
+          { 
+            icon: Zap, 
+            title: 'Seguimiento Comercial Proactivo', 
+            desc: 'Un sistema que revisa cada lunes qué expedientes están pendientes de respuesta y redacta un borrador de seguimiento personalizado basado en la última conversación.',
+            before: 'Ventas perdidas por falta de tiempo para el seguimiento.',
+            after: 'Seguimiento sistemático al 100% de los clientes.',
+            result: 'Recuperación de ventas que antes se daban por perdidas.'
+          }
+        ].map(c => (
+          <div class="premium-card lg:p-12">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div>
+                <c.icon class="w-16 h-16 text-gold-primary mb-8" />
+                <h2 class="text-3xl mb-6 text-white font-playfair">{c.title}</h2>
+                <p class="text-text-muted text-lg mb-8">{c.desc}</p>
+                <div class="flex items-center gap-3 text-gold-light font-bold">
+                  <Check class="w-6 h-6" />
+                  <span>{c.result}</span>
+                </div>
+              </div>
+              <div class="glass p-8 space-y-6">
+                <div>
+                  <span class="text-[10px] text-text-muted uppercase tracking-widest block mb-2">Estado Anterior (Tradicional)</span>
+                  <p class="text-red-400/80 italic">"{c.before}"</p>
+                </div>
+                <div class="pt-6 border-t border-white/5">
+                  <span class="text-[10px] text-gold-primary uppercase tracking-widest block mb-2">Con TravelAgentIA</span>
+                  <p class="text-green-400 font-bold">"{c.after}"</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <section class="mt-32 glass p-12 text-center rounded-3xl border-gold-primary/20">
+        <h2 class="text-3xl md:text-4xl mb-6 text-white font-playfair">¿Quieres resultados similares?</h2>
+        <p class="text-text-muted mb-10 max-w-2xl mx-auto">Empecemos con una sesión gratuita de 60 minutos para diagnosticar tus procesos.</p>
+        <a href="/reservar" class="btn-primary px-12 py-4 italic font-bold">RESERVAR SESIÓN 60 MIN - GRATIS</a>
+      </section>
+    </div>
+  </main>
+</Layout>
