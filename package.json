@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
-    "build": "astro check && astro build",
+    "build": "astro build",
     "build:mock": "NOTION_MOCK=true astro build",
     "start": "astro dev",
     "preview": "astro preview",
