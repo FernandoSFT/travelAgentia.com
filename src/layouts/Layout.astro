@@ -7,6 +7,24 @@ interface Props {
 }
 
 const { title, description = "Inteligencia Artificial que funciona porque la usamos cada día. De agente a agente." } = Astro.props;
+
+// JSON-LD schemas
+const personSchema = {
+	"@context": "https://schema.org",
+	"@type": "Person",
+	"name": "Fernando Córdoba",
+	"jobTitle": "Consultor de IA para agencias de viajes",
+	"url": Astro.site?.toString() || "https://travelagentia.com",
+};
+
+const serviceSchema = {
+	"@context": "https://schema.org",
+	"@type": "ProfessionalService",
+	"name": "TravelAgentIA",
+	"areaServed": "ES",
+	"priceRange": "€€",
+	"url": Astro.site?.toString() || "https://travelagentia.com",
+};
 ---
 
 <!doctype html>
@@ -19,11 +37,20 @@ const { title, description = "Inteligencia Artificial que funciona porque la usa
 		<meta name="generator" content={Astro.generator} />
 		<title>{title} | TravelAgentIA</title>
 		
-		<!-- Open Graph -->
+		<!-- Open Graph / Twitter -->
 		<meta property="og:title" content={`${title} | TravelAgentIA`} />
 		<meta property="og:description" content={description} />
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content={Astro.url} />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={`${title} | TravelAgentIA`} />
+		<meta name="twitter:description" content={description} />
+		
+		<!-- JSON-LD -->
+		<script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+		<script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+		
+		<slot name="head" />
 		
 		<!-- Google Fonts -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">

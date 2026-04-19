@@ -123,3 +123,19 @@ export default function ContactoForm() {
     </form>
   );
 }
+
+/* 
+Payload real esperado por n8n:
+{
+  "nombre": "Test",
+  "apellidos": "User",
+  "agencia": "Agencia Test",
+  "movil": "600123456",
+  "email": "test@example.com",
+  "rgpd": true,
+  "fuente": "travelagentia.com",
+  "utm_source": "test",
+  "utm_campaign": "smoke",
+  "utm_medium": "dev"
+}
+*/
