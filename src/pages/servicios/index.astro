@@ -8,30 +8,31 @@ const secciones = await getSecciones();
 const hero = secciones.find(s => s.Página === "Servicios" && s.Slug.includes("hero"));
 ---
 
-<Layout title={hero?.Título || "Servicios"}>
-	<main class="min-h-screen pt-32 pb-20 bg-background relative">
-		<div class="absolute inset-0 bg-[url('/noise.png')] opacity-5 pointer-events-none"></div>
+<Layout title={hero?.Título || "Servicios | TravelAgentIA"}>
+	<main class="min-h-screen pt-32 pb-20 bg-bg-dark relative">
+		<div class="absolute inset-0 bg-noise pointer-events-none"></div>
 		
-		<div class="container mx-auto px-4 relative z-10 max-w-5xl">
+		<div class="container-custom relative z-10">
 			{hero && (
-				<div class="text-center mb-20">
+				<div class="text-center mb-20 max-w-3xl mx-auto">
+          <span class="label-gold">NUESTROS SERVICIOS</span>
 					<h1 class="text-4xl md:text-6xl mb-6 text-gradient font-playfair">{hero.Título}</h1>
-					<div class="text-xl text-gray-300 max-w-2xl mx-auto" set:html={marked.parse(hero.Cuerpo || "")} />
+					<div class="text-xl text-text-muted" set:html={marked.parse(hero.Cuerpo || "")} />
 				</div>
 			)}
 
 			<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
 				{servicios.map((servicio) => (
-					<div class="bg-white/5 border border-white/10 p-8 rounded-xl hover:border-primary/50 transition-colors flex flex-col h-full group">
-						<div class="text-4xl mb-4">{servicio.Icono || "✨"}</div>
-						<h2 class="text-2xl font-playfair text-white mb-4 group-hover:text-primary transition-colors">{servicio.Nombre}</h2>
-						<p class="text-gray-400 mb-6 flex-grow">{servicio["Descripción corta"]}</p>
-						<div class="flex items-center justify-between mt-auto">
+					<div class="premium-card flex flex-col h-full group">
+						<div class="text-4xl mb-4 group-hover:scale-110 transition-transform inline-block">{servicio.Icono || "✨"}</div>
+						<h2 class="text-2xl font-playfair text-white mb-4 group-hover:text-gold-primary transition-colors">{servicio.Nombre}</h2>
+						<p class="text-text-muted mb-6 flex-grow">{servicio["Descripción corta"]}</p>
+						<div class="flex items-center justify-between mt-auto pt-6 border-t border-bg-border">
 							{servicio["Precio desde (€)"] > 0 && (
-								<span class="text-sm font-jetbrains text-gray-500">Desde {servicio["Precio desde (€)"]}€</span>
+								<span class="text-sm font-jetbrains text-text-muted">Desde {servicio["Precio desde (€)"]}€</span>
 							)}
-							<a href={`/servicios/${servicio["Slug URL"]}`} class="text-primary font-bold uppercase tracking-wider text-sm hover:underline">
-								Ver detalles →
+							<a href={`/servicios/${servicio["Slug URL"]}`} class="text-gold-primary font-bold uppercase tracking-wider text-sm hover:text-gold-light transition-colors">
+								Saber más →
 							</a>
 						</div>
 					</div>

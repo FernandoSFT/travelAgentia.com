@@ -1,47 +1,388 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { getSecciones } from '../lib/notion';
+import FAQAccordion from '../components/FAQAccordion';
+import ContactoForm from '../components/ContactoForm';
+import { Users, Compass, Key, Check, Clock, Bot, BookOpen, Layers, Mail, FileText, Zap, BarChart3, GraduationCap, Briefcase, Mic2, ShieldCheck, Wrench, Phone, Globe } from 'lucide-react';
 
-const secciones = await getSecciones();
-const homeSecciones = secciones.filter(s => s.Página === "Home");
-const hero = homeSecciones.find(s => s.Slug === "hero");
+// Hardcoded content from briefing for reliability
 ---
 
 <Layout title="Consultoría de IA para Agencias de Viajes">
-	<main>
-		{hero ? (
-			<section class="min-h-screen flex items-center justify-center relative overflow-hidden bg-background">
-				<!-- bg overlay -->
-				<div class="absolute inset-0 bg-[url('/noise.png')] opacity-5 pointer-events-none"></div>
-				<div class="absolute inset-0 bg-gradient-to-b from-transparent to-background/90"></div>
-				
-				<div class="container mx-auto px-4 relative z-10 text-center max-w-4xl">
-					<span class="font-jetbrains text-primary text-sm uppercase tracking-widest mb-6 block">
-						{hero.Subtítulo || "DE AGENTE A AGENTE"}
-					</span>
-					
-					<h1 class="text-5xl md:text-7xl mb-8 leading-tight text-gradient">
-						{hero.Título}
-					</h1>
-					
-					<div class="text-lg md:text-xl text-gray-300 mb-12 max-w-2xl mx-auto leading-relaxed whitespace-pre-line">
-						{hero.Cuerpo}
-					</div>
-					
-					<div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-						<a href={hero["CTA link"] || "/contacto"} class="bg-primary text-background font-inter font-bold uppercase tracking-widest px-8 py-4 rounded hover:-translate-y-1 hover:shadow-[0_4px_15px_rgba(201,168,76,0.4)] transition-all duration-300">
-							{hero["CTA texto"] || "EMPIEZA AHORA"}
-						</a>
-						<a href="/servicios" class="border border-primary text-primary font-inter font-bold uppercase tracking-widest px-8 py-4 rounded hover:bg-primary hover:text-background hover:-translate-y-1 transition-all duration-300">
-							VER CÓMO FUNCIONA
-						</a>
-					</div>
-				</div>
-			</section>
-		) : (
-			<div class="min-h-screen flex items-center justify-center">
-				<p>Configura la sección 'hero' en Notion para la página Home.</p>
-			</div>
-		)}
-	</main>
+  <main>
+    <!-- SECCIÓN 1: HERO -->
+    <section class="relative min-h-[90vh] flex items-center justify-center overflow-hidden pt-20">
+      <div class="absolute inset-0 bg-noise pointer-events-none"></div>
+      <div class="absolute inset-0 bg-gradient-to-b from-transparent via-bg-dark/50 to-bg-dark pointer-events-none"></div>
+      
+      <div class="container-custom relative z-10 text-center">
+        <span class="label-gold animate-fade-in-up">DE AGENTE A AGENTE</span>
+        
+        <h1 class="text-5xl md:text-7xl mb-8 leading-[1.1] text-gradient max-w-5xl mx-auto animate-fade-in-up" style="animation-delay: 0.1s;">
+          Inteligencia Artificial que funciona porque la usamos cada día
+        </h1>
+        
+        <p class="text-lg md:text-xl text-text-muted mb-12 max-w-2xl mx-auto animate-fade-in-up" style="animation-delay: 0.2s;">
+          Consultoría, formación y automatización de IA diseñadas exclusivamente para agencias de viajes. Probadas en una agencia real. Implementadas en más de 70 agencias.
+        </p>
+        
+        <div class="flex flex-col sm:flex-row gap-6 justify-center items-center animate-fade-in-up" style="animation-delay: 0.3s;">
+          <a href="#servicios" class="btn-primary min-w-[200px]">EMPIEZA AHORA</a>
+          <a href="#metodologia" class="btn-secondary min-w-[200px]">VER CÓMO FUNCIONA</a>
+        </div>
+        
+        <div class="mt-20 animate-fade-in" style="animation-delay: 0.6s;">
+          <div class="glass inline-flex flex-wrap justify-center items-center gap-x-8 gap-y-4 py-4 px-8">
+            <span class="text-sm font-medium text-white flex items-center gap-2">
+              <span class="text-gold-primary">✦</span> +70 agentes en la comunidad
+            </span>
+            <span class="hidden md:block w-1 h-1 bg-white/20 rounded-full"></span>
+            <span class="text-sm font-medium text-white flex items-center gap-2">
+              <span class="text-gold-primary">✦</span> +500 agencias en red con Traveltool
+            </span>
+            <span class="hidden md:block w-1 h-1 bg-white/20 rounded-full"></span>
+            <span class="text-sm font-medium text-white flex items-center gap-2">
+              <span class="text-gold-primary">✦</span> Ponente AEVAV 2026
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 2: EL PROBLEMA -->
+    <section id="problema" class="section bg-bg-dark">
+      <div class="container-custom">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+          <div>
+            <span class="label-gold">EL RETO ACTUAL</span>
+            <h2 class="text-4xl md:text-5xl mb-8 text-gold-primary">¿Te suena alguno de estos problemas?</h2>
+            <p class="text-lg text-text-muted mb-8">
+              La mayoría de agencias de viajes saben que la IA puede ayudarles, pero no encuentran el camino. Los cursos genéricos no entienden tu negocio. Las herramientas son muchas y cambian cada semana. Y al final, vuelves a lo de siempre.
+            </p>
+          </div>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {[
+              { icon: Clock, title: 'Pierdes horas en tareas que no venden', desc: 'Copiar datos, buscar precios, rellenar formularios, redactar emails desde cero…' },
+              { icon: Bot, title: 'Probaste ChatGPT pero no te sirvió de mucho', desc: 'Sin contexto de tu agencia, sin tus proveedores, sin tu forma de trabajar…' },
+              { icon: BookOpen, title: 'La formación en IA no habla tu idioma', desc: 'Nadie te enseña a aplicar IA a expedientes, propuestas o seguimiento de clientes.' },
+              { icon: Layers, title: 'Cada herramienta nueva es un mundo aparte', desc: 'ChatGPT por aquí, Notion por allá… Nada está conectado y acabas duplicando trabajo.' }
+            ].map((p, i) => (
+              <div class="premium-card group hover:-translate-y-1 transition-all">
+                <p.icon class="w-8 h-8 text-gold-primary mb-6 group-hover:scale-110 transition-transform" />
+                <h3 class="text-xl mb-4 text-white font-playfair">{p.title}</h3>
+                <p class="text-sm text-text-muted leading-relaxed">{p.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 3: SOBRE MÍ -->
+    <section id="sobre-mi" class="section bg-bg-card relative">
+      <div class="container-custom">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div class="relative group">
+            <div class="absolute -inset-4 bg-gold-primary/10 rounded-2xl blur-xl group-hover:bg-gold-primary/20 transition-all"></div>
+            <div class="relative aspect-[4/5] bg-bg-dark border border-bg-border rounded-xl overflow-hidden shadow-2xl">
+              <div class="absolute inset-0 flex flex-col items-center justify-center p-12 text-center">
+                <span class="text-gold-primary text-6xl mb-4">✦</span>
+                <p class="text-gold-light font-playfair text-xl italic">"Transformando la trinchera del agente de viajes con Inteligencia Artificial"</p>
+                <div class="mt-8 text-xs font-jetbrains text-text-muted uppercase tracking-widest">Fernando Córdoba · Safe Tour</div>
+              </div>
+              <!-- Fallback to placeholder if image not found -->
+              <img src="/images/fernando.jpg" alt="Fernando Córdoba" class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500" onload="this.classList.remove('opacity-0')"/>
+            </div>
+          </div>
+          
+          <div>
+            <span class="label-gold">SOBRE MÍ</span>
+            <h2 class="text-4xl md:text-5xl mb-6 text-gold-primary">Soy Fernando Córdoba</h2>
+            <h3 class="text-xl text-gold-light mb-8 font-inter">Agente de viajes en activo. Consultor de IA especializado en el sector turístico.</h3>
+            
+            <div class="space-y-6 text-text-muted text-lg mb-12">
+              <p>Llevo más de 15 años gestionando viajes desde mi propia agencia, SAFE TOUR, en Andújar (Jaén). Hace tres años empecé a integrar inteligencia artificial en mi día a día: expedientes, propuestas, seguimiento comercial, cobros, marketing… Todo.</p>
+              <p>Hoy gestiono mi agencia con un ecosistema de más de 20 agentes de IA coordinados que trabajan sobre Notion, n8n y herramientas propias. No es teoría. Es lo que uso cada mañana para abrir el correo, generar propuestas y enviar presupuestos por WhatsApp.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8">
+              {[
+                { icon: GraduationCap, text: 'Curso Superior en IA Generativa — UCAM' },
+                { icon: Briefcase, text: 'Gerente de SAFE TOUR — Desde 2008' },
+                { icon: Mic2, text: 'Ponente en AEVAV y Salón del Viaje' },
+                { icon: ShieldCheck, text: 'Exclusividad IA con Traveltool' },
+                { icon: Users, text: '+70 agentes en la comunidad' },
+                { icon: Wrench, text: 'Experto en Notion y n8n' }
+              ].map(c => (
+                <div class="flex items-center gap-3">
+                  <c.icon class="w-5 h-5 text-gold-primary shrink-0" />
+                  <span class="text-sm text-text-main">{c.text}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 4: METODOLOGÍA -->
+    <section id="metodologia" class="section bg-bg-dark">
+      <div class="container-custom">
+        <div class="text-center max-w-3xl mx-auto mb-20">
+          <span class="label-gold">METODOLOGÍA PROPIA</span>
+          <h2 class="text-4xl md:text-5xl mb-6 text-gold-primary">Los 5 Pasos de la IA en tu agencia</h2>
+          <p class="text-text-muted">Cada agencia empieza donde está y avanza a su ritmo. Yo opero en el paso 5 — y te acompaño hasta allí.</p>
+        </div>
+        
+        <div class="relative">
+          <div class="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-gold-primary/0 via-gold-primary to-gold-primary/0 hidden md:block"></div>
+          
+          <div class="space-y-12">
+            {[
+              { step: 1, title: 'La IA como consulta', desc: 'Preguntas sueltas a la IA, sin memoria ni contexto. Útil, pero limitado.', note: 'La mayoría de agencias están aquí.' },
+              { step: 2, title: 'Prompts especializados', desc: 'Instrucciones personalizadas con tu tono y proveedores. Salto clave: de genérico a contextualizado.', note: 'Mejor resultado, pero manual.' },
+              { step: 3, title: 'IA conectada (Copiloto)', desc: 'La IA accede a tu email, calendario y CRM. Ejecuta tareas simples bajo tu supervisión.', note: 'Conectado con tus herramientas.' },
+              { step: 4, title: 'Agentes autónomos', desc: 'Agentes con rol propio que ejecutan procesos completos sin que se lo pidas.', note: 'De asistente a autónomo.' },
+              { step: 5, title: 'Ecosistema orquestado ✦', desc: 'Múltiples agentes coordinados con un cerebro central. Todo conectado: expedientes, cobros, propuestas.', note: 'Aquí es donde opero yo.', highlight: true }
+            ].map((s, i) => (
+              <div class={`relative flex items-center gap-12 ${i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
+                <div class="hidden md:block w-1/2"></div>
+                <div class="absolute left-8 md:left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-bg-dark border border-gold-primary flex items-center justify-center z-10">
+                  <span class="text-xs font-bold text-gold-primary">{s.step}</span>
+                </div>
+                <div class={`w-full md:w-1/2 pl-16 md:pl-0 ${s.highlight ? 'scale-105' : ''}`}>
+                  <div class={`premium-card ${s.highlight ? 'border-gold-primary shadow-[0_0_30px_rgba(201,168,76,0.1)]' : ''}`}>
+                    <h3 class="text-xl mb-2 text-white">{s.title}</h3>
+                    <p class="text-sm text-text-muted mb-4">{s.desc}</p>
+                    <span class="text-xs font-jetbrains text-gold-light uppercase tracking-widest">{s.note}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        
+        <div class="mt-20 text-center">
+          <a href="#contacto" class="btn-primary">¿EN QUÉ PASO ESTÁS? HABLEMOS</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 5: SERVICIOS -->
+    <section id="servicios" class="section bg-bg-card">
+      <div class="container-custom">
+        <div class="text-center max-w-3xl mx-auto mb-20">
+          <span class="label-gold">SERVICIOS</span>
+          <h2 class="text-4xl md:text-5xl mb-6 text-gold-primary">Tres caminos para avanzar</h2>
+          <p class="text-text-muted">Tanto si estás empezando como si quieres un sistema completo, hay un servicio pensado para ti.</p>
+        </div>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <!-- Comunidad -->
+          <div class="premium-card flex flex-col">
+            <Users class="w-12 h-12 text-gold-primary mb-6" />
+            <h3 class="text-2xl mb-2 text-white font-playfair">Comunidad</h3>
+            <p class="text-gold-light text-sm mb-6">Aprende, comparte, avanza con otros agentes</p>
+            <p class="text-sm text-text-muted mb-8 flex-grow">El punto de entrada. Un espacio vivo donde se comparten casos reales, herramientas probadas y soporte entre profesionales.</p>
+            <ul class="space-y-3 mb-10">
+              {['Sesiones en vivo semanales', 'Biblioteca de BecarIAs', 'Prompts probados', 'Recursos descargables'].map(item => (
+                <li class="flex items-start gap-2 text-sm text-text-main">
+                  <Check class="w-4 h-4 text-gold-primary mt-0.5 shrink-0" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <a href="https://comunidad.travelagentia.com" class="btn-secondary text-center py-3">ÚNETE A LA COMUNIDAD</a>
+          </div>
+
+          <!-- Consultoría -->
+          <div class="premium-card border-gold-primary relative scale-105 shadow-2xl z-10 flex flex-col bg-bg-dark">
+            <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-gold-primary text-bg-dark text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-widest">✦ MÁS POPULAR</div>
+            <Compass class="w-12 h-12 text-gold-primary mb-6" />
+            <h3 class="text-2xl mb-2 text-white font-playfair">Consultoría "Hazlo Conmigo"</h3>
+            <p class="text-gold-light text-sm mb-6">Implementación personalizada con acompañamiento</p>
+            <p class="text-sm text-text-muted mb-8 flex-grow">Trabajamos juntos, uno a uno. Yo diseño la solución, tú aprendes a manejarla. Al final, tienes un sistema propio que controlas.</p>
+            <ul class="space-y-3 mb-10">
+              {['Diagnóstico de procesos', 'Hoja de ruta personalizada', 'Sesiones 1:1 guiadas', 'Configuración de Notion y n8n'].map(item => (
+                <li class="flex items-start gap-2 text-sm text-text-main">
+                  <Check class="w-4 h-4 text-gold-primary mt-0.5 shrink-0" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <a href="#contacto" class="btn-primary text-center py-3">RESERVA TU DIAGNÓSTICO</a>
+          </div>
+
+          <!-- Llaves en mano -->
+          <div class="premium-card flex flex-col">
+            <Key class="w-12 h-12 text-gold-primary mb-6" />
+            <h3 class="text-2xl mb-2 text-white font-playfair">"Lo Hacemos por Ti"</h3>
+            <p class="text-gold-light text-sm mb-6">Tú delegas, nosotros construimos</p>
+            <p class="text-sm text-text-muted mb-8 flex-grow">Nos encargamos de todo: análisis, diseño, implementación y puesta en marcha de tu ecosistema de IA completo.</p>
+            <ul class="space-y-3 mb-10">
+              {['Auditoría de procesos', 'Workspace Notion PRO', 'Agentes IA especializados', 'Soporte post-implementación'].map(item => (
+                <li class="flex items-start gap-2 text-sm text-text-main">
+                  <Check class="w-4 h-4 text-gold-primary mt-0.5 shrink-0" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <a href="#contacto" class="btn-secondary text-center py-3">SOLICITA PRESUPUESTO</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 6: CASOS REALES -->
+    <section id="casos" class="section bg-bg-dark">
+      <div class="container-custom">
+        <div class="text-center max-w-3xl mx-auto mb-20">
+          <span class="label-gold">CASOS REALES — SAFE TOUR</span>
+          <h2 class="text-4xl md:text-5xl mb-6 text-gold-primary">Esto es lo que la IA ya hace en mi agencia</h2>
+          <p class="text-text-muted">No son demos preparadas. Es lo que uso cada día para gestionar mi propia agencia. Y es lo que puedes tener en la tuya.</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {[
+            { icon: Mail, title: 'De email a expediente en segundos', before: '15-20 minutos manuales', after: '30 segundos automáticos', result: '95% ahorro de tiempo' },
+            { icon: FileText, title: 'Propuesta completa con IA', before: '2-3 horas de búsqueda y redactado', after: '20 minutos con itinerario y fotos', result: 'Calidad premium instantánea' },
+            { icon: Zap, title: 'Seguimiento comercial automático', before: 'Seguimientos olvidados = ventas perdidas', after: 'Agente IA revisa y redacta cada lunes', result: '0 ventas perdidas por olvido' },
+            { icon: BarChart3, title: 'De oferta a marketing multicanal', before: '1 oferta = 1 post improvisado', after: '1 oferta = Checklist + Web-App + 7 días RRSS', result: 'Impacto multiplicado x3' }
+          ].map(c => (
+            <div class="glass group hover:border-gold-primary/50 transition-colors">
+              <div class="flex items-start gap-6">
+                <div class="w-12 h-12 rounded-lg bg-gold-primary/10 flex items-center justify-center shrink-0">
+                  <c.icon class="w-6 h-6 text-gold-primary" />
+                </div>
+                <div>
+                  <h3 class="text-xl mb-4 text-white font-playfair">{c.title}</h3>
+                  <div class="grid grid-cols-2 gap-4 mb-6">
+                    <div>
+                      <span class="text-[10px] text-text-muted uppercase tracking-widest block mb-1">⏱️ Antes</span>
+                      <p class="text-xs text-red-400/80">{c.before}</p>
+                    </div>
+                    <div>
+                      <span class="text-[10px] text-text-muted uppercase tracking-widest block mb-1">⚡ Después</span>
+                      <p class="text-xs text-green-400">{c.after}</p>
+                    </div>
+                  </div>
+                  <div class="pt-4 border-t border-white/5">
+                    <span class="text-[10px] text-gold-light uppercase tracking-widest block mb-1">📊 Resultado</span>
+                    <p class="text-sm font-bold text-white">{c.result}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 7: PRUEBA SOCIAL -->
+    <section class="section bg-bg-card">
+      <div class="container-custom">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-24">
+          {[
+            { value: '+70', label: 'Agentes en comunidad' },
+            { value: '+500', label: 'Agencias en red' },
+            { value: '+20', label: 'Agentes IA operativos' },
+            { value: '15+', label: 'Años de experiencia' }
+          ].map(s => (
+            <div class="text-center">
+              <div class="text-5xl md:text-6xl font-playfair font-bold text-gradient mb-4">{s.value}</div>
+              <p class="text-xs font-jetbrains text-text-muted uppercase tracking-widest">{s.label}</p>
+            </div>
+          ))}
+        </div>
+        
+        <div class="text-center">
+          <p class="text-text-muted text-sm uppercase tracking-widest mb-12">Instituciones y grupos que confían en nosotros</p>
+          <div class="flex flex-wrap justify-center items-center gap-12 grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-500">
+            {['AEVAV', 'V Salón del Viaje', 'Traveltool', 'UCAM', 'DIT Gestión'].map(logo => (
+              <span class="text-2xl font-playfair font-bold text-white border-b-2 border-transparent hover:border-gold-primary pb-2 cursor-default">{logo}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 8: FAQ -->
+    <section id="faq" class="section bg-bg-dark">
+      <div class="container-custom">
+        <div class="text-center max-w-3xl mx-auto mb-20">
+          <span class="label-gold">DUDAS COMUNES</span>
+          <h2 class="text-4xl md:text-5xl mb-6 text-gold-primary">Preguntas frecuentes</h2>
+        </div>
+        
+        <FAQAccordion client:visible />
+      </div>
+    </section>
+
+    <!-- SECCIÓN 9: CTA FINAL + CONTACTO -->
+    <section id="contacto" class="section bg-gradient-to-b from-bg-dark to-bg-card relative overflow-hidden">
+      <div class="absolute inset-0 bg-noise opacity-5"></div>
+      <div class="container-custom relative z-10">
+        <div class="max-w-4xl mx-auto">
+          <div class="text-center mb-16">
+            <span class="label-gold">DA EL PRIMER PASO</span>
+            <h2 class="text-5xl md:text-7xl mb-8 text-gradient font-playfair">¿Listo para transformar tu agencia?</h2>
+            <p class="text-xl text-text-muted mb-8">Reserva una sesión de diagnóstico gratuita. Analizamos juntos en qué punto estás y cuál es el siguiente paso concreto. Sin compromiso. Sin humo. De agente a agente.</p>
+          </div>
+          
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+            <div class="space-y-8">
+              <div class="premium-card bg-bg-dark/50">
+                <h3 class="text-xl mb-6 text-gold-light">Datos de contacto</h3>
+                <div class="space-y-4">
+                  <div class="flex items-center gap-4">
+                    <Mail class="w-5 h-5 text-gold-primary" />
+                    <a href="mailto:automatiza2@automatiza2.com" class="text-text-main hover:text-gold-primary transition-colors">automatiza2@automatiza2.com</a>
+                  </div>
+                  <div class="flex items-center gap-4">
+                    <Phone class="w-5 h-5 text-gold-primary" />
+                    <a href="tel:+34717717266" class="text-text-main hover:text-gold-primary transition-colors">+34 717 717 266</a>
+                  </div>
+                  <div class="flex items-center gap-4">
+                    <Globe class="w-5 h-5 text-gold-primary" />
+                    <a href="https://travelagentia.com" class="text-text-main hover:text-gold-primary transition-colors">travelagentia.com</a>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="p-8 border-l-2 border-gold-primary bg-gold-primary/5 italic text-gold-light/80">
+                "La IA no sustituirá al agente de viajes, pero el agente que usa IA sustituirá al que no la usa."
+              </div>
+            </div>
+            
+            <div class="premium-card">
+              <ContactoForm client:load />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 </Layout>
+
+<style>
+  /* Base Animations */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .animate-fade-in-up {
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+
+  .animate-fade-in {
+    opacity: 0;
+    animation: fadeIn 1s ease-out forwards;
+  }
+</style>

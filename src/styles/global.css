@@ -4,6 +4,14 @@
 
 @layer base {
   :root {
+    --gold-primary: #C9A84C;
+    --gold-light: #E8D48B;
+    --bg-dark: #0A0A0A;
+    --bg-card: #1A1A1A;
+    --bg-border: #2D2D2D;
+    --text-main: #F5F5F5;
+    --text-muted: #A0A0A0;
+    
     --font-playfair: 'Playfair Display', serif;
     --font-inter: 'Inter', sans-serif;
     --font-jetbrains: 'JetBrains Mono', monospace;
@@ -11,19 +19,67 @@
   
   html {
     scroll-behavior: smooth;
+    background-color: var(--bg-dark);
   }
   
   body {
-    @apply bg-background text-textWhite font-inter antialiased;
+    @apply bg-[#0A0A0A] text-[#F5F5F5] font-inter antialiased;
+    color: var(--text-main);
   }
   
-  h1, h2, h3, h4, h5, h6 {
+  h1, h2 {
     @apply font-playfair font-bold;
+    letter-spacing: 0.02em;
+  }
+
+  h3, h4 {
+    @apply font-inter font-semibold;
+  }
+
+  p {
+    @apply leading-relaxed;
+    max-width: 720px;
+  }
+}
+
+@layer components {
+  .section {
+    @apply py-24 md:py-32;
+  }
+
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .premium-card {
+    @apply bg-[#1A1A1A] border border-[#2D2D2D] rounded-xl p-8 transition-all duration-300 hover:border-[#C9A84C];
+    backdrop-filter: blur(10px);
+  }
+
+  .glass {
+    @apply bg-white/5 border border-white/10 backdrop-blur-md rounded-xl p-6;
+  }
+
+  .label-gold {
+    @apply font-jetbrains text-[#C9A84C] text-xs uppercase tracking-[0.2em] mb-4 block;
+  }
+
+  .btn-primary {
+    @apply bg-gradient-to-br from-[#C9A84C] via-[#E8D48B] to-[#C9A84C] text-[#0A0A0A] font-bold uppercase tracking-widest px-8 py-4 rounded-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(201,168,76,0.3)] active:scale-[0.98];
+  }
+
+  .btn-secondary {
+    @apply border border-[#C9A84C] text-[#C9A84C] font-bold uppercase tracking-widest px-8 py-4 rounded-lg transition-all duration-300 hover:bg-[#C9A84C] hover:text-[#0A0A0A] active:scale-[0.98];
   }
 }
 
 @layer utilities {
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-primaryHover;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#C9A84C] via-[#E8D48B] to-[#C9A84C];
+  }
+  
+  .bg-noise {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w4.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.03;
   }
 }

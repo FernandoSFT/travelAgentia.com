@@ -9,37 +9,37 @@ const hero = pageData.find(s => s.Slug === "sobre-mi-hero" || s.Slug.includes("h
 const hitos = await getHitos();
 ---
 
-<Layout title={hero?.Título || "Sobre mí"}>
-	<main class="min-h-screen pt-32 pb-20 bg-background relative">
-		<div class="absolute inset-0 bg-[url('/noise.png')] opacity-5 pointer-events-none"></div>
+<Layout title={hero?.Título || "Sobre mí | TravelAgentIA"}>
+	<main class="min-h-screen pt-32 pb-20 bg-bg-dark relative">
+		<div class="absolute inset-0 bg-noise pointer-events-none"></div>
 		
-		<div class="container mx-auto px-4 relative z-10 max-w-4xl">
+		<div class="container-custom relative z-10">
 			{hero && (
-				<section class="mb-24 text-center">
-					<span class="font-jetbrains text-primary text-sm uppercase tracking-widest mb-4 block">
+				<section class="mb-24 text-center max-w-3xl mx-auto">
+					<span class="label-gold">
 						{hero.Subtítulo || "TRAYECTORIA"}
 					</span>
 					<h1 class="text-4xl md:text-6xl mb-8 text-gradient font-playfair">{hero.Título}</h1>
-					<div class="prose prose-invert max-w-2xl mx-auto prose-p:text-gray-300 prose-headings:text-primary text-lg" set:html={marked.parse(hero.Cuerpo || "")} />
+					<div class="text-text-muted text-lg leading-relaxed" set:html={marked.parse(hero.Cuerpo || "")} />
 				</section>
 			)}
 
 			{hitos.length > 0 && (
 				<section class="mt-20">
-					<h2 class="text-3xl font-playfair text-center mb-16 text-white">Mi Trayectoria</h2>
-					<div class="relative border-l border-white/20 ml-4 md:mx-auto md:w-1/2">
+					<h2 class="text-3xl font-playfair text-center mb-16 text-gold-primary">Hitos clave</h2>
+					<div class="relative border-l border-bg-border max-w-2xl mx-auto">
 						{hitos.map((hito) => (
-							<div class="mb-10 ml-8 relative">
-								<span class="absolute -left-12 flex items-center justify-center w-8 h-8 bg-background border border-primary rounded-full text-xl z-10">
+							<div class="mb-12 ml-8 relative">
+								<span class="absolute -left-12 flex items-center justify-center w-8 h-8 bg-bg-dark border border-gold-primary rounded-full text-xl z-10 shadow-[0_0_10px_rgba(201,168,76,0.3)]">
 									{hito["Icono / Emoji"] || "✦"}
 								</span>
-								<h3 class="flex items-center mb-1 text-xl font-bold text-white">
-									{hito.Título} 
-									<span class="bg-primary/10 text-primary text-sm font-medium mr-2 px-2.5 py-0.5 rounded ml-3">
-										{hito.Año}
-									</span>
-								</h3>
-								{hito.Descripción && <p class="mb-4 text-base font-normal text-gray-400">{hito.Descripción}</p>}
+								<div class="premium-card py-6">
+                  <div class="flex items-center justify-between mb-2">
+                    <h3 class="text-xl font-bold text-white">{hito.Título}</h3>
+                    <span class="text-gold-primary font-jetbrains text-sm">{hito.Año}</span>
+                  </div>
+								  {hito.Descripción && <p class="text-sm text-text-muted">{hito.Descripción}</p>}
+                </div>
 							</div>
 						))}
 					</div>

@@ -1,5 +1,7 @@
 ---
 import '../styles/global.css';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
 import CookieBanner from '../components/ui/CookieBanner';
 
 interface Props {
@@ -67,7 +69,9 @@ const serviceSchema = {
 		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@500&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 	</head>
 	<body>
+		<Navbar />
 		<slot />
+		<Footer />
 
 		<CookieBanner client:load />
 
