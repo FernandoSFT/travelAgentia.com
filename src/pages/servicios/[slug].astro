@@ -15,7 +15,7 @@ const { servicio } = Astro.props;
 ---
 
 <Layout title={`${servicio.Nombre} | Servicios`}>
-	<main class="min-h-screen pt-32 pb-20 bg-background relative">
+	<main data-slug={servicio["Slug URL"]} class="min-h-screen pt-32 pb-20 bg-background relative">
 		<div class="absolute inset-0 bg-[url('/noise.png')] opacity-5 pointer-events-none"></div>
 		
 		<div class="container mx-auto px-4 relative z-10 max-w-3xl">
@@ -45,4 +45,15 @@ const { servicio } = Astro.props;
 			</div>
 		</div>
 	</main>
+	<script>
+		import { track } from '../../lib/analytics';
+		
+		// To pass variables from server to client script without define:vars scoping issues
+		const mainEl = document.querySelector('main');
+		const slug = mainEl?.getAttribute('data-slug');
+		
+		if (slug) {
+			track('Servicio Detalle View', { slug });
+		}
+	</script>
 </Layout>

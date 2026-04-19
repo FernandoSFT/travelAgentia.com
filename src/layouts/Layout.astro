@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import CookieBanner from '../components/ui/CookieBanner';
 
 interface Props {
 	title: string;
@@ -50,6 +51,14 @@ const serviceSchema = {
 		<script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
 		<script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
 		
+		{import.meta.env.PUBLIC_GSC_VERIFICATION && (
+			<meta name="google-site-verification" content={import.meta.env.PUBLIC_GSC_VERIFICATION} />
+		)}
+
+		{import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN && (
+			<script defer data-domain={import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN} src="https://plausible.io/js/script.tagged-events.outbound-links.js"></script>
+		)}
+		
 		<slot name="head" />
 		
 		<!-- Google Fonts -->
@@ -59,5 +68,40 @@ const serviceSchema = {
 	</head>
 	<body>
 		<slot />
+
+		<CookieBanner client:load />
+
+		<script>
+			import { track } from '../lib/analytics';
+
+			document.addEventListener('click', (e) => {
+				const target = e.target as HTMLElement;
+				const link = target.closest('a');
+				if (!link) return;
+
+				const href = link.getAttribute('href') || '';
+				const className = link.className || '';
+
+				// Download Media Kit
+				if (className.includes('plausible-event-name=Download+Media+Kit')) {
+					track('Download Media Kit');
+				}
+
+				// Reserva Cita Click
+				if (href.includes('/reserva-cita') || href.includes('calendar.app.google')) {
+					track('Reserva Cita Click');
+				}
+
+				// WhatsApp Click
+				if (href.startsWith('wa.me') || href.startsWith('whatsapp://') || href.startsWith('https://wa.me')) {
+					track('WhatsApp Click');
+				}
+
+				// Email Click
+				if (href.startsWith('mailto:')) {
+					track('Email Click');
+				}
+			});
+		</script>
 	</body>
 </html>

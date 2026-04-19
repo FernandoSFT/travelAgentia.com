@@ -23,4 +23,9 @@ const data = secciones.find(s => s.Slug === "gracias" || (s.Página === "Global"
 			</a>
 		</div>
 	</main>
+
+	<script>
+		import { track } from '../lib/analytics';
+		track('Lead Form Submit');
+	</script>
 </Layout>
