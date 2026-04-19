@@ -1,0 +1,83 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getBlog } from '../../lib/notion';
+import { Calendar, ChevronLeft, User } from 'lucide-react';
+
+export async function getStaticPaths() {
+  const posts = await getBlog();
+  return posts.map(post => ({
+    params: { slug: post.Slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+---
+
+<Layout title={`${post.Título} | Blog | TravelAgentIA`}>
+  <main class="pt-32 pb-20">
+    <div class="container-custom max-w-4xl">
+      <a href="/blog" class="flex items-center gap-2 text-gold-primary hover:text-gold-light transition-colors mb-12 text-sm font-bold uppercase tracking-widest">
+        <ChevronLeft class="w-4 h-4" /> Volver al Blog
+      </a>
+
+      <article>
+        <header class="mb-12">
+          <div class="flex items-center gap-4 text-xs text-text-muted mb-6 font-jetbrains">
+            <span class="flex items-center gap-1">
+              <Calendar class="w-3 h-3" />
+              {post.Fecha?.start ? new Date(post.Fecha.start).toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' }) : 'Reciente'}
+            </span>
+            <span class="w-1 h-1 bg-white/20 rounded-full"></span>
+            <span class="flex items-center gap-1">
+              <User class="w-3 h-3" />
+              Fernando Córdoba
+            </span>
+          </div>
+          
+          <h1 class="text-4xl md:text-6xl text-white font-playfair mb-8 leading-tight">
+            {post.Título}
+          </h1>
+
+          {post.Imagen?.[0]?.url && (
+            <div class="aspect-video rounded-2xl overflow-hidden border border-bg-border mb-12">
+              <img src={post.Imagen[0].url} alt={post.Título} class="w-full h-full object-cover" />
+            </div>
+          )}
+        </header>
+
+        <div class="glass p-8 md:p-12">
+          <div class="prose-luxury" set:html={post.Cuerpo}></div>
+        </div>
+      </article>
+
+      <!-- CTA FINAL -->
+      <section class="mt-20 p-12 text-center bg-gold-primary/5 rounded-3xl border border-gold-primary/20">
+        <h3 class="text-2xl text-white font-playfair mb-4">¿Te ha gustado este artículo?</h3>
+        <p class="text-text-muted mb-8">Hablemos sobre cómo aplicar estas estrategias de IA en tu propia agencia.</p>
+        <a href="/reservar" class="btn-primary">RESERVAR SESIÓN GRATUITA</a>
+      </section>
+    </div>
+  </main>
+</Layout>
+
+<style is:global>
+  .prose-luxury {
+    @apply text-text-main leading-relaxed text-lg;
+  }
+  .prose-luxury h2 {
+    @apply text-2xl text-white font-playfair mt-12 mb-6;
+  }
+  .prose-luxury p {
+    @apply mb-6;
+  }
+  .prose-luxury ul {
+    @apply list-disc pl-6 mb-8 space-y-3 text-gold-light;
+  }
+  .prose-luxury strong {
+    @apply text-gold-primary font-bold;
+  }
+  .prose-luxury a {
+    @apply text-gold-primary underline hover:text-gold-light transition-colors;
+  }
+</style>

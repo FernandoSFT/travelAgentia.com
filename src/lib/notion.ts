@@ -166,19 +166,16 @@ async function fetchFromNotion(databaseId: string | undefined, mapper: (row: any
       checkbox: { equals: true },
     };
 
-    // If order is not specified, default to created_time
     if (sorts.length === 0) {
       sorts = [{ timestamp: "created_time", direction: "descending" }];
     }
 
-    const dsId = await resolveDataSourceId(databaseId);
-    const response = await notion!.dataSources.query({
-      data_source_id: dsId,
+    const response = await notion!.databases.query({
+      database_id: databaseId,
       filter,
       sorts,
     });
 
-    // We must map sequentially if we are downloading files to avoid overwhelming
     const results = [];
     for (const row of response.results) {
       results.push(await mapper(row));
@@ -188,7 +185,7 @@ async function fetchFromNotion(databaseId: string | undefined, mapper: (row: any
     return results;
   } catch (error) {
     console.warn(`[notion] warn: Error fetching DB ${databaseId}`, error);
-    return mockData; // Fallback to mock on error
+    return mockData;
   }
 }
 
@@ -328,7 +325,7 @@ export async function getCursos(): Promise<Curso[]> {
 }
 
 export async function getPodcasts(): Promise<Podcast[]> {
-  return await fetchFromNotion(import.meta.env.DS_PODCASTS, async (row) => ({
+  return await fetchFromNotion(getEnv("DS_PODCASTS"), async (row) => ({
     Título: getPlainText(row.properties["Título"]),
     Programa: getPlainText(row.properties["Programa"]),
     Fecha: getDate(row.properties["Fecha"]),
@@ -338,4 +335,17 @@ export async function getPodcasts(): Promise<Podcast[]> {
     Portada: await getFiles(row.properties["Portada"]),
     Publicado: getCheckbox(row.properties["Publicado"]),
   }), mocks.mockPodcasts, [{ property: "Fecha", direction: "descending" }]);
+}
+
+export async function getBlog(): Promise<any[]> {
+  return await fetchFromNotion(getEnv("DS_BLOG"), async (row) => ({
+    Título: getPlainText(row.properties["Título"]),
+    Slug: getPlainText(row.properties["Slug"]),
+    Fecha: getDate(row.properties["Fecha"]),
+    Resumen: getPlainText(row.properties["Resumen"]),
+    Cuerpo: await getRichTextMarkdown(row.properties["Cuerpo"]),
+    Categoría: getSelect(row.properties["Categoría"]),
+    Imagen: await getFiles(row.properties["Imagen"]),
+    Publicado: getCheckbox(row.properties["Publicado"]),
+  }), [], [{ property: "Fecha", direction: "descending" }]);
 }

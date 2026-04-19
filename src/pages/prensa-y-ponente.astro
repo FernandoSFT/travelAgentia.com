@@ -1,79 +1,89 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { getCharlas, getPodcasts, getSecciones } from '../lib/notion';
-import { marked } from 'marked';
+import { getCharlas } from '../lib/notion';
+import { Mic2, MapPin, Calendar, Play, FileDown, ArrowRight } from 'lucide-react';
 
 const charlas = await getCharlas();
-const podcasts = await getPodcasts();
-const secciones = await getSecciones();
-const hero = secciones.find(s => s.Página === "Prensa" && s.Slug.includes("hero"));
 ---
 
-<Layout title={hero?.Título || "Prensa y Ponente"}>
-	<main class="min-h-screen pt-32 pb-20 bg-background relative">
-		<div class="absolute inset-0 bg-[url('/noise.png')] opacity-5 pointer-events-none"></div>
-		
-		<div class="container mx-auto px-4 relative z-10 max-w-6xl">
-			{hero && (
-				<div class="text-center mb-24 max-w-4xl mx-auto">
-					<h1 class="text-4xl md:text-6xl mb-6 text-gradient font-playfair">{hero.Título}</h1>
-					<div class="text-xl text-gray-300" set:html={marked.parse(hero.Cuerpo || "")} />
-				</div>
-			)}
+<Layout title="Prensa y Ponente | Fernando Córdoba | TravelAgentIA">
+  <main class="pt-32 pb-20">
+    <div class="container-custom">
+      <!-- HERO -->
+      <section class="text-center max-w-4xl mx-auto mb-32">
+        <span class="label-gold">FERNANDO CÓRDOBA EN ESCENA</span>
+        <h1 class="text-5xl md:text-7xl mb-8 text-gradient font-playfair">Prensa y Ponencias</h1>
+        <p class="text-xl text-text-muted mb-12">
+          Divulgador de Inteligencia Artificial aplicada al sector turístico. Participo activamente en congresos, ferias y eventos sectoriales para ayudar a la industria a entender y adoptar el cambio tecnológico.
+        </p>
+        <div class="flex flex-wrap justify-center gap-6">
+          <a href="/reservar" class="btn-primary">SOLICITAR PONENCIA</a>
+          <a href="/images/logo.png" download class="btn-secondary flex items-center gap-2">
+            <FileDown class="w-4 h-4" /> DOSSIER DE PRENSA
+          </a>
+        </div>
+      </section>
 
-			{charlas.length > 0 && (
-				<section class="mb-24">
-					<div class="flex items-center justify-between border-b border-white/20 pb-4 mb-12">
-						<h2 class="text-3xl font-playfair text-white">Charlas y Ponencias</h2>
-					</div>
-					
-					<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-						{charlas.map(charla => (
-							<div class="bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col group hover:border-primary/50 transition-colors">
-								{charla.Foto?.[0] && (
-									<img src={charla.Foto[0].url} alt={charla.Título} class="w-full h-48 object-cover rounded-lg mb-6 group-hover:scale-105 transition-transform" />
-								)}
-								<div class="text-primary text-sm font-jetbrains mb-2">{charla.Fecha?.start && new Date(charla.Fecha.start).toLocaleDateString('es-ES', { year: 'numeric', month: 'long' })}</div>
-								<h3 class="text-xl text-white font-playfair font-bold mb-2">{charla.Título}</h3>
-								<p class="text-gray-400 text-sm mb-4">{charla.Evento} • {charla.Lugar}</p>
-								<p class="text-gray-300 flex-grow mb-6">{charla.Resumen}</p>
-								
-								<div class="flex gap-4 mt-auto">
-									{charla["Vídeo URL"] && <a href={charla["Vídeo URL"]} target="_blank" class="text-primary font-bold uppercase tracking-wider text-sm hover:underline">Ver Vídeo</a>}
-									{charla["Slides URL"] && <a href={charla["Slides URL"]} target="_blank" class="text-gray-400 font-bold uppercase tracking-wider text-sm hover:underline">Ver Slides</a>}
-								</div>
-							</div>
-						))}
-					</div>
-				</section>
-			)}
+      <!-- LISTADO DE CHARLAS -->
+      <section>
+        <h2 class="text-3xl font-playfair mb-16 text-white text-center">Charlas y Conferencias</h2>
+        <div class="grid grid-cols-1 gap-12">
+          {charlas.length > 0 ? charlas.map((charla) => (
+            <div class="premium-card group overflow-hidden border-white/5 hover:border-gold-primary/30 transition-all">
+              <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <!-- Imagen/Vídeo -->
+                <div class="lg:col-span-4 aspect-video lg:aspect-square bg-bg-card rounded-xl overflow-hidden border border-bg-border relative">
+                  {charla.Foto?.[0]?.url ? (
+                    <img src={charla.Foto[0].url} alt={charla.Título} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                  ) : (
+                    <div class="w-full h-full flex items-center justify-center bg-gold-primary/5">
+                       <Mic2 class="w-12 h-12 text-gold-primary/20" />
+                    </div>
+                  )}
+                  {charla["Vídeo URL"] && (
+                    <a href={charla["Vídeo URL"]} target="_blank" class="absolute inset-0 flex items-center justify-center bg-bg-dark/20 hover:bg-bg-dark/40 transition-colors">
+                      <div class="w-16 h-16 rounded-full bg-gold-primary flex items-center justify-center text-bg-dark shadow-2xl">
+                         <Play class="w-8 h-8 fill-current ml-1" />
+                      </div>
+                    </a>
+                  )}
+                </div>
 
-			{podcasts.length > 0 && (
-				<section>
-					<div class="flex items-center justify-between border-b border-white/20 pb-4 mb-12">
-						<h2 class="text-3xl font-playfair text-white">Apariciones en Podcasts</h2>
-					</div>
-					
-					<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-						{podcasts.map(podcast => (
-							<a href={podcast.Enlace} target="_blank" class="flex flex-col sm:flex-row gap-6 bg-white/5 border border-white/10 rounded-xl p-6 hover:bg-white/10 transition-colors group">
-								{podcast.Portada?.[0] && (
-									<img src={podcast.Portada[0].url} alt={podcast.Programa} class="w-24 h-24 object-cover rounded shadow-lg group-hover:scale-105 transition-transform" />
-								)}
-								<div>
-									<div class="flex items-center gap-3 mb-2">
-										<span class="text-primary text-sm font-jetbrains">{podcast.Plataforma}</span>
-										<span class="text-gray-500 text-sm">• {podcast.Fecha?.start && new Date(podcast.Fecha.start).toLocaleDateString('es-ES')}</span>
-									</div>
-									<h3 class="text-xl text-white font-playfair font-bold mb-2">{podcast.Título}</h3>
-									<p class="text-gray-400 text-sm mb-2">{podcast.Programa}</p>
-									<p class="text-gray-500 text-sm">{podcast.Resumen}</p>
-								</div>
-							</a>
-						))}
-					</div>
-				</section>
-			)}
-		</div>
-	</main>
+                <!-- Contenido -->
+                <div class="lg:col-span-8 p-4">
+                  <div class="flex flex-wrap items-center gap-6 mb-6 text-xs font-jetbrains text-gold-light uppercase tracking-widest">
+                    <span class="flex items-center gap-2">
+                      <Calendar class="w-4 h-4" />
+                      {charla.Fecha?.start ? new Date(charla.Fecha.start).toLocaleDateString('es-ES', { month: 'long', year: 'numeric' }) : 'Próximamente'}
+                    </span>
+                    <span class="flex items-center gap-2">
+                      <MapPin class="w-4 h-4" />
+                      {charla.Lugar}
+                    </span>
+                  </div>
+
+                  <h3 class="text-2xl md:text-3xl text-white font-playfair mb-4 leading-tight">{charla.Título}</h3>
+                  <p class="text-gold-primary/80 font-medium mb-6">{charla.Evento}</p>
+                  
+                  <div class="text-text-muted text-sm leading-relaxed mb-8 max-w-2xl" set:html={charla.Resumen}></div>
+
+                  <div class="flex flex-wrap gap-4">
+                    {charla["Slides URL"] && (
+                      <a href={charla["Slides URL"]} target="_blank" class="text-white hover:text-gold-primary transition-colors text-xs font-bold uppercase tracking-widest flex items-center gap-2">
+                        Ver Slides <ArrowRight class="w-4 h-4" />
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )) : (
+            <div class="text-center py-20 glass">
+              <p class="text-text-muted italic">Cargando eventos de Notion...</p>
+            </div>
+          )}
+        </div>
+      </section>
+    </div>
+  </main>
 </Layout>

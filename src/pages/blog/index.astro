@@ -1,0 +1,65 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getBlog } from '../../lib/notion';
+import { Calendar, Tag, ArrowRight } from 'lucide-react';
+
+const posts = await getBlog();
+---
+
+<Layout title="Blog | IA para Agencias de Viajes | TravelAgentIA">
+  <main class="pt-32 pb-20">
+    <div class="container-custom">
+      <div class="text-center max-w-3xl mx-auto mb-20">
+        <span class="label-gold">CONOCIMIENTO COMPARTIDO</span>
+        <h1 class="text-5xl md:text-6xl mb-6 text-gradient font-playfair">Blog de TravelAgentIA</h1>
+        <p class="text-lg text-text-muted">
+          Ideas, tutoriales y reflexiones sobre cómo la Inteligencia Artificial está cambiando las reglas del juego en el sector turístico.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {posts.length > 0 ? posts.map((post) => (
+          <article class="premium-card flex flex-col group h-full">
+            <div class="aspect-video bg-bg-card rounded-lg mb-6 overflow-hidden border border-bg-border relative">
+              {post.Imagen?.[0]?.url ? (
+                <img src={post.Imagen[0].url} alt={post.Título} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              ) : (
+                <div class="w-full h-full flex items-center justify-center bg-gold-primary/5">
+                   <span class="text-gold-primary/20 font-playfair italic text-4xl">TravelAgentIA</span>
+                </div>
+              )}
+              {post.Categoría && (
+                <span class="absolute top-4 left-4 bg-bg-dark/80 backdrop-blur-md text-gold-primary text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest border border-gold-primary/20">
+                  {post.Categoría}
+                </span>
+              )}
+            </div>
+            
+            <div class="flex items-center gap-4 text-xs text-text-muted mb-4 font-jetbrains">
+              <span class="flex items-center gap-1">
+                <Calendar class="w-3 h-3" />
+                {post.Fecha?.start ? new Date(post.Fecha.start).toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' }) : 'Reciente'}
+              </span>
+            </div>
+
+            <h2 class="text-xl text-white font-playfair mb-4 group-hover:text-gold-primary transition-colors leading-tight">
+              {post.Título}
+            </h2>
+            
+            <p class="text-sm text-text-muted mb-8 line-clamp-3 flex-grow">
+              {post.Resumen}
+            </p>
+
+            <a href={`/blog/${post.Slug}`} class="flex items-center gap-2 text-gold-primary font-bold text-xs uppercase tracking-widest hover:text-gold-light transition-colors mt-auto">
+              Leer más <ArrowRight class="w-4 h-4" />
+            </a>
+          </article>
+        )) : (
+          <div class="col-span-full py-20 text-center glass">
+            <p class="text-text-muted italic">Cargando artículos desde Notion...</p>
+          </div>
+        )}
+      </div>
+    </div>
+  </main>
+</Layout>
