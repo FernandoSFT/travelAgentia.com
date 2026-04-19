@@ -1,0 +1,48 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getServicios } from '../../lib/notion';
+import { marked } from 'marked';
+
+export async function getStaticPaths() {
+  const servicios = await getServicios();
+  return servicios.map(servicio => ({
+    params: { slug: servicio["Slug URL"] },
+    props: { servicio },
+  }));
+}
+
+const { servicio } = Astro.props;
+---
+
+<Layout title={`${servicio.Nombre} | Servicios`}>
+	<main class="min-h-screen pt-32 pb-20 bg-background relative">
+		<div class="absolute inset-0 bg-[url('/noise.png')] opacity-5 pointer-events-none"></div>
+		
+		<div class="container mx-auto px-4 relative z-10 max-w-3xl">
+			<a href="/servicios" class="text-gray-400 hover:text-white mb-8 inline-block">← Volver a Servicios</a>
+			
+			<div class="flex items-center gap-4 mb-6">
+				<span class="text-5xl">{servicio.Icono}</span>
+				<h1 class="text-4xl md:text-5xl text-gradient font-playfair">{servicio.Nombre}</h1>
+			</div>
+			
+			<p class="text-xl text-gray-300 mb-12 border-l-4 border-primary pl-6 py-2">
+				{servicio["Descripción corta"]}
+			</p>
+
+			{servicio["Descripción larga"] && (
+				<div class="prose prose-invert prose-p:text-gray-300 prose-headings:text-primary prose-a:text-primaryHover max-w-none mb-16" set:html={marked.parse(servicio["Descripción larga"])} />
+			)}
+
+			<div class="bg-white/5 border border-white/10 p-8 rounded-xl text-center">
+				<h3 class="text-2xl font-playfair text-white mb-4">¿Preparado para transformar tu agencia?</h3>
+				{servicio["Precio desde (€)"] > 0 && (
+					<p class="text-gray-400 mb-8 font-jetbrains">Inversión desde {servicio["Precio desde (€)"]}€</p>
+				)}
+				<a href="/contacto" class="inline-block bg-primary text-background font-inter font-bold uppercase tracking-widest px-8 py-4 rounded hover:bg-primaryHover hover:-translate-y-1 transition-all">
+					{servicio["CTA texto"] || "SOLICITAR INFORMACIÓN"}
+				</a>
+			</div>
+		</div>
+	</main>
+</Layout>

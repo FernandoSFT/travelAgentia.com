@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# TravelAgentIA (v3)
 
-## Getting Started
+Repositorio oficial para la web de TravelAgentIA.
+Arquitectura reconstruida con **Astro 4**, **Tailwind CSS** e **Integración Headless con Notion**.
 
-First, run the development server:
+## Stack Tecnológico
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Framework**: Astro 4 (SSG - Static Site Generation)
+- **UI**: Tailwind CSS + React (para Astro Islands interactivos)
+- **CMS**: Notion (vía `@notionhq/client` y `notion-to-md`)
+- **Hosting**: Vercel
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Requisitos Previos
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Node.js 20+
+- Token de integración de Notion (Secret)
+- Acceso a las bases de datos de Notion de TravelAgentIA.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Configuración Local
 
-## Learn More
+1. Clona el repositorio y ejecuta la instalación:
+   ```bash
+   npm install
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+2. Crea un archivo `.env.local` en la raíz del proyecto y añade tus variables:
+   ```env
+   NOTION_TOKEN=secret_xxx
+   NOTION_PREVIEW=false
+   
+   # IDs de las Bases de Datos (UUIDs)
+   DS_SECCIONES_WEB=
+   DS_AJUSTES_GLOBALES=
+   DS_SERVICIOS=
+   DS_PROYECTOS_CASOS=
+   DS_CHARLAS=
+   DS_CURSOS=
+   DS_PODCASTS=
+   DS_TESTIMONIOS=
+   DS_FAQ=
+   DS_HITOS=
+   DS_BLOG=
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. Inicia el servidor de desarrollo:
+   ```bash
+   npm run dev
+   ```
+   Astro se conectará a Notion, descargará los datos y compilará las páginas. Visita `http://localhost:4321`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Despliegue en Producción (Vercel)
 
-## Deploy on Vercel
+La web se despliega automáticamente en Vercel cuando haces push a la rama principal (`main`/`master`).
+Asegúrate de configurar **todas las variables de entorno** en el dashboard de Vercel.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Despliegue Bajo Demanda (n8n / Webhooks)
+Dado que el sitio es estático, debe recompilarse cada vez que cambias contenido en Notion.
+Para esto:
+1. En Vercel: Ve a *Settings > Git > Deploy Hooks* y crea un webhook.
+2. En GitHub: Ve a *Settings > Secrets and variables > Actions* y crea un secreto `VERCEL_DEPLOY_HOOK` con la URL del paso 1.
+3. El webhook llamará al GitHub Action configurado en `.github/workflows/rebuild.yml` (que puede ser activado también vía n8n).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Estructura del Proyecto
+- `src/lib/notion.ts`: Helpers y tipos para interactuar con Notion.
+- `src/pages/`: Rutas de Astro (`/`, `/sobre-mi`, `/servicios`, etc).
+- `src/layouts/`: Plantilla principal (`Layout.astro`).
+- `src/components/`: Componentes React hidratados en cliente.
+- `src/styles/`: CSS global (Tailwind).

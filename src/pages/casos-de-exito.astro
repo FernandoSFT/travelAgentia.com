@@ -1,0 +1,79 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getProyectos, getSecciones } from '../lib/notion';
+import { marked } from 'marked';
+
+const proyectos = await getProyectos();
+const secciones = await getSecciones();
+const hero = secciones.find(s => s.Página === "Casos" && s.Slug.includes("hero"));
+---
+
+<Layout title={hero?.Título || "Casos de Éxito"}>
+	<main class="min-h-screen pt-32 pb-20 bg-background relative">
+		<div class="absolute inset-0 bg-[url('/noise.png')] opacity-5 pointer-events-none"></div>
+		
+		<div class="container mx-auto px-4 relative z-10 max-w-6xl">
+			{hero && (
+				<div class="text-center mb-20 max-w-4xl mx-auto">
+					<span class="font-jetbrains text-primary text-sm uppercase tracking-widest mb-4 block">
+						{hero.Subtítulo || "PORTFOLIO"}
+					</span>
+					<h1 class="text-4xl md:text-6xl mb-6 text-gradient font-playfair">{hero.Título}</h1>
+					<div class="text-xl text-gray-300" set:html={marked.parse(hero.Cuerpo || "")} />
+				</div>
+			)}
+
+			<div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+				{proyectos.map((proyecto) => (
+					<div class="bg-white/5 border border-white/10 rounded-xl overflow-hidden flex flex-col group">
+						{proyecto["Imagen portada"]?.[0] && (
+							<div class="h-64 overflow-hidden">
+								<img 
+									src={proyecto["Imagen portada"][0].url} 
+									alt={proyecto.Cliente} 
+									class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+								/>
+							</div>
+						)}
+						<div class="p-8 flex flex-col flex-grow">
+							<div class="flex items-center gap-3 mb-4 flex-wrap">
+								<span class="bg-primary/20 text-primary px-3 py-1 text-xs font-jetbrains uppercase tracking-wider rounded">
+									{proyecto.Sector}
+								</span>
+								{proyecto.Tags.map(tag => (
+									<span class="bg-white/10 text-gray-300 px-3 py-1 text-xs font-jetbrains uppercase tracking-wider rounded">
+										{tag}
+									</span>
+								))}
+							</div>
+							
+							<h2 class="text-3xl font-playfair text-white mb-6">{proyecto.Cliente}</h2>
+							
+							<div class="mb-6">
+								<h3 class="text-primary font-bold text-sm uppercase mb-2">El Reto</h3>
+								<p class="text-gray-400">{proyecto.Problema}</p>
+							</div>
+							
+							<div class="mb-6 flex-grow">
+								<h3 class="text-primary font-bold text-sm uppercase mb-2">La Solución</h3>
+								<p class="text-gray-400">{proyecto.Solución}</p>
+							</div>
+							
+							{proyecto["Resultado (métricas)"] && (
+								<div class="bg-white/5 p-4 border-l-2 border-primary mb-6">
+									<p class="text-white font-bold">{proyecto["Resultado (métricas)"]}</p>
+								</div>
+							)}
+							
+							{proyecto["Testimonio breve"] && (
+								<blockquote class="italic text-gray-400 mb-6">
+									"{proyecto["Testimonio breve"]}"
+								</blockquote>
+							)}
+						</div>
+					</div>
+				))}
+			</div>
+		</div>
+	</main>
+</Layout>

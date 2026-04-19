@@ -1,0 +1,38 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getAjustes } from '../lib/notion';
+
+const ajustes = await getAjustes();
+const calendarUrl = ajustes["calendar_url"]?.Valor || "https://calendar.app.google/e4XRYFbL3gk7ZeMP6";
+---
+
+<Layout title="Reserva tu cita">
+	<main class="min-h-screen pt-24 pb-12 bg-background relative flex flex-col items-center">
+		<div class="absolute inset-0 bg-[url('/noise.png')] opacity-5 pointer-events-none"></div>
+		
+		<div class="container mx-auto px-4 relative z-10 text-center max-w-4xl mb-8">
+			<h1 class="text-4xl md:text-5xl mb-4 text-gradient">Reserva tu cita</h1>
+			<p class="text-gray-400">Selecciona el horario que mejor se adapte para nuestra reunión.</p>
+		</div>
+
+		<div class="w-full max-w-5xl flex-grow relative z-10 px-4">
+            <div class="w-full h-[700px] rounded-xl overflow-hidden shadow-2xl border border-white/10 bg-white/5 relative">
+                <!-- If iframe is blocked by CSP, we provide a fallback -->
+                <div class="absolute inset-0 flex flex-col items-center justify-center p-8 text-center bg-[#111]">
+                    <p class="text-xl mb-6">Si el calendario no carga automáticamente, puedes reservar directamente aquí:</p>
+                    <a href={calendarUrl} target="_blank" rel="noopener noreferrer" class="bg-primary text-background font-inter font-bold uppercase tracking-widest px-8 py-4 rounded hover:bg-primaryHover transition-all">
+                        ABRIR CALENDARIO
+                    </a>
+                </div>
+                
+                <iframe 
+                    src={calendarUrl}
+                    class="w-full h-full relative z-10 bg-white"
+                    frameborder="0"
+                    scrolling="yes"
+                    title="Reservar cita en Google Calendar"
+                ></iframe>
+            </div>
+		</div>
+	</main>
+</Layout>

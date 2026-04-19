@@ -1,0 +1,79 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCharlas, getPodcasts, getSecciones } from '../lib/notion';
+import { marked } from 'marked';
+
+const charlas = await getCharlas();
+const podcasts = await getPodcasts();
+const secciones = await getSecciones();
+const hero = secciones.find(s => s.Página === "Prensa" && s.Slug.includes("hero"));
+---
+
+<Layout title={hero?.Título || "Prensa y Ponente"}>
+	<main class="min-h-screen pt-32 pb-20 bg-background relative">
+		<div class="absolute inset-0 bg-[url('/noise.png')] opacity-5 pointer-events-none"></div>
+		
+		<div class="container mx-auto px-4 relative z-10 max-w-6xl">
+			{hero && (
+				<div class="text-center mb-24 max-w-4xl mx-auto">
+					<h1 class="text-4xl md:text-6xl mb-6 text-gradient font-playfair">{hero.Título}</h1>
+					<div class="text-xl text-gray-300" set:html={marked.parse(hero.Cuerpo || "")} />
+				</div>
+			)}
+
+			{charlas.length > 0 && (
+				<section class="mb-24">
+					<div class="flex items-center justify-between border-b border-white/20 pb-4 mb-12">
+						<h2 class="text-3xl font-playfair text-white">Charlas y Ponencias</h2>
+					</div>
+					
+					<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+						{charlas.map(charla => (
+							<div class="bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col group hover:border-primary/50 transition-colors">
+								{charla.Foto?.[0] && (
+									<img src={charla.Foto[0].url} alt={charla.Título} class="w-full h-48 object-cover rounded-lg mb-6 group-hover:scale-105 transition-transform" />
+								)}
+								<div class="text-primary text-sm font-jetbrains mb-2">{charla.Fecha?.start && new Date(charla.Fecha.start).toLocaleDateString('es-ES', { year: 'numeric', month: 'long' })}</div>
+								<h3 class="text-xl text-white font-playfair font-bold mb-2">{charla.Título}</h3>
+								<p class="text-gray-400 text-sm mb-4">{charla.Evento} • {charla.Lugar}</p>
+								<p class="text-gray-300 flex-grow mb-6">{charla.Resumen}</p>
+								
+								<div class="flex gap-4 mt-auto">
+									{charla["Vídeo URL"] && <a href={charla["Vídeo URL"]} target="_blank" class="text-primary font-bold uppercase tracking-wider text-sm hover:underline">Ver Vídeo</a>}
+									{charla["Slides URL"] && <a href={charla["Slides URL"]} target="_blank" class="text-gray-400 font-bold uppercase tracking-wider text-sm hover:underline">Ver Slides</a>}
+								</div>
+							</div>
+						))}
+					</div>
+				</section>
+			)}
+
+			{podcasts.length > 0 && (
+				<section>
+					<div class="flex items-center justify-between border-b border-white/20 pb-4 mb-12">
+						<h2 class="text-3xl font-playfair text-white">Apariciones en Podcasts</h2>
+					</div>
+					
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+						{podcasts.map(podcast => (
+							<a href={podcast.Enlace} target="_blank" class="flex flex-col sm:flex-row gap-6 bg-white/5 border border-white/10 rounded-xl p-6 hover:bg-white/10 transition-colors group">
+								{podcast.Portada?.[0] && (
+									<img src={podcast.Portada[0].url} alt={podcast.Programa} class="w-24 h-24 object-cover rounded shadow-lg group-hover:scale-105 transition-transform" />
+								)}
+								<div>
+									<div class="flex items-center gap-3 mb-2">
+										<span class="text-primary text-sm font-jetbrains">{podcast.Plataforma}</span>
+										<span class="text-gray-500 text-sm">• {podcast.Fecha?.start && new Date(podcast.Fecha.start).toLocaleDateString('es-ES')}</span>
+									</div>
+									<h3 class="text-xl text-white font-playfair font-bold mb-2">{podcast.Título}</h3>
+									<p class="text-gray-400 text-sm mb-2">{podcast.Programa}</p>
+									<p class="text-gray-500 text-sm">{podcast.Resumen}</p>
+								</div>
+							</a>
+						))}
+					</div>
+				</section>
+			)}
+		</div>
+	</main>
+</Layout>

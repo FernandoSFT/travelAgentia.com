@@ -209,3 +209,47 @@ export async function getProyectos(): Promise<ProyectoCaso[]> {
     Publicado: getCheckbox(row.properties["Publicado"]),
   }), [{ property: "Orden", direction: "ascending" }]);
 }
+
+export async function getCharlas(): Promise<Charla[]> {
+  return await fetchFromNotion(import.meta.env.DS_CHARLAS, (row) => ({
+    Título: getPlainText(row.properties["Título"]),
+    Evento: getPlainText(row.properties["Evento"]),
+    Fecha: getDate(row.properties["Fecha"]),
+    Lugar: getPlainText(row.properties["Lugar"]),
+    Resumen: getPlainText(row.properties["Resumen"]),
+    "Vídeo URL": getUrl(row.properties["Vídeo URL"]),
+    Foto: getFiles(row.properties["Foto"]),
+    "Slides URL": getUrl(row.properties["Slides URL"]),
+    Orden: getNumber(row.properties["Orden"]),
+    Destacada: getCheckbox(row.properties["Destacada"]),
+    Publicado: getCheckbox(row.properties["Publicado"]),
+  }), [{ property: "Orden", direction: "ascending" }]);
+}
+
+export async function getCursos(): Promise<Curso[]> {
+  return await fetchFromNotion(import.meta.env.DS_CURSOS, (row) => ({
+    Nombre: getPlainText(row.properties["Nombre"]),
+    Formato: getSelect(row.properties["Formato"]) as any,
+    Horas: getNumber(row.properties["Horas"]),
+    Fecha: getDate(row.properties["Fecha"]),
+    "Precio (€)": getNumber(row.properties["Precio (€)"]),
+    Estado: getSelect(row.properties["Estado"]) as any,
+    Resumen: getPlainText(row.properties["Resumen"]),
+    "URL inscripción": getUrl(row.properties["URL inscripción"]),
+    Orden: getNumber(row.properties["Orden"]),
+    Publicado: getCheckbox(row.properties["Publicado"]),
+  }), [{ property: "Orden", direction: "ascending" }]);
+}
+
+export async function getPodcasts(): Promise<Podcast[]> {
+  return await fetchFromNotion(import.meta.env.DS_PODCASTS, (row) => ({
+    Título: getPlainText(row.properties["Título"]),
+    Programa: getPlainText(row.properties["Programa"]),
+    Fecha: getDate(row.properties["Fecha"]),
+    Enlace: getUrl(row.properties["Enlace"]),
+    Plataforma: getSelect(row.properties["Plataforma"]) as any,
+    Resumen: getPlainText(row.properties["Resumen"]),
+    Portada: getFiles(row.properties["Portada"]),
+    Publicado: getCheckbox(row.properties["Publicado"]),
+  }), [{ property: "Fecha", direction: "descending" }]);
+}
