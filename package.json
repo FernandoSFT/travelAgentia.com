@@ -12,8 +12,9 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@astrojs/check": "^0.9.8",
     "@astrojs/react": "^5.0.0",
-    "@astrojs/sitemap": "^3.7.2",
+    "@astrojs/sitemap": "^3.5.1",
     "@astrojs/tailwind": "^6.0.2",
     "@notionhq/client": "^5.19.0",
     "@types/marked": "^5.0.2",
@@ -33,6 +34,6 @@
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "eslint": "^9",
-    "typescript": "^5"
+    "typescript": "^5.9.3"
   }
 }

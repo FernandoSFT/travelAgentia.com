@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import { motion } from 'framer-motion';
 import styles from './Metodologia.module.css';
 import { SectionHeader } from '@/components/ui/SectionHeader';

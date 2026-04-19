@@ -1,7 +1,5 @@
 'use client';
 
-import React from 'react';
-import Link from 'next/link';
 import styles from './Footer.module.css';
 import { cn } from '@/lib/utils';
 import { Linkedin, Instagram } from 'lucide-react';
@@ -13,9 +11,9 @@ export const Footer = () => {
     <footer className={styles.footer}>
       <div className={cn('container', styles.grid)}>
         <div className={styles.column}>
-          <Link href="/" className={styles.logo}>
+          <a href="/" className={styles.logo}>
             <span className="gradient-text">TravelAgentIA</span>
-          </Link>
+          </a>
           <p className={styles.tagline}>"De agente a agente"</p>
           <p className={styles.copyright}>
             © {currentYear} TravelAgentIA — Fernando Córdoba
@@ -25,21 +23,21 @@ export const Footer = () => {
         <div className={styles.column}>
           <h4>Navegación</h4>
           <nav className={styles.nav}>
-            <Link href="#sobre-mi">Sobre mí</Link>
-            <Link href="#metodologia">Metodología</Link>
-            <Link href="#servicios">Servicios</Link>
-            <Link href="#casos">Casos reales</Link>
-            <Link href="#faq">FAQ</Link>
-            <Link href="#contacto">Contacto</Link>
+            <a href="#sobre-mi">Sobre mí</a>
+            <a href="#metodologia">Metodología</a>
+            <a href="#servicios">Servicios</a>
+            <a href="#casos">Casos reales</a>
+            <a href="#faq">FAQ</a>
+            <a href="#contacto">Contacto</a>
           </nav>
         </div>
 
         <div className={styles.column}>
           <h4>Legal</h4>
           <nav className={styles.nav}>
-            <Link href="/aviso-legal">Aviso legal</Link>
-            <Link href="/privacidad">Política de privacidad</Link>
-            <Link href="/cookies">Política de cookies</Link>
+            <a href="/aviso-legal">Aviso legal</a>
+            <a href="/privacidad">Política de privacidad</a>
+            <a href="/cookies">Política de cookies</a>
           </nav>
         </div>
 

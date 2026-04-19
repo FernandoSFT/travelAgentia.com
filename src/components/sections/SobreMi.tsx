@@ -1,12 +1,8 @@
-'use client';
-
-import React from 'react';
 import { motion } from 'framer-motion';
 import styles from './SobreMi.module.css';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { cn } from '@/lib/utils';
 import { GraduationCap, Briefcase, Mic2, Users, Wrench, ShieldCheck } from 'lucide-react';
-import Image from 'next/image';
 
 const credentials = [
   { icon: <GraduationCap />, text: 'Curso Superior en IA Generativa — UCAM (750h, 30 ECTS)' },
@@ -33,15 +29,15 @@ export const SobreMi = () => {
             <div className={styles.placeholder}>
               <span>Foto de Fernando</span>
             </div>
-            {/* 
-            <Image 
+            <img 
               src="/images/fernando.jpg" 
               alt="Fernando Córdoba" 
               width={500} 
               height={600} 
               className={styles.image}
+              loading="lazy"
             /> 
-            */}
+
           </div>
         </motion.div>
 

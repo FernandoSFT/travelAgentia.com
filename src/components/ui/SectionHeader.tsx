@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './SectionHeader.module.css';
 import { cn } from '@/lib/utils';
 

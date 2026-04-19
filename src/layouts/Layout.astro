@@ -48,15 +48,15 @@ const serviceSchema = {
 		<meta name="twitter:description" content={description} />
 		
 		<!-- JSON-LD -->
-		<script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
-		<script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+		<script is:inline type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+		<script is:inline type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
 		
 		{import.meta.env.PUBLIC_GSC_VERIFICATION && (
 			<meta name="google-site-verification" content={import.meta.env.PUBLIC_GSC_VERIFICATION} />
 		)}
 
 		{import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN && (
-			<script defer data-domain={import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN} src="https://plausible.io/js/script.tagged-events.outbound-links.js"></script>
+			<script is:inline defer data-domain={import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN} src="https://plausible.io/js/script.tagged-events.outbound-links.js"></script>
 		)}
 		
 		<slot name="head" />

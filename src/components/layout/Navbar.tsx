@@ -1,7 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
+import { useState, useEffect } from 'react';
 import styles from './Navbar.module.css';
 import { cn } from '@/lib/utils';
 import { Menu, X } from 'lucide-react';
@@ -30,16 +29,16 @@ export const Navbar = () => {
   return (
     <nav className={cn(styles.navbar, isScrolled && styles.scrolled)}>
       <div className={cn('container', styles.container)}>
-        <Link href="/" className={styles.logo}>
+        <a href="/" className={styles.logo}>
           <span className="gradient-text">TravelAgentIA</span>
-        </Link>
+        </a>
 
         {/* Desktop Nav */}
         <div className={styles.desktopNav}>
           {navLinks.map((link) => (
-            <Link key={link.name} href={link.href} className={styles.link}>
+            <a key={link.name} href={link.href} className={styles.link}>
               {link.name}
-            </Link>
+            </a>
           ))}
         </div>
 
@@ -55,14 +54,14 @@ export const Navbar = () => {
       {/* Mobile Nav */}
       <div className={cn(styles.mobileNav, isMobileMenuOpen && styles.open)}>
         {navLinks.map((link) => (
-          <Link 
+          <a 
             key={link.name} 
             href={link.href} 
             className={styles.mobileLink}
             onClick={() => setIsMobileMenuOpen(false)}
           >
             {link.name}
-          </Link>
+          </a>
         ))}
       </div>
     </nav>

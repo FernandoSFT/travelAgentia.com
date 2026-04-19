@@ -1,5 +1,4 @@
 import { Client } from "@notionhq/client";
-import { NotionToMarkdown } from "notion-to-md";
 import fs from "node:fs/promises";
 import path from "node:path";
 import crypto from "node:crypto";
@@ -13,7 +12,6 @@ import type {
   Testimonio, 
   Faq, 
   Hito, 
-  BlogPost, 
   AjusteGlobal,
   NotionFile,
   NotionDate
@@ -31,7 +29,6 @@ const IS_MOCK = getEnv("NOTION_MOCK") === "true" || !getEnv("NOTION_TOKEN") || g
 const IS_PREVIEW = getEnv("NOTION_PREVIEW") === "true";
 
 const notion = IS_MOCK ? null : new Client({ auth: getEnv("NOTION_TOKEN") });
-const n2m = IS_MOCK ? null : new NotionToMarkdown({ notionClient: notion as any });
 
 // Asset downloader
 async function downloadNotionFile(url: string, filename: string): Promise<string> {
@@ -116,7 +113,7 @@ async function getFiles(property: any): Promise<NotionFile[]> {
   return files;
 }
 
-async function getRichTextMarkdown(property: any, pageId?: string): Promise<string> {
+async function getRichTextMarkdown(property: any): Promise<string> {
   // We use n2m mainly for page blocks, but the user requested notion-to-md for long text fields.
   // Actually, notion-to-md converts block objects, not property rich_text directly, but we can do a naive conversion
   // or fetch the blocks if it's the main page body.
@@ -138,6 +135,19 @@ async function getRichTextMarkdown(property: any, pageId?: string): Promise<stri
 
 // Caching
 const cache = new Map<string, any>();
+const dataSourceCache = new Map<string, string>();
+
+async function resolveDataSourceId(databaseId: string): Promise<string> {
+  if (dataSourceCache.has(databaseId)) return dataSourceCache.get(databaseId)!;
+  const db = await notion!.databases.retrieve({ database_id: databaseId });
+  // @ts-expect-error - data_sources viene en la nueva versión de la API
+  const dsId = db.data_sources?.[0]?.id;
+  if (!dsId) {
+    throw new Error(`No data source found for database ${databaseId}`);
+  }
+  dataSourceCache.set(databaseId, dsId);
+  return dsId;
+}
 
 async function fetchFromNotion(databaseId: string | undefined, mapper: (row: any) => Promise<any>, mockData: any[], sorts: any[] = []) {
   if (IS_MOCK || !databaseId) {
@@ -161,8 +171,9 @@ async function fetchFromNotion(databaseId: string | undefined, mapper: (row: any
       sorts = [{ timestamp: "created_time", direction: "descending" }];
     }
 
+    const dsId = await resolveDataSourceId(databaseId);
     const response = await notion!.dataSources.query({
-      data_source_id: databaseId,
+      data_source_id: dsId,
       filter,
       sorts,
     });
@@ -187,7 +198,7 @@ export async function getSecciones(): Promise<SeccionWeb[]> {
     Slug: getPlainText(row.properties["Slug"]),
     Título: getPlainText(row.properties["Título"]),
     Subtítulo: getPlainText(row.properties["Subtítulo"]),
-    Cuerpo: await getRichTextMarkdown(row.properties["Cuerpo"], row.id), 
+    Cuerpo: await getRichTextMarkdown(row.properties["Cuerpo"]), 
     "CTA texto": getPlainText(row.properties["CTA texto"]),
     "CTA link": getUrl(row.properties["CTA link"]),
     Página: getSelect(row.properties["Página"]) as any,

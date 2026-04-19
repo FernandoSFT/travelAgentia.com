@@ -28,7 +28,7 @@ const hitos = await getHitos();
 				<section class="mt-20">
 					<h2 class="text-3xl font-playfair text-center mb-16 text-white">Mi Trayectoria</h2>
 					<div class="relative border-l border-white/20 ml-4 md:mx-auto md:w-1/2">
-						{hitos.map((hito, index) => (
+						{hitos.map((hito) => (
 							<div class="mb-10 ml-8 relative">
 								<span class="absolute -left-12 flex items-center justify-center w-8 h-8 bg-background border border-primary rounded-full text-xl z-10">
 									{hito["Icono / Emoji"] || "✦"}
