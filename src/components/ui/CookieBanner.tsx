@@ -1,46 +1,37 @@
-'use client';
-
 import React, { useState, useEffect } from 'react';
-import styles from './CookieBanner.module.css';
-import { Button } from '@/components/ui/Button';
-import { cn } from '@/lib/utils';
-import Link from 'next/link';
 
-export const CookieBanner = () => {
+export default function CookieBanner() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const consent = localStorage.getItem('cookie-consent');
-    if (!consent) {
+    const dismissed = localStorage.getItem('cookie-notice-dismissed');
+    if (!dismissed) {
       setIsVisible(true);
     }
   }, []);
 
-  const handleAccept = () => {
-    localStorage.setItem('cookie-consent', 'accepted');
-    setIsVisible(false);
-  };
-
-  const handleDecline = () => {
-    localStorage.setItem('cookie-consent', 'declined');
+  const handleDismiss = () => {
+    localStorage.setItem('cookie-notice-dismissed', 'true');
     setIsVisible(false);
   };
 
   if (!isVisible) return null;
 
   return (
-    <div className={cn('glass', styles.banner)}>
-      <div className={styles.content}>
-        <p>
-          Utilizamos cookies propias y de terceros para mejorar nuestros servicios y mostrarle publicidad relacionada con sus preferencias mediante el análisis de sus hábitos de navegación. Puede obtener más información en nuestra <Link href="/cookies">Política de Cookies</Link>.
+    <div className="fixed bottom-0 left-0 right-0 p-4 z-50 animate-fade-in">
+      <div className="max-w-4xl mx-auto bg-[#1a1a1a] border border-white/10 rounded-xl p-4 shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p className="text-sm text-gray-300 m-0">
+          Utilizamos análisis anónimo (Plausible) que no requiere el uso de cookies. 
+          Puede obtener más información en nuestra <a href="/cookies" className="text-primary hover:underline">Política de Cookies</a>.
         </p>
-        <div className={styles.actions}>
-          <button className={styles.decline} onClick={handleDecline}>Rechazar</button>
-          <Button variant="primary" onClick={handleAccept} className={styles.accept}>
-            Aceptar
-          </Button>
-        </div>
+        <button 
+          onClick={handleDismiss}
+          className="shrink-0 bg-white/10 hover:bg-white/20 text-white w-8 h-8 rounded-full flex items-center justify-center transition-colors"
+          aria-label="Cerrar aviso"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
       </div>
     </div>
   );
-};
+}
