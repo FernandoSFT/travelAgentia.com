@@ -69,6 +69,10 @@ Añade `NOTION_PREVIEW=true` en tu `.env.local` y se omitirá el filtro de "Publ
 - `PUBLIC_N8N_WEBHOOK`: Endpoint donde el formulario de `/contacto` arroja el POST del lead.
 - `PUBLIC_CALENDAR_URL`: Enlace público iframe de Google Calendar u otra herramienta para cita previa.
 
+### Analytics y SEO
+- `PUBLIC_PLAUSIBLE_DOMAIN`: (Opcional) Dominio para habilitar Plausible Analytics (ej: `travelagentia.com`). El sistema registrará eventos y pageviews de forma amigable con la privacidad (sin cookies). Ver `ANALYTICS.md` para el listado de eventos disponibles.
+- `PUBLIC_GSC_VERIFICATION`: (Opcional) Hash de verificación para Google Search Console. Inyecta la meta tag necesaria automáticamente en el head.
+
 **Aviso sobre Imágenes:**
 Las imágenes hosteadas en Notion tienen URLs que caducan tras 1 hora. El pipeline de `src/lib/notion.ts` se encarga de interceptarlas durante el proceso de **build**, descargarlas localmente y exponerlas en `/public/notion-assets/` bajo un hash estático. ¡Nunca sirvas URLs de Amazon S3 de Notion directamente en producción!
 
