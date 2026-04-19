@@ -48,17 +48,29 @@ Arquitectura reconstruida con **Astro 4**, **Tailwind CSS** e **Integración Hea
    ```
    Astro se conectará a Notion, descargará los datos y compilará las páginas. Visita `http://localhost:4321`.
 
-## Despliegue en Producción (Vercel)
+## Configuración Avanzada y Entornos
 
-La web se despliega automáticamente en Vercel cuando haces push a la rama principal (`main`/`master`).
-Asegúrate de configurar **todas las variables de entorno** en el dashboard de Vercel.
+### Modo Mock (Pruebas locales sin API real)
+Si no tienes acceso temporalmente a Notion o deseas testear la UI de forma rápida, puedes ejecutar Astro en **Modo Mock**.
+El flag `NOTION_MOCK=true` indicará al wrapper (`src/lib/notion.ts`) que omita el SDK de Notion y en su lugar cargue las fixtures definidas en `src/lib/notion.mock.ts`.
+- **Ejecutar en dev:** `NOTION_MOCK=true npm run dev`
+- **Compilar build local:** `npm run build:mock`
 
-### Despliegue Bajo Demanda (n8n / Webhooks)
-Dado que el sitio es estático, debe recompilarse cada vez que cambias contenido en Notion.
-Para esto:
-1. En Vercel: Ve a *Settings > Git > Deploy Hooks* y crea un webhook.
-2. En GitHub: Ve a *Settings > Secrets and variables > Actions* y crea un secreto `VERCEL_DEPLOY_HOOK` con la URL del paso 1.
-3. El webhook llamará al GitHub Action configurado en `.github/workflows/rebuild.yml` (que puede ser activado también vía n8n).
+### Modo Preview (Ver borradores)
+Por defecto, el sitio solo trae de Notion aquellos elementos cuyo campo `Publicado` sea `true`.
+Si deseas probar cómo quedan los posts en modo "draft" antes de publicarlos, puedes forzar la previsualización:
+Añade `NOTION_PREVIEW=true` en tu `.env.local` y se omitirá el filtro de "Publicado" para descargar absolutamente todo el contenido.
+
+### Variables de entorno (`.env.local`)
+- `NOTION_TOKEN`: El token secreto del Integration (Secret). Requerido.
+- `NOTION_PREVIEW`: `true` o `false`. Si es true, ignora el check de `Publicado`.
+- `NOTION_MOCK`: `true` o `false`. Si es true, usa datos de prueba estáticos de `notion.mock.ts`.
+- `DS_*`: IDs de las bases de datos de Notion necesarias.
+- `PUBLIC_N8N_WEBHOOK`: Endpoint donde el formulario de `/contacto` arroja el POST del lead.
+- `PUBLIC_CALENDAR_URL`: Enlace público iframe de Google Calendar u otra herramienta para cita previa.
+
+**Aviso sobre Imágenes:**
+Las imágenes hosteadas en Notion tienen URLs que caducan tras 1 hora. El pipeline de `src/lib/notion.ts` se encarga de interceptarlas durante el proceso de **build**, descargarlas localmente y exponerlas en `/public/notion-assets/` bajo un hash estático. ¡Nunca sirvas URLs de Amazon S3 de Notion directamente en producción!
 
 ## Estructura del Proyecto
 - `src/lib/notion.ts`: Helpers y tipos para interactuar con Notion.
