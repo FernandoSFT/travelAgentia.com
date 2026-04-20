@@ -10,9 +10,16 @@ import { Users, Compass, Key, Check, Clock, Bot, BookOpen, Layers, Mail, FileTex
 <Layout title="Consultoría de IA para Agencias de Viajes">
   <main>
     <!-- SECCIÓN 1: HERO -->
-    <section class="relative min-h-[90vh] flex items-center justify-center overflow-hidden pt-20">
-      <div class="absolute inset-0 bg-noise pointer-events-none"></div>
-      <div class="absolute inset-0 bg-gradient-to-b from-transparent via-bg-dark/50 to-bg-dark pointer-events-none"></div>
+    <section class="relative min-h-[95vh] flex items-center justify-center overflow-hidden pt-20">
+      <div class="absolute inset-0 z-0">
+        <img 
+          src="https://images.unsplash.com/photo-1436491865332-7a61a109c0f3?q=80&w=2070" 
+          alt="Luxury travel background" 
+          class="w-full h-full object-cover opacity-30 animate-ken-burns"
+        />
+        <div class="absolute inset-0 bg-gradient-to-b from-bg-dark via-bg-dark/60 to-bg-dark"></div>
+      </div>
+      <div class="absolute inset-0 bg-noise pointer-events-none z-10"></div>
       
       <div class="container-custom relative z-10 text-center">
         <span class="label-gold animate-fade-in-up">DE AGENTE A AGENTE</span>
@@ -50,9 +57,9 @@ import { Users, Compass, Key, Check, Clock, Bot, BookOpen, Layers, Mail, FileTex
 
     <!-- SECCIÓN 2: EL PROBLEMA -->
     <section id="problema" class="section bg-bg-dark">
-      <div class="container-custom">
+      <div class="container-custom relative z-10">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-          <div>
+          <div class="animate-soft-reveal">
             <span class="label-gold">EL RETO ACTUAL</span>
             <h2 class="text-4xl md:text-5xl mb-8 text-gold-primary">¿Te suena alguno de estos problemas?</h2>
             <p class="text-lg text-text-muted mb-8">
@@ -126,9 +133,12 @@ import { Users, Compass, Key, Check, Clock, Bot, BookOpen, Layers, Mail, FileTex
     </section>
 
     <!-- SECCIÓN 4: METODOLOGÍA -->
-    <section id="metodologia" class="section bg-bg-dark">
-      <div class="container-custom">
-        <div class="text-center max-w-3xl mx-auto mb-20">
+    <section id="metodologia" class="section bg-bg-dark relative overflow-hidden">
+      <div class="absolute top-0 right-0 w-1/2 h-full opacity-5 pointer-events-none">
+        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072" alt="Decorative AI network" class="w-full h-full object-cover animate-ken-burns" />
+      </div>
+      <div class="container-custom relative z-10">
+        <div class="text-center max-w-3xl mx-auto mb-20 animate-soft-reveal">
           <span class="label-gold">METODOLOGÍA PROPIA</span>
           <h2 class="text-4xl md:text-5xl mb-6 text-gold-primary">Los 5 Pasos de la IA en tu agencia</h2>
           <p class="text-text-muted">Cada agencia empieza donde está y avanza a su ritmo. Yo opero en el paso 5 — y te acompaño hasta allí.</p>
