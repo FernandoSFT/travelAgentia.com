@@ -19,10 +19,14 @@ import type {
 
 import * as mocks from "./notion.mock";
 
-// Get env vars safely in Astro build
-const getEnv = (key: string) => {
-  try { return import.meta.env[key] || process.env[key]; }
-  catch { return process.env[key]; }
+import { loadEnv } from "vite";
+
+const envCache = loadEnv("production", process.cwd(), "");
+const getEnv = (key: string): string => {
+  if (typeof process !== "undefined" && process.env && process.env[key]) {
+    return process.env[key] as string;
+  }
+  return envCache[key] || (import.meta as any).env?.[key];
 };
 
 const IS_MOCK = getEnv("NOTION_MOCK") === "true" || !getEnv("NOTION_TOKEN") || getEnv("NOTION_TOKEN").includes("dummy");
@@ -170,8 +174,8 @@ async function fetchFromNotion(databaseId: string | undefined, mapper: (row: any
       sorts = [{ timestamp: "created_time", direction: "descending" }];
     }
 
-    const response = await notion!.databases.query({
-      database_id: databaseId,
+    const response = await notion!.dataSources.query({
+      data_source_id: databaseId,
       filter,
       sorts,
     });
@@ -191,7 +195,7 @@ async function fetchFromNotion(databaseId: string | undefined, mapper: (row: any
 
 // API
 export async function getSecciones(): Promise<SeccionWeb[]> {
-  return await fetchFromNotion(import.meta.env.DS_SECCIONES_WEB, async (row) => ({
+  return await fetchFromNotion(getEnv("DS_SECCIONES_WEB"), async (row) => ({
     Slug: getPlainText(row.properties["Slug"]),
     Título: getPlainText(row.properties["Título"]),
     Subtítulo: getPlainText(row.properties["Subtítulo"]),
@@ -206,7 +210,7 @@ export async function getSecciones(): Promise<SeccionWeb[]> {
 }
 
 export async function getAjustes(): Promise<Record<string, AjusteGlobal>> {
-  const data = await fetchFromNotion(import.meta.env.DS_AJUSTES_GLOBALES, async (row) => ({
+  const data = await fetchFromNotion(getEnv("DS_AJUSTES_GLOBALES"), async (row) => ({
     Clave: getPlainText(row.properties["Clave"]),
     Valor: getPlainText(row.properties["Valor"]),
     Tipo: getSelect(row.properties["Tipo"]) as any,
@@ -222,7 +226,7 @@ export async function getAjustes(): Promise<Record<string, AjusteGlobal>> {
 }
 
 export async function getServicios(): Promise<Servicio[]> {
-  return await fetchFromNotion(import.meta.env.DS_SERVICIOS, async (row) => ({
+  return await fetchFromNotion(getEnv("DS_SERVICIOS"), async (row) => ({
     Nombre: getPlainText(row.properties["Nombre"]),
     Icono: getPlainText(row.properties["Icono"]),
     "Descripción corta": getPlainText(row.properties["Descripción corta"]),
@@ -238,7 +242,7 @@ export async function getServicios(): Promise<Servicio[]> {
 }
 
 export async function getHitos(): Promise<Hito[]> {
-  return await fetchFromNotion(import.meta.env.DS_HITOS, async (row) => ({
+  return await fetchFromNotion(getEnv("DS_HITOS"), async (row) => ({
     Título: getPlainText(row.properties["Título"]),
     Año: getNumber(row.properties["Año"]),
     "Fecha exacta": getDate(row.properties["Fecha exacta"]),
@@ -251,7 +255,7 @@ export async function getHitos(): Promise<Hito[]> {
 }
 
 export async function getFaqs(): Promise<Faq[]> {
-  return await fetchFromNotion(import.meta.env.DS_FAQ, async (row) => ({
+  return await fetchFromNotion(getEnv("DS_FAQ"), async (row) => ({
     Pregunta: getPlainText(row.properties["Pregunta"]),
     Respuesta: await getRichTextMarkdown(row.properties["Respuesta"]),
     Categoría: getSelect(row.properties["Categoría"]) as any,
@@ -261,7 +265,7 @@ export async function getFaqs(): Promise<Faq[]> {
 }
 
 export async function getTestimonios(): Promise<Testimonio[]> {
-  return await fetchFromNotion(import.meta.env.DS_TESTIMONIOS, async (row) => ({
+  return await fetchFromNotion(getEnv("DS_TESTIMONIOS"), async (row) => ({
     Nombre: getPlainText(row.properties["Nombre"]),
     Cargo: getPlainText(row.properties["Cargo"]),
     "Agencia / Empresa": getPlainText(row.properties["Agencia / Empresa"]),
@@ -276,7 +280,7 @@ export async function getTestimonios(): Promise<Testimonio[]> {
 }
 
 export async function getProyectos(): Promise<ProyectoCaso[]> {
-  return await fetchFromNotion(import.meta.env.DS_PROYECTOS_CASOS, async (row) => ({
+  return await fetchFromNotion(getEnv("DS_PROYECTOS_CASOS"), async (row) => ({
     Cliente: getPlainText(row.properties["Cliente"]),
     Sector: getSelect(row.properties["Sector"]) as any,
     Problema: getPlainText(row.properties["Problema"]),
@@ -294,7 +298,7 @@ export async function getProyectos(): Promise<ProyectoCaso[]> {
 }
 
 export async function getCharlas(): Promise<Charla[]> {
-  return await fetchFromNotion(import.meta.env.DS_CHARLAS, async (row) => ({
+  return await fetchFromNotion(getEnv("DS_CHARLAS"), async (row) => ({
     Título: getPlainText(row.properties["Título"]),
     Evento: getPlainText(row.properties["Evento"]),
     Fecha: getDate(row.properties["Fecha"]),
@@ -310,7 +314,7 @@ export async function getCharlas(): Promise<Charla[]> {
 }
 
 export async function getCursos(): Promise<Curso[]> {
-  return await fetchFromNotion(import.meta.env.DS_CURSOS, async (row) => ({
+  return await fetchFromNotion(getEnv("DS_CURSOS"), async (row) => ({
     Nombre: getPlainText(row.properties["Nombre"]),
     Formato: getSelect(row.properties["Formato"]) as any,
     Horas: getNumber(row.properties["Horas"]),
