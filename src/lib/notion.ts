@@ -139,23 +139,10 @@ async function getRichTextMarkdown(property: any): Promise<string> {
 
 // Caching
 const cache = new Map<string, any>();
-const dataSourceCache = new Map<string, string>();
 
-async function resolveDataSourceId(databaseId: string): Promise<string> {
-  if (dataSourceCache.has(databaseId)) return dataSourceCache.get(databaseId)!;
-  const db = await notion!.databases.retrieve({ database_id: databaseId });
-  // @ts-expect-error - data_sources viene en la nueva versión de la API
-  const dsId = db.data_sources?.[0]?.id;
-  if (!dsId) {
-    throw new Error(`No data source found for database ${databaseId}`);
-  }
-  dataSourceCache.set(databaseId, dsId);
-  return dsId;
-}
-
-async function fetchFromNotion(databaseId: string | undefined, mapper: (row: any) => Promise<any>, mockData: any[], sorts: any[] = []) {
+async function fetchFromNotion(databaseId: string | undefined, mapper: (row: any) => Promise<any>, mockData: any[], sorts: any[] = [], options?: { skipFilter?: boolean }) {
   if (IS_MOCK || !databaseId) {
-    console.warn(`[notion] warn: Using mock data for ${databaseId || 'undefined_db'}`);
+    console.warn(`[notion] ⚠ Using mock data (IS_MOCK=${IS_MOCK}, dbId=${databaseId || 'undefined'})`);
     return mockData;
   }
   
@@ -165,7 +152,7 @@ async function fetchFromNotion(databaseId: string | undefined, mapper: (row: any
   }
 
   try {
-    const filter = IS_PREVIEW ? undefined : {
+    const filter = (IS_PREVIEW || options?.skipFilter) ? undefined : {
       property: "Publicado",
       checkbox: { equals: true },
     };
@@ -173,6 +160,8 @@ async function fetchFromNotion(databaseId: string | undefined, mapper: (row: any
     if (sorts.length === 0) {
       sorts = [{ timestamp: "created_time", direction: "descending" }];
     }
+
+    console.log(`[notion] Querying data source ${databaseId}...`);
 
     const response = await notion!.dataSources.query({
       data_source_id: databaseId,
@@ -185,10 +174,13 @@ async function fetchFromNotion(databaseId: string | undefined, mapper: (row: any
       results.push(await mapper(row));
     }
     
+    console.log(`[notion] ✓ Fetched ${results.length} items from ${databaseId}`);
     cache.set(cacheKey, results);
     return results;
-  } catch (error) {
-    console.warn(`[notion] warn: Error fetching DB ${databaseId}`, error);
+  } catch (error: any) {
+    const code = error?.code || 'unknown';
+    const msg = error?.message?.slice(0, 200) || 'No message';
+    console.error(`[notion] ✗ Error fetching DS ${databaseId}: [${code}] ${msg}`);
     return mockData;
   }
 }
@@ -216,7 +208,7 @@ export async function getAjustes(): Promise<Record<string, AjusteGlobal>> {
     Tipo: getSelect(row.properties["Tipo"]) as any,
     Grupo: getSelect(row.properties["Grupo"]) as any,
     Notas: getPlainText(row.properties["Notas"]),
-  }), mocks.mockAjustes);
+  }), mocks.mockAjustes, [], { skipFilter: true });
   
   const config: Record<string, AjusteGlobal> = {};
   data.forEach((item: AjusteGlobal) => {
@@ -345,11 +337,13 @@ export async function getBlog(): Promise<any[]> {
   return await fetchFromNotion(getEnv("DS_BLOG"), async (row) => ({
     Título: getPlainText(row.properties["Título"]),
     Slug: getPlainText(row.properties["Slug"]),
-    Fecha: getDate(row.properties["Fecha"]),
-    Resumen: getPlainText(row.properties["Resumen"]),
-    Cuerpo: await getRichTextMarkdown(row.properties["Cuerpo"]),
-    Categoría: getSelect(row.properties["Categoría"]),
-    Imagen: await getFiles(row.properties["Imagen"]),
+    Fecha: getDate(row.properties["Fecha publicación"]),
+    Resumen: getPlainText(row.properties["Resumen (meta description)"]),
+    Cuerpo: "",  // Blog body content would come from page blocks, not a property
+    Categoría: getSelect(row.properties["Tipo"]),
+    Tags: getMultiSelect(row.properties["Tags"]),
+    Imagen: await getFiles(row.properties["Portada"]),
+    Destacado: getCheckbox(row.properties["Destacado"]),
     Publicado: getCheckbox(row.properties["Publicado"]),
-  }), [], [{ property: "Fecha", direction: "descending" }]);
+  }), [], [{ property: "Fecha publicación", direction: "descending" }]);
 }
