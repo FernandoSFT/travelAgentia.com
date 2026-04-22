@@ -8,32 +8,69 @@ interface Props {
 	title: string;
 	description?: string;
 	ogImage?: string;
+	schemas?: object[];
 }
 
 const {
 	title,
 	description = "Inteligencia Artificial que funciona porque la usamos cada día. De agente a agente.",
 	ogImage = "https://travelagentia.com/og-image.jpg",
+	schemas = [],
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site).href;
+const siteBase = Astro.site?.toString().replace(/\/$/, '') || "https://travelagentia.com";
 
-// JSON-LD schemas
 const personSchema = {
 	"@context": "https://schema.org",
 	"@type": "Person",
 	"name": "Fernando Córdoba",
 	"jobTitle": "Consultor de IA para agencias de viajes",
-	"url": Astro.site?.toString() || "https://travelagentia.com",
+	"url": siteBase,
+	"sameAs": [
+		"https://linkedin.com/in/fernandocordoba",
+		"https://instagram.com/safetour.es",
+		"https://www.skool.com/automatiza2-1075/about"
+	],
+	"knowsAbout": ["Inteligencia artificial", "Agencias de viajes", "Automatización", "Notion", "n8n"],
+	"hasOccupation": {
+		"@type": "Occupation",
+		"name": "Consultor de IA para agencias de viajes",
+		"occupationalCategory": "15-1299.09"
+	},
+	"brand": { "@type": "Brand", "name": "TravelAgentIA" }
 };
 
-const serviceSchema = {
+const organizationSchema = {
 	"@context": "https://schema.org",
-	"@type": "ProfessionalService",
+	"@type": "Organization",
 	"name": "TravelAgentIA",
-	"areaServed": "ES",
-	"priceRange": "€€",
-	"url": Astro.site?.toString() || "https://travelagentia.com",
+	"url": siteBase,
+	"logo": `${siteBase}/og-image.jpg`,
+	"contactPoint": {
+		"@type": "ContactPoint",
+		"email": "automatiza2@automatiza2.com",
+		"telephone": "+34717717266",
+		"contactType": "customer service",
+		"areaServed": "ES",
+		"availableLanguage": "Spanish"
+	},
+	"sameAs": [
+		"https://linkedin.com/in/fernandocordoba",
+		"https://instagram.com/safetour.es"
+	]
+};
+
+const webPageSchema = {
+	"@context": "https://schema.org",
+	"@type": "WebPage",
+	"url": canonicalURL,
+	"name": `${title} | TravelAgentIA`,
+	"description": description,
+	"speakable": {
+		"@type": "SpeakableSpecification",
+		"cssSelector": [".hero-description", ".service-summary", ".faq-answer"]
+	}
 };
 ---
 
@@ -65,7 +102,11 @@ const serviceSchema = {
 		
 		<!-- JSON-LD -->
 		<script is:inline type="application/ld+json" set:html={JSON.stringify(personSchema)} />
-		<script is:inline type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+		<script is:inline type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
+		<script is:inline type="application/ld+json" set:html={JSON.stringify(webPageSchema)} />
+		{schemas.map(s => (
+			<script is:inline type="application/ld+json" set:html={JSON.stringify(s)} />
+		))}
 		
 		{import.meta.env.PUBLIC_GSC_VERIFICATION && (
 			<meta name="google-site-verification" content={import.meta.env.PUBLIC_GSC_VERIFICATION} />
@@ -76,7 +117,7 @@ const serviceSchema = {
 		)}
 		
 		<slot name="head" />
-		
+
 		<!-- Google Fonts -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -88,6 +129,8 @@ const serviceSchema = {
 		<Footer />
 
 		<CookieBanner client:load />
+
+		<script src="../scripts/scroll-reveal.ts"></script>
 
 		<script>
 			import { track } from '../lib/analytics';

@@ -44,7 +44,7 @@ export default function FAQAccordion() {
         >
           <button
             onClick={() => setOpenIndex(openIndex === index ? null : index)}
-            className="w-full flex items-center justify-between p-6 text-left group"
+            className="w-full flex items-center justify-between py-4 px-6 text-left group min-h-[44px]"
           >
             <span className={`text-lg font-semibold transition-colors ${openIndex === index ? 'text-[#C9A84C]' : 'text-white group-hover:text-[#E8D48B]'}`}>
               {faq.question}

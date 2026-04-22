@@ -1,5 +1,10 @@
 ---
+const currentPath = Astro.url.pathname;
+const isActive = (href: string) => href === '/' ? currentPath === '/' : currentPath.startsWith(href);
+const linkClass = (href: string) =>
+  `text-xs font-medium transition-colors ${isActive(href) ? 'text-gold-primary' : 'text-text-muted hover:text-gold-light'}`;
 ---
+
 <nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-300 py-6">
   <div class="container-custom flex items-center justify-between">
     <a href="/" class="group">
@@ -8,49 +13,80 @@
       </span>
     </a>
 
-    <!-- Desktop Nav -->
+    <!-- Desktop Nav (1024px+) -->
     <div class="hidden lg:flex items-center gap-6">
-      <a href="/sobre-mi" class="text-xs font-medium text-text-muted hover:text-gold-light transition-colors">Sobre mí</a>
-      <a href="/servicios" class="text-xs font-medium text-text-muted hover:text-gold-light transition-colors">Servicios</a>
-      <a href="/casos" class="text-xs font-medium text-text-muted hover:text-gold-light transition-colors">Casos</a>
-      <a href="/blog" class="text-xs font-medium text-text-muted hover:text-gold-light transition-colors">Blog</a>
-      <a href="/cursos" class="text-xs font-medium text-text-muted hover:text-gold-light transition-colors">Cursos</a>
-      <a href="/podcast" class="text-xs font-medium text-text-muted hover:text-gold-light transition-colors">Podcast</a>
-      <a href="/prensa-y-ponente" class="text-xs font-medium text-text-muted hover:text-gold-light transition-colors">Prensa</a>
-      <a href="/faq" class="text-xs font-medium text-text-muted hover:text-gold-light transition-colors">FAQ</a>
+      <a href="/sobre-mi" class={linkClass('/sobre-mi')}>Sobre mí</a>
+      <a href="/servicios" class={linkClass('/servicios')}>Servicios</a>
+      <a href="/casos" class={linkClass('/casos')}>Casos</a>
+      <a href="/blog" class={linkClass('/blog')}>Blog</a>
+      <a href="/cursos" class={linkClass('/cursos')}>Cursos</a>
+      <a href="/podcast" class={linkClass('/podcast')}>Podcast</a>
+      <a href="/prensa-y-ponente" class={linkClass('/prensa-y-ponente')}>Prensa</a>
+      <a href="/faq" class={linkClass('/faq')}>FAQ</a>
       <a href="/reservar" class="btn-primary py-2 px-4 text-[10px] italic">Reserva Sesión</a>
     </div>
 
-    <!-- Mobile Toggle -->
-    <button id="mobile-toggle" class="md:hidden text-gold-primary" aria-label="Menu">
+    <!-- Tablet Nav (768px–1023px): Sobre mí, Servicios, Casos + dropdown Más -->
+    <div class="hidden md:flex lg:hidden items-center gap-5">
+      <a href="/sobre-mi" class={linkClass('/sobre-mi')}>Sobre mí</a>
+      <a href="/servicios" class={linkClass('/servicios')}>Servicios</a>
+      <a href="/casos" class={linkClass('/casos')}>Casos</a>
+      <div class="relative" id="tablet-more-wrapper">
+        <button
+          id="tablet-more-btn"
+          class="text-xs font-medium text-text-muted hover:text-gold-light transition-colors flex items-center gap-1"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          Más
+          <svg id="tablet-chevron" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="transition-transform duration-200"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div
+          id="tablet-dropdown"
+          class="hidden absolute right-0 top-full mt-2 w-44 bg-[#1A1A1A]/95 backdrop-blur-md border border-[#2D2D2D] rounded-xl py-2 shadow-xl"
+          role="menu"
+        >
+          <a href="/blog" class={`block px-4 py-2.5 text-xs rounded-lg transition-colors ${isActive('/blog') ? 'text-gold-primary' : 'text-text-muted hover:text-gold-light hover:bg-white/5'}`} role="menuitem">Blog</a>
+          <a href="/cursos" class={`block px-4 py-2.5 text-xs rounded-lg transition-colors ${isActive('/cursos') ? 'text-gold-primary' : 'text-text-muted hover:text-gold-light hover:bg-white/5'}`} role="menuitem">Cursos</a>
+          <a href="/podcast" class={`block px-4 py-2.5 text-xs rounded-lg transition-colors ${isActive('/podcast') ? 'text-gold-primary' : 'text-text-muted hover:text-gold-light hover:bg-white/5'}`} role="menuitem">Podcast</a>
+          <a href="/prensa-y-ponente" class={`block px-4 py-2.5 text-xs rounded-lg transition-colors ${isActive('/prensa-y-ponente') ? 'text-gold-primary' : 'text-text-muted hover:text-gold-light hover:bg-white/5'}`} role="menuitem">Prensa</a>
+          <a href="/faq" class={`block px-4 py-2.5 text-xs rounded-lg transition-colors ${isActive('/faq') ? 'text-gold-primary' : 'text-text-muted hover:text-gold-light hover:bg-white/5'}`} role="menuitem">FAQ</a>
+        </div>
+      </div>
+      <a href="/reservar" class="btn-primary py-2 px-4 text-[10px] italic">Reserva Sesión</a>
+    </div>
+
+    <!-- Mobile Toggle (<768px) -->
+    <button id="mobile-toggle" class="md:hidden text-gold-primary min-w-[44px] min-h-[44px] flex items-center justify-center" aria-label="Abrir menú">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="menu-icon"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg>
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="close-icon hidden"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
     </button>
   </div>
 
-  <!-- Mobile Nav -->
-  <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-bg-dark border-b border-bg-border p-6 flex flex-col gap-6 animate-fade-in">
-    <a href="/sobre-mi" class="text-lg font-medium text-text-main">Sobre mí</a>
-    <a href="/servicios" class="text-lg font-medium text-text-main">Servicios</a>
-    <a href="/casos" class="text-lg font-medium text-text-main">Casos reales</a>
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-bg-dark border-b border-bg-border px-4 pb-6 pt-4 flex flex-col gap-1">
+    <a href="/sobre-mi" class={`mobile-nav-link ${isActive('/sobre-mi') ? 'active' : ''}`}>Sobre mí</a>
+    <a href="/servicios" class={`mobile-nav-link ${isActive('/servicios') ? 'active' : ''}`}>Servicios</a>
+    <a href="/casos" class={`mobile-nav-link ${isActive('/casos') ? 'active' : ''}`}>Casos reales</a>
     <div class="h-px bg-white/10 my-2"></div>
-    <a href="/blog" class="text-lg font-medium text-gold-light">Blog</a>
-    <a href="/cursos" class="text-lg font-medium text-gold-light">Cursos</a>
-    <a href="/podcast" class="text-lg font-medium text-gold-light">Podcast</a>
-    <a href="/prensa-y-ponente" class="text-lg font-medium text-gold-light">Prensa</a>
+    <a href="/blog" class={`mobile-nav-link secondary ${isActive('/blog') ? 'active' : ''}`}>Blog</a>
+    <a href="/cursos" class={`mobile-nav-link secondary ${isActive('/cursos') ? 'active' : ''}`}>Cursos</a>
+    <a href="/podcast" class={`mobile-nav-link secondary ${isActive('/podcast') ? 'active' : ''}`}>Podcast</a>
+    <a href="/prensa-y-ponente" class={`mobile-nav-link secondary ${isActive('/prensa-y-ponente') ? 'active' : ''}`}>Prensa</a>
     <div class="h-px bg-white/10 my-2"></div>
-    <a href="/faq" class="text-lg font-medium text-text-main">FAQ</a>
-    <a href="/reservar" class="btn-primary text-center">Reserva Sesión</a>
+    <a href="/faq" class={`mobile-nav-link ${isActive('/faq') ? 'active' : ''}`}>FAQ</a>
+    <a href="/reservar" class="btn-primary text-center mt-4 py-4">Reserva Sesión</a>
   </div>
 </nav>
 
 <script>
-  const navbar = document.getElementById('navbar');
-  const toggle = document.getElementById('mobile-toggle');
-  const menu = document.getElementById('mobile-menu');
+  const navbar   = document.getElementById('navbar');
+  const toggle   = document.getElementById('mobile-toggle');
+  const menu     = document.getElementById('mobile-menu');
   const menuIcon = toggle?.querySelector('.menu-icon');
   const closeIcon = toggle?.querySelector('.close-icon');
 
+  // Scroll shrink
   window.addEventListener('scroll', () => {
     if (window.scrollY > 50) {
       navbar?.classList.add('bg-bg-dark/80', 'backdrop-blur-md', 'py-4', 'border-b', 'border-bg-border');
@@ -59,30 +95,90 @@
       navbar?.classList.remove('bg-bg-dark/80', 'backdrop-blur-md', 'py-4', 'border-b', 'border-bg-border');
       navbar?.classList.add('py-6');
     }
-  });
+  }, { passive: true });
+
+  function openMenu() {
+    menu?.classList.remove('hidden');
+    menuIcon?.classList.add('hidden');
+    closeIcon?.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+    toggle?.setAttribute('aria-label', 'Cerrar menú');
+  }
+
+  function closeMenu() {
+    menu?.classList.add('hidden');
+    menuIcon?.classList.remove('hidden');
+    closeIcon?.classList.add('hidden');
+    document.body.style.overflow = '';
+    toggle?.setAttribute('aria-label', 'Abrir menú');
+  }
 
   toggle?.addEventListener('click', () => {
-    menu?.classList.toggle('hidden');
-    menuIcon?.classList.toggle('hidden');
-    closeIcon?.classList.toggle('hidden');
+    menu?.classList.contains('hidden') ? openMenu() : closeMenu();
   });
 
-  // Close menu on link click
-  menu?.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      menu?.classList.add('hidden');
-      menuIcon?.classList.remove('hidden');
-      closeIcon?.classList.add('hidden');
-    });
+  menu?.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+
+  // Close on outside click
+  document.addEventListener('click', (e) => {
+    if (!menu?.classList.contains('hidden') &&
+        !menu.contains(e.target as Node) &&
+        !toggle?.contains(e.target as Node)) {
+      closeMenu();
+    }
+  });
+
+  // Close on swipe-up (50px threshold)
+  let touchStartY = 0;
+  menu?.addEventListener('touchstart', (e) => { touchStartY = e.touches[0].clientY; }, { passive: true });
+  menu?.addEventListener('touchend', (e) => {
+    if (touchStartY - e.changedTouches[0].clientY > 50) closeMenu();
+  }, { passive: true });
+
+  // Tablet dropdown
+  const moreBtn    = document.getElementById('tablet-more-btn');
+  const dropdown   = document.getElementById('tablet-dropdown');
+  const chevron    = document.getElementById('tablet-chevron');
+
+  moreBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = !dropdown?.classList.contains('hidden');
+    dropdown?.classList.toggle('hidden');
+    chevron?.classList.toggle('rotate-180');
+    moreBtn.setAttribute('aria-expanded', String(!isOpen));
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!dropdown?.classList.contains('hidden') &&
+        !document.getElementById('tablet-more-wrapper')?.contains(e.target as Node)) {
+      dropdown?.classList.add('hidden');
+      chevron?.classList.remove('rotate-180');
+      moreBtn?.setAttribute('aria-expanded', 'false');
+    }
   });
 </script>
 
 <style>
-  #mobile-menu.animate-fade-in {
-    animation: fadeIn 0.3s ease-out;
+  .mobile-nav-link {
+    @apply text-lg font-medium text-text-main py-3 px-4 rounded-lg transition-colors hover:bg-white/5 block;
   }
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
+  .mobile-nav-link.secondary {
+    @apply text-gold-light;
+  }
+  .mobile-nav-link.active {
+    @apply text-gold-primary border-l-2 border-gold-primary pl-3;
+  }
+
+  #mobile-menu:not(.hidden) {
+    animation: slideDown 0.3s ease-out;
+  }
+
+  #tablet-dropdown:not(.hidden) {
+    animation: slideDown 0.2s ease-out;
+  }
+
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
 </style>

@@ -5,9 +5,39 @@ import ContactoForm from '../components/ContactoForm';
 import { Users, Compass, Key, Check, Clock, Bot, BookOpen, Layers, Mail, FileText, Zap, BarChart3, GraduationCap, Briefcase, Mic2, ShieldCheck, Wrench, Phone, Globe } from 'lucide-react';
 
 // Hardcoded content from briefing for reliability
+
+const howToSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "Los 5 Pasos de la IA en tu agencia de viajes",
+  "description": "Metodología progresiva para implementar inteligencia artificial en una agencia de viajes, desde el uso básico hasta el ecosistema de agentes coordinados.",
+  "step": [
+    { "@type": "HowToStep", "position": 1, "name": "La IA como consulta", "text": "Preguntas sueltas a la IA, sin memoria ni contexto. Útil, pero limitado." },
+    { "@type": "HowToStep", "position": 2, "name": "Prompts especializados", "text": "Instrucciones personalizadas con tu tono y proveedores. De genérico a contextualizado." },
+    { "@type": "HowToStep", "position": 3, "name": "IA conectada (Copiloto)", "text": "La IA accede a tu email, calendario y CRM. Ejecuta tareas simples bajo tu supervisión." },
+    { "@type": "HowToStep", "position": 4, "name": "Agentes autónomos", "text": "Agentes con rol propio que ejecutan procesos completos sin que se lo pidas." },
+    { "@type": "HowToStep", "position": 5, "name": "Ecosistema orquestado", "text": "Múltiples agentes coordinados con un cerebro central: expedientes, cobros y propuestas conectados." }
+  ]
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "¿Necesito saber de tecnología o programación?", "acceptedAnswer": { "@type": "Answer", "text": "No. Los servicios de TravelAgentIA están diseñados para agentes de viajes, no para informáticos. Si sabes usar el correo electrónico y un navegador, puedes aplicar IA en tu agencia." } },
+    { "@type": "Question", "name": "¿Qué es TravelAgentIA y qué ofrece?", "acceptedAnswer": { "@type": "Answer", "text": "TravelAgentIA es una consultoría de inteligencia artificial especializada exclusivamente en agencias de viajes, fundada por Fernando Córdoba. Ofrece comunidad de formación, consultoría 1 a 1 e implementación llave en mano de sistemas de IA." } },
+    { "@type": "Question", "name": "¿Cómo puede la IA ayudar a una agencia de viajes?", "acceptedAnswer": { "@type": "Answer", "text": "La IA permite automatizar la creación de propuestas de viaje, responder a consultas frecuentes de clientes, gestionar expedientes y marketing multicanal, liberando tiempo para la venta y la atención personalizada." } },
+    { "@type": "Question", "name": "¿Cuánto tiempo tarda en verse resultados?", "acceptedAnswer": { "@type": "Answer", "text": "Desde el primer día. Con la comunidad, en una semana ya usas prompts que ahorran tiempo real. Con consultoría guiada, en 2-4 semanas tienes los primeros procesos automatizados. Con implementación llave en mano, en 4-8 semanas el ecosistema está operativo." } },
+    { "@type": "Question", "name": "¿Funciona para agencias pequeñas?", "acceptedAnswer": { "@type": "Answer", "text": "Especialmente para agencias pequeñas. Donde más impacto tiene la IA es en agencias de 1-5 personas que necesitan multiplicar su capacidad sin contratar." } }
+  ]
+};
 ---
 
-<Layout title="Consultoría de IA para Agencias de Viajes">
+<Layout
+  title="Consultoría de IA para Agencias de Viajes"
+  description="Implementa inteligencia artificial en tu agencia de viajes con Fernando Córdoba. Formación, consultoría 1:1 e implementación llave en mano. +70 agentes formados."
+  schemas={[howToSchema, faqSchema]}
+>
   <main>
     <!-- SECCIÓN 1: HERO -->
     <section class="relative min-h-[95vh] flex items-center justify-center overflow-hidden pt-20">
@@ -24,21 +54,21 @@ import { Users, Compass, Key, Check, Clock, Bot, BookOpen, Layers, Mail, FileTex
       <div class="container-custom relative z-10 text-center">
         <span class="label-gold animate-fade-in-up">DE AGENTE A AGENTE</span>
         
-        <h1 class="text-5xl md:text-7xl mb-8 leading-[1.1] text-gradient max-w-5xl mx-auto animate-fade-in-up" style="animation-delay: 0.1s;">
+        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-7xl mb-8 leading-[1.1] text-gradient max-w-5xl mx-auto animate-fade-in-up" style="animation-delay: 0.1s;">
           Inteligencia Artificial que funciona porque la usamos cada día
         </h1>
         
-        <p class="text-lg md:text-xl text-text-muted mb-12 max-w-2xl mx-auto animate-fade-in-up" style="animation-delay: 0.2s;">
+        <p class="hero-description text-lg md:text-xl text-text-muted mb-12 max-w-2xl mx-auto animate-fade-in-up" style="animation-delay: 0.2s;">
           Consultoría, formación y automatización de IA diseñadas exclusivamente para agencias de viajes. Probadas en una agencia real. Implementadas en más de 70 agencias.
         </p>
         
-        <div class="flex flex-col sm:flex-row gap-6 justify-center items-center animate-fade-in-up" style="animation-delay: 0.3s;">
-          <a href="/reservar" class="btn-primary min-w-[200px]">RESERVAR SESIÓN GRATIS</a>
-          <a href="/servicios" class="btn-secondary min-w-[200px]">VER SERVICIOS</a>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-up" style="animation-delay: 0.3s;">
+          <a href="/reservar" class="btn-primary w-full sm:w-auto min-w-[200px]">RESERVAR SESIÓN GRATIS</a>
+          <a href="/servicios" class="btn-secondary w-full sm:w-auto min-w-[200px]">VER SERVICIOS</a>
         </div>
         
         <div class="mt-20 animate-fade-in" style="animation-delay: 0.6s;">
-          <div class="glass inline-flex flex-wrap justify-center items-center gap-x-8 gap-y-4 py-4 px-8">
+          <div class="glass inline-flex flex-col sm:flex-row flex-wrap justify-center items-center gap-x-8 gap-y-4 py-4 px-8">
             <span class="text-sm font-medium text-white flex items-center gap-2">
               <span class="text-gold-primary">✦</span> +70 agentes en la comunidad
             </span>
@@ -74,7 +104,7 @@ import { Users, Compass, Key, Check, Clock, Bot, BookOpen, Layers, Mail, FileTex
               { icon: BookOpen, title: 'La formación en IA no habla tu idioma', desc: 'Nadie te enseña a aplicar IA a expedientes, propuestas o seguimiento de clientes.' },
               { icon: Layers, title: 'Cada herramienta nueva es un mundo aparte', desc: 'ChatGPT por aquí, Notion por allá… Nada está conectado y acabas duplicando trabajo.' }
             ].map((p, i) => (
-              <div class="premium-card group hover:-translate-y-1 transition-all">
+              <div class="premium-card group reveal" data-delay={`${i * 100}`}>
                 <p.icon class="w-8 h-8 text-gold-primary mb-6 group-hover:scale-110 transition-transform" />
                 <h3 class="text-xl mb-4 text-white font-playfair">{p.title}</h3>
                 <p class="text-sm text-text-muted leading-relaxed">{p.desc}</p>
@@ -187,13 +217,13 @@ import { Users, Compass, Key, Check, Clock, Bot, BookOpen, Layers, Mail, FileTex
           <p class="text-text-muted">Tanto si estás empezando como si quieres un sistema completo, hay un servicio pensado para ti.</p>
         </div>
         
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <!-- Comunidad -->
-          <div class="premium-card flex flex-col">
+          <div class="premium-card flex flex-col reveal" data-delay="0">
             <Users class="w-12 h-12 text-gold-primary mb-6" />
             <h3 class="text-2xl mb-2 text-white font-playfair">Comunidad</h3>
             <p class="text-gold-light text-sm mb-6">Aprende, comparte, avanza con otros agentes</p>
-            <p class="text-sm text-text-muted mb-8 flex-grow">El punto de entrada. Un espacio vivo donde se comparten casos reales, herramientas probadas y soporte entre profesionales.</p>
+            <p class="service-summary text-sm text-text-muted mb-8 flex-grow">El punto de entrada. Un espacio vivo donde se comparten casos reales, herramientas probadas y soporte entre profesionales.</p>
             <ul class="space-y-3 mb-10">
               {['Sesiones en vivo semanales', 'Biblioteca de BecarIAs', 'Prompts probados', 'Recursos descargables'].map(item => (
                 <li class="flex items-start gap-2 text-sm text-text-main">
@@ -206,7 +236,7 @@ import { Users, Compass, Key, Check, Clock, Bot, BookOpen, Layers, Mail, FileTex
           </div>
 
           <!-- Consultoría -->
-          <div class="premium-card border-gold-primary relative scale-105 shadow-2xl z-10 flex flex-col bg-bg-dark">
+          <div class="premium-card border-gold-primary relative md:col-span-2 lg:col-span-1 lg:scale-105 shadow-2xl z-10 flex flex-col bg-bg-dark reveal" data-delay="100">
             <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-gold-primary text-bg-dark text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-widest">✦ MÁS POPULAR</div>
             <Compass class="w-12 h-12 text-gold-primary mb-6" />
             <h3 class="text-2xl mb-2 text-white font-playfair">Consultoría "Hazlo Conmigo"</h3>
@@ -224,7 +254,7 @@ import { Users, Compass, Key, Check, Clock, Bot, BookOpen, Layers, Mail, FileTex
           </div>
 
           <!-- Llaves en mano -->
-          <div class="premium-card flex flex-col">
+          <div class="premium-card flex flex-col reveal" data-delay="200">
             <Key class="w-12 h-12 text-gold-primary mb-6" />
             <h3 class="text-2xl mb-2 text-white font-playfair">"Lo Hacemos por Ti"</h3>
             <p class="text-gold-light text-sm mb-6">Tú delegas, nosotros construimos</p>

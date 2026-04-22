@@ -52,8 +52,16 @@
   }
 
   .premium-card {
-    @apply bg-[#1A1A1A] border border-[#2D2D2D] rounded-xl p-8 transition-all duration-300 hover:border-[#C9A84C];
+    @apply bg-[#1A1A1A] border border-[#2D2D2D] rounded-xl p-8;
     backdrop-filter: blur(10px);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .premium-card:hover {
+    border-color: #C9A84C;
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 20px rgba(201,168,76,0.08);
   }
 
   .glass {
@@ -73,7 +81,31 @@
   }
 }
 
+/* View Transitions — fade between pages (progressive, no-JS fallback ok) */
+@view-transition {
+  navigation: auto;
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 200ms;
+  animation-timing-function: ease-in-out;
+}
+
 @layer utilities {
+  /* Scroll-reveal: apply .reveal to any element you want to animate in on scroll */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+  }
+
   .text-gradient {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-[#C9A84C] via-[#E8D48B] to-[#C9A84C];
   }
