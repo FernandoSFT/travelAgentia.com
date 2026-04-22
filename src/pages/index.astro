@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import FAQAccordion from '../components/FAQAccordion';
 import ContactoForm from '../components/ContactoForm';
+import CounterBadge from '../components/CounterBadge';
 import { Users, Compass, Key, Check, Clock, Bot, BookOpen, Layers, Mail, FileText, Zap, BarChart3, GraduationCap, Briefcase, Mic2, ShieldCheck, Wrench, Phone, Globe } from 'lucide-react';
 
 // Hardcoded content from briefing for reliability
@@ -41,14 +42,16 @@ const faqSchema = {
   <main>
     <!-- SECCIÓN 1: HERO -->
     <section class="relative min-h-[95vh] flex items-center justify-center overflow-hidden pt-20">
-      <div class="absolute inset-0 z-0">
-        <img 
-          src="https://images.unsplash.com/photo-1436491865332-7a61a109c0f3?q=80&w=2070" 
-          alt="Luxury travel background" 
+      <div id="hero-parallax" class="absolute inset-0 z-0" style="will-change: transform;">
+        <img
+          src="https://images.unsplash.com/photo-1436491865332-7a61a109c0f3?q=80&w=2070"
+          alt="Avión sobrevolando destinos internacionales, imagen del sector de agencias de viajes"
           class="w-full h-full object-cover opacity-30 animate-ken-burns"
         />
         <div class="absolute inset-0 bg-gradient-to-b from-bg-dark via-bg-dark/60 to-bg-dark"></div>
       </div>
+      <!-- Capa decorativa parallax: gradiente radial dorado sutil -->
+      <div id="hero-glow" class="absolute inset-0 z-[1] pointer-events-none" style="background: radial-gradient(ellipse 60% 50% at 50% 60%, rgba(201,168,76,0.07) 0%, transparent 70%); will-change: transform;"></div>
       <div class="absolute inset-0 bg-noise pointer-events-none z-10"></div>
       
       <div class="container-custom relative z-10 text-center">
@@ -165,7 +168,7 @@ const faqSchema = {
     <!-- SECCIÓN 4: METODOLOGÍA -->
     <section id="metodologia" class="section bg-bg-dark relative overflow-hidden">
       <div class="absolute top-0 right-0 w-1/2 h-full opacity-5 pointer-events-none">
-        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072" alt="Decorative AI network" class="w-full h-full object-cover animate-ken-burns" />
+        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072" alt="" class="w-full h-full object-cover animate-ken-burns" role="presentation" />
       </div>
       <div class="container-custom relative z-10">
         <div class="text-center max-w-3xl mx-auto mb-20 animate-soft-reveal">
@@ -323,13 +326,15 @@ const faqSchema = {
       <div class="container-custom">
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-24">
           {[
-            { value: '+70', label: 'Agentes en comunidad' },
-            { value: '+500', label: 'Agencias en red' },
-            { value: '+20', label: 'Agentes IA operativos' },
-            { value: '15+', label: 'Años de experiencia' }
+            { value: 70,  prefix: '+', suffix: '',  label: 'Agentes en comunidad' },
+            { value: 500, prefix: '+', suffix: '',  label: 'Agencias en red' },
+            { value: 20,  prefix: '+', suffix: '',  label: 'Agentes IA operativos' },
+            { value: 15,  prefix: '',  suffix: '+', label: 'Años de experiencia' }
           ].map(s => (
-            <div class="text-center">
-              <div class="text-5xl md:text-6xl font-playfair font-bold text-gradient mb-4">{s.value}</div>
+            <div class="text-center reveal">
+              <div class="text-5xl md:text-6xl font-playfair font-bold text-gradient mb-4">
+                <CounterBadge value={s.value} prefix={s.prefix} suffix={s.suffix} client:visible />
+              </div>
               <p class="text-xs font-jetbrains text-text-muted uppercase tracking-widest">{s.label}</p>
             </div>
           ))}
@@ -404,6 +409,26 @@ const faqSchema = {
     </section>
   </main>
 </Layout>
+
+<script>
+  // Parallax hero — desactivado si prefers-reduced-motion
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const parallax = document.getElementById('hero-parallax');
+    const glow     = document.getElementById('hero-glow');
+    let ticking = false;
+
+    window.addEventListener('scroll', () => {
+      if (ticking) return;
+      requestAnimationFrame(() => {
+        const y = window.scrollY;
+        if (parallax) parallax.style.transform = `translateY(${y * 0.25}px)`;
+        if (glow)     glow.style.transform     = `translateY(${y * 0.15}px)`;
+        ticking = false;
+      });
+      ticking = true;
+    }, { passive: true });
+  }
+</script>
 
 <style>
   /* Base Animations */
