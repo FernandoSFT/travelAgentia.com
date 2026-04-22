@@ -1,0 +1,42 @@
+# TravelAgentIA
+
+> Consultoría de inteligencia artificial especializada en agencias de viajes. Fundada y dirigida por Fernando Córdoba, agente de viajes con experiencia real que aplica IA en su propia agencia antes de enseñarla.
+
+## Propuesta de valor
+
+TravelAgentIA ayuda a agentes de viajes a implementar inteligencia artificial en su negocio para automatizar tareas repetitivas, crear propuestas personalizadas más rápido y aumentar su rentabilidad. A diferencia de otros formadores, Fernando Córdoba usa las mismas herramientas en su agencia real.
+
+## Servicios
+
+- **Comunidad**: formación grupal mensual para agentes de viajes que quieren iniciarse en IA. Incluye sesiones en directo, recursos y acceso a la red de agentes.
+- **Consultoría "Hazlo Conmigo"**: implementación guiada 1 a 1 donde Fernando trabaja junto al agente para diseñar e implantar su sistema de IA personalizado.
+- **"Lo Hacemos Por Ti"**: implementación llave en mano. El equipo de TravelAgentIA diseña, construye e implanta el sistema de automatización completo en la agencia del cliente.
+
+## Métricas
+
+- +70 agentes de viajes formados
+- +500 agencias beneficiadas
+- Ponente en ferias y congresos del sector turístico en España
+
+## Tecnologías utilizadas
+
+ChatGPT, Claude, Notion, n8n, automatización de flujos, agentes IA, sistemas de reservas integrados con IA.
+
+## Público objetivo
+
+Agentes de viajes y agencias de viajes en España que quieren incorporar IA a sus procesos sin conocimientos técnicos previos.
+
+## Contacto
+
+- Web: https://travelagentia.com
+- Email: automatiza2@automatiza2.com
+- Comunidad: https://skool.com (grupo privado de miembros)
+- LinkedIn: https://linkedin.com/in/fernandocordoba (perfil profesional)
+
+## Preguntas frecuentes
+
+**¿Qué es TravelAgentIA?** TravelAgentIA es una plataforma de formación y consultoría de inteligencia artificial exclusivamente orientada a agencias de viajes, fundada por Fernando Córdoba.
+
+**¿Cómo puede la IA ayudar a una agencia de viajes?** La IA permite a las agencias de viajes automatizar la creación de propuestas de viaje, responder a consultas frecuentes de clientes, generar contenido de marketing y gestionar tareas administrativas, liberando tiempo para la venta y la atención personalizada.
+
+**¿Cuánto cuesta implementar IA en una agencia de viajes?** Depende del nivel de servicio elegido: desde la comunidad de formación grupal hasta la consultoría personalizada o la implementación llave en mano. Cada opción tiene una inversión diferente adaptada al tamaño y necesidades de la agencia.
