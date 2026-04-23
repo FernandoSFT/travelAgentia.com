@@ -37,6 +37,14 @@ const currentYear = new Date().getFullYear();
           <li><a href="/aviso-legal" class="text-text-muted hover:text-gold-primary transition-colors">Aviso legal</a></li>
           <li><a href="/privacidad" class="text-text-muted hover:text-gold-primary transition-colors">Política de privacidad</a></li>
           <li><a href="/cookies" class="text-text-muted hover:text-gold-primary transition-colors">Política de cookies</a></li>
+          <li>
+            <button
+              onclick="window.dispatchEvent(new CustomEvent('openCookiePanel'))"
+              class="text-text-muted hover:text-gold-primary transition-colors cursor-pointer bg-transparent border-none p-0 font-inherit text-inherit"
+            >
+              Gestionar cookies
+            </button>
+          </li>
         </ul>
       </div>
 
