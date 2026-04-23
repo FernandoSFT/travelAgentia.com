@@ -7,31 +7,106 @@ import Layout from '../layouts/Layout.astro';
     <div class="container-custom max-w-4xl">
       <span class="label-gold">LEGAL</span>
       <h1 class="text-5xl md:text-6xl mb-12 text-gradient font-playfair">Política de Privacidad</h1>
-      
+
       <div class="glass p-8 md:p-12 space-y-8 text-text-muted leading-relaxed">
+
         <section>
           <h2 class="text-xl text-white font-playfair mb-4">1. Responsable del Tratamiento</h2>
-          <p>El responsable del tratamiento de sus datos es Fernando Córdoba, con domicilio profesional en Andújar, Jaén. Puede contactar con nosotros a través de <a href="mailto:automatiza2@automatiza2.com" class="text-gold-primary hover:underline">automatiza2@automatiza2.com</a>.</p>
+          <ul class="space-y-1">
+            <li><strong class="text-white">Identidad:</strong> Fernando Córdoba</li>
+            <li><strong class="text-white">Domicilio profesional:</strong> Andújar, Jaén (España)</li>
+            <li><strong class="text-white">Correo electrónico:</strong> <a href="mailto:automatiza2@automatiza2.com" class="text-gold-primary hover:underline">automatiza2@automatiza2.com</a></li>
+            <li><strong class="text-white">Sitio web:</strong> https://travelagentia.com</li>
+          </ul>
         </section>
 
         <section>
           <h2 class="text-xl text-white font-playfair mb-4">2. Finalidad del Tratamiento</h2>
           <p>Tratamos sus datos personales para las siguientes finalidades:</p>
           <ul class="list-disc pl-5 mt-2 space-y-2">
-            <li>Gestionar las solicitudes de información y reservas de consultoría.</li>
-            <li>Envío de comunicaciones comerciales relacionadas con nuestros servicios (solo si lo autoriza).</li>
-            <li>Gestión de la comunidad de agentes de viajes.</li>
+            <li>Gestionar las solicitudes de información y reservas de consultoría recibidas a través del formulario de contacto.</li>
+            <li>Envío de comunicaciones comerciales relacionadas con nuestros servicios (solo si lo autoriza expresamente).</li>
+            <li>Gestión de la comunidad de agentes de viajes y del programa de formación.</li>
+            <li>Análisis estadístico anónimo del uso del sitio web para su mejora continua.</li>
           </ul>
         </section>
 
         <section>
-          <h2 class="text-xl text-white font-playfair mb-4">3. Legitimación</h2>
-          <p>La base legal para el tratamiento de sus datos es el consentimiento del interesado al contactar con nosotros o contratar nuestros servicios.</p>
+          <h2 class="text-xl text-white font-playfair mb-4">3. Base Legal del Tratamiento</h2>
+          <ul class="list-disc pl-5 space-y-2">
+            <li><strong class="text-white">Formulario de contacto:</strong> consentimiento del interesado (art. 6.1.a RGPD).</li>
+            <li><strong class="text-white">Estadísticas web anónimas (Plausible):</strong> interés legítimo (art. 6.1.f RGPD), al no utilizarse cookies ni identificadores personales.</li>
+            <li><strong class="text-white">Google Calendar (reserva de citas):</strong> consentimiento explícito del usuario antes de activar el servicio (art. 6.1.a RGPD).</li>
+          </ul>
         </section>
 
         <section>
-          <h2 class="text-xl text-white font-playfair mb-4">4. Derechos</h2>
-          <p>Usted tiene derecho a acceder, rectificar y suprimir sus datos, así como otros derechos explicados en la información adicional que puede solicitar por correo electrónico.</p>
+          <h2 class="text-xl text-white font-playfair mb-4">4. Plazo de Conservación</h2>
+          <p>Los datos facilitados a través del formulario de contacto se conservarán mientras exista un interés mutuo para mantener la comunicación y, en todo caso, durante el tiempo necesario para atender posibles responsabilidades legales. Las preferencias de cookies se almacenan localmente en su navegador durante un máximo de 24 meses.</p>
+        </section>
+
+        <section>
+          <h2 class="text-xl text-white font-playfair mb-4">5. Encargados del Tratamiento</h2>
+          <p>Para prestar nuestros servicios utilizamos los siguientes proveedores externos, con los que hemos suscrito los correspondientes acuerdos de tratamiento de datos:</p>
+          <div class="overflow-x-auto mt-4">
+            <table class="w-full text-sm border-collapse">
+              <thead>
+                <tr class="border-b border-white/20">
+                  <th class="text-left py-2 pr-4 text-white font-semibold">Proveedor</th>
+                  <th class="text-left py-2 pr-4 text-white font-semibold">Finalidad</th>
+                  <th class="text-left py-2 text-white font-semibold">País</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-white/10">
+                <tr>
+                  <td class="py-2 pr-4">Plausible Analytics (Plausible Insights OÜ)</td>
+                  <td class="py-2 pr-4">Estadísticas de visitas anónimas</td>
+                  <td class="py-2">UE (Estonia)</td>
+                </tr>
+                <tr>
+                  <td class="py-2 pr-4">n8n / automatiza2.com</td>
+                  <td class="py-2 pr-4">Procesado de formularios de contacto y automatizaciones</td>
+                  <td class="py-2">UE</td>
+                </tr>
+                <tr>
+                  <td class="py-2 pr-4">Notion Labs, Inc.</td>
+                  <td class="py-2 pr-4">Gestión de contenidos del sitio web</td>
+                  <td class="py-2">EE.UU. *</td>
+                </tr>
+                <tr>
+                  <td class="py-2 pr-4">Google LLC (Google Calendar)</td>
+                  <td class="py-2 pr-4">Herramienta de reserva de citas (solo si acepta cookies funcionales)</td>
+                  <td class="py-2">EE.UU. *</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="text-sm mt-3 italic">* Las transferencias a EE.UU. se realizan al amparo de las Cláusulas Contractuales Tipo aprobadas por la Comisión Europea y/o el Marco de Privacidad de Datos UE-EE.UU. (Data Privacy Framework).</p>
+        </section>
+
+        <section>
+          <h2 class="text-xl text-white font-playfair mb-4">6. Transferencias Internacionales</h2>
+          <p>Algunos de nuestros proveedores (Notion, Google) tienen sede en Estados Unidos. Estas transferencias están amparadas por las garantías adecuadas establecidas en el RGPD, concretamente las Cláusulas Contractuales Tipo (art. 46 RGPD) y/o la certificación de los proveedores en el Marco de Privacidad de Datos UE-EE.UU.</p>
+        </section>
+
+        <section>
+          <h2 class="text-xl text-white font-playfair mb-4">7. Derechos del Interesado</h2>
+          <p>Puede ejercer los siguientes derechos dirigiéndose a <a href="mailto:automatiza2@automatiza2.com" class="text-gold-primary hover:underline">automatiza2@automatiza2.com</a>:</p>
+          <ul class="list-disc pl-5 mt-2 space-y-1">
+            <li><strong class="text-white">Acceso:</strong> conocer qué datos personales tratamos sobre usted.</li>
+            <li><strong class="text-white">Rectificación:</strong> corregir datos inexactos o incompletos.</li>
+            <li><strong class="text-white">Supresión:</strong> solicitar la eliminación de sus datos cuando ya no sean necesarios.</li>
+            <li><strong class="text-white">Limitación:</strong> solicitar que suspendamos el tratamiento de sus datos.</li>
+            <li><strong class="text-white">Portabilidad:</strong> recibir sus datos en formato estructurado y de uso común.</li>
+            <li><strong class="text-white">Oposición:</strong> oponerse al tratamiento basado en interés legítimo.</li>
+            <li><strong class="text-white">Retirada del consentimiento:</strong> en cualquier momento y sin que ello afecte a la licitud del tratamiento previo.</li>
+          </ul>
+          <p class="mt-3">Si considera que el tratamiento de sus datos no se ajusta a la normativa vigente, puede presentar una reclamación ante la <strong class="text-white">Agencia Española de Protección de Datos (AEPD)</strong> en <a href="https://www.aepd.es" target="_blank" rel="noopener noreferrer" class="text-gold-primary hover:underline">www.aepd.es</a>.</p>
+        </section>
+
+        <section>
+          <h2 class="text-xl text-white font-playfair mb-4">8. Cookies y Tecnologías Similares</h2>
+          <p>Este sitio web utiliza cookies técnicas propias y, bajo su consentimiento, servicios de terceros que pueden establecer cookies. Puede consultar el detalle completo en nuestra <a href="/cookies" class="text-gold-primary hover:underline">Política de Cookies</a> y gestionar sus preferencias en cualquier momento haciendo clic en "Gestionar cookies" en el pie de página.</p>
         </section>
 
         <p class="text-sm italic mt-8 border-t border-bg-border pt-8">Última actualización: Abril de 2026.</p>
