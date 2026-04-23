@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python agent/scripts/login.py*)",
+      "Bash(python agent/scripts/navigate.py*)",
+      "Bash(python agent/scripts/search.py*)",
+      "Bash(python agent/scripts/extract.py*)",
+      "Bash(python agent/scripts/memory.py*)",
+      "Bash(pip install -r agent/requirements.txt)",
+      "Bash(cat agent/memory/routing.json)"
+    ]
+  }
+}

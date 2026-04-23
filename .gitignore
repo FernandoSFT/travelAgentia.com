@@ -36,6 +36,13 @@ yarn-error.log*
 .env.local
 .env.*.local
 .env*
+!**/.env.example
+
+# agent
+agent/__pycache__/
+agent/**/__pycache__/
+agent/venv/
+agent/.venv/
 
 # vercel
 .vercel
