@@ -1,6 +1,13 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import FAQAccordion from '../components/FAQAccordion';
+import { getFaqs } from '../lib/notion';
+
+const faqs = await getFaqs();
+const faqItems = faqs.map(faq => ({
+  question: faq.Pregunta,
+  answer: faq.Respuesta,
+}));
 ---
 
 <Layout title="Preguntas Frecuentes | TravelAgentIA">
@@ -15,7 +22,7 @@ import FAQAccordion from '../components/FAQAccordion';
       </div>
 
       <div class="max-w-4xl mx-auto">
-        <FAQAccordion client:visible />
+        <FAQAccordion client:visible faqs={faqItems} />
       </div>
 
       <div class="mt-20 text-center glass p-12 rounded-2xl border-white/5">

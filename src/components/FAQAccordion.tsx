@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 
-const faqs = [
+interface FAQ {
+  question: string;
+  answer: string;
+}
+
+const defaultFaqs: FAQ[] = [
   {
     question: '¿Necesito saber de tecnología o programación?',
     answer: 'No. Mis servicios están diseñados para agentes de viajes, no para informáticos. Si sabes usar el correo electrónico y un navegador, puedes aplicar IA en tu agencia. Yo me encargo de la parte técnica y tú aprendes a usar las herramientas.'
@@ -32,14 +37,19 @@ const faqs = [
   }
 ];
 
-export default function FAQAccordion() {
+interface FAQAccordionProps {
+  faqs?: FAQ[];
+}
+
+export default function FAQAccordion({ faqs }: FAQAccordionProps) {
+  const items = faqs && faqs.length > 0 ? faqs : defaultFaqs;
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
     <div className="max-w-3xl mx-auto space-y-4">
-      {faqs.map((faq, index) => (
-        <div 
-          key={index} 
+      {items.map((faq, index) => (
+        <div
+          key={index}
           className={`border border-[#2D2D2D] rounded-xl overflow-hidden transition-all duration-300 ${openIndex === index ? 'border-[#C9A84C] bg-white/5' : 'hover:border-[#C9A84C]/50'}`}
         >
           <button
@@ -49,12 +59,12 @@ export default function FAQAccordion() {
             <span className={`text-lg font-semibold transition-colors ${openIndex === index ? 'text-[#C9A84C]' : 'text-white group-hover:text-[#E8D48B]'}`}>
               {faq.question}
             </span>
-            <ChevronDown 
-              className={`w-5 h-5 transition-transform duration-300 ${openIndex === index ? 'rotate-180 text-[#C9A84C]' : 'text-gray-500'}`} 
+            <ChevronDown
+              className={`w-5 h-5 transition-transform duration-300 ${openIndex === index ? 'rotate-180 text-[#C9A84C]' : 'text-gray-500'}`}
             />
           </button>
-          
-          <div 
+
+          <div
             className={`transition-all duration-300 ease-in-out overflow-hidden ${openIndex === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}
           >
             <div className="p-6 pt-0 text-gray-300 leading-relaxed border-t border-[#2D2D2D]/50">

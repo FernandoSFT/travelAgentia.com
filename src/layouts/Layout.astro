@@ -11,23 +11,130 @@ interface Props {
 
 const { title, description = "Inteligencia Artificial que funciona porque la usamos cada día. De agente a agente." } = Astro.props;
 
-// JSON-LD schemas
+const pathname = Astro.url.pathname;
+const isFaq = pathname === '/faq';
+const isServicios = pathname === '/servicios' || pathname.startsWith('/servicios/');
+const isHome = pathname === '/';
+
+// Base schemas (always present)
 const personSchema = {
 	"@context": "https://schema.org",
 	"@type": "Person",
 	"name": "Fernando Córdoba",
 	"jobTitle": "Consultor de IA para agencias de viajes",
 	"url": Astro.site?.toString() || "https://travelagentia.com",
+	"sameAs": [
+		"https://www.linkedin.com/in/fernandocordoba",
+		"https://www.instagram.com/safetour.es"
+	]
 };
 
-const serviceSchema = {
+const professionalServiceSchema = {
 	"@context": "https://schema.org",
 	"@type": "ProfessionalService",
 	"name": "TravelAgentIA",
+	"description": "Consultoría, formación y automatización de IA para agencias de viajes. De agente a agente.",
 	"areaServed": "ES",
 	"priceRange": "€€",
 	"url": Astro.site?.toString() || "https://travelagentia.com",
+	"telephone": "+34 717 717 266",
+	"email": "automatiza2@automatiza2.com"
 };
+
+const localBusinessSchema = {
+	"@context": "https://schema.org",
+	"@type": "LocalBusiness",
+	"name": "SAFE TOUR — Agencia de Viajes",
+	"description": "Agencia de viajes en Andújar (Jaén) gestionada por Fernando Córdoba, pionera en el uso de IA para agencias de viajes.",
+	"url": "https://safetour.es",
+	"address": {
+		"@type": "PostalAddress",
+		"addressLocality": "Andújar",
+		"addressRegion": "Jaén",
+		"addressCountry": "ES"
+	},
+	"areaServed": "España",
+	"priceRange": "€€€"
+};
+
+// FAQPage schema — only on /faq
+const faqSchema = isFaq ? {
+	"@context": "https://schema.org",
+	"@type": "FAQPage",
+	"mainEntity": [
+		{
+			"@type": "Question",
+			"name": "¿Necesito saber de tecnología o programación?",
+			"acceptedAnswer": {
+				"@type": "Answer",
+				"text": "No. Mis servicios están diseñados para agentes de viajes, no para informáticos. Si sabes usar el correo electrónico y un navegador, puedes aplicar IA en tu agencia."
+			}
+		},
+		{
+			"@type": "Question",
+			"name": "¿En qué se diferencia esto de un curso de ChatGPT?",
+			"acceptedAnswer": {
+				"@type": "Answer",
+				"text": "Te implementamos un sistema completo, adaptado a tu negocio real: tus expedientes, tus proveedores, tus clientes, tu forma de cobrar."
+			}
+		},
+		{
+			"@type": "Question",
+			"name": "¿Cuánto tiempo tarda en verse resultados?",
+			"acceptedAnswer": {
+				"@type": "Answer",
+				"text": "Desde el primer día. En la comunidad, en una semana ya estás usando prompts que te ahorran tiempo real. Con consultoría guiada, en 2-4 semanas tienes los primeros procesos automatizados."
+			}
+		},
+		{
+			"@type": "Question",
+			"name": "¿Funciona para agencias pequeñas?",
+			"acceptedAnswer": {
+				"@type": "Answer",
+				"text": "Especialmente para agencias pequeñas. Donde más impacto tiene la IA es en agencias de 1-5 personas que necesitan multiplicar su capacidad sin contratar."
+			}
+		},
+		{
+			"@type": "Question",
+			"name": "¿Qué herramientas se usan?",
+			"acceptedAnswer": {
+				"@type": "Answer",
+				"text": "Principalmente Notion, n8n, GPTs personalizados y herramientas de IA generativa. El sistema es lo importante, no la herramienta."
+			}
+		}
+	]
+} : null;
+
+// Service schemas — only on /servicios
+const serviceSchema = isServicios ? [
+	{
+		"@context": "https://schema.org",
+		"@type": "Service",
+		"name": "Comunidad TravelAgentIA",
+		"description": "Comunidad activa de agentes de viaje que aplican IA en su día a día. Sesiones en vivo, biblioteca de GPTs, prompts probados y soporte entre pares.",
+		"provider": { "@type": "Person", "name": "Fernando Córdoba" },
+		"areaServed": "ES",
+		"serviceType": "Formación en IA"
+	},
+	{
+		"@context": "https://schema.org",
+		"@type": "Service",
+		"name": "Consultoría \"Hazlo Conmigo\"",
+		"description": "Implementación personalizada de IA en tu agencia con acompañamiento 1:1. Diagnóstico, hoja de ruta, configuración y soporte.",
+		"provider": { "@type": "Person", "name": "Fernando Córdoba" },
+		"areaServed": "ES",
+		"serviceType": "Consultoría de IA"
+	},
+	{
+		"@context": "https://schema.org",
+		"@type": "Service",
+		"name": "Llaves en Mano",
+		"description": "Implementación completa del ecosistema de IA para tu agencia. Auditoría, diseño, construcción, formación y soporte post-implementación.",
+		"provider": { "@type": "Person", "name": "Fernando Córdoba" },
+		"areaServed": "ES",
+		"serviceType": "Implementación de IA"
+	}
+] : null;
 ---
 
 <!doctype html>
@@ -39,20 +146,33 @@ const serviceSchema = {
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title} | TravelAgentIA</title>
-		
+
 		<!-- Open Graph / Twitter -->
 		<meta property="og:title" content={`${title} | TravelAgentIA`} />
 		<meta property="og:description" content={description} />
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content={Astro.url} />
+		<meta property="og:image" content="/images/og.svg" />
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content={`${title} | TravelAgentIA`} />
 		<meta name="twitter:description" content={description} />
-		
-		<!-- JSON-LD -->
+		<meta name="twitter:image" content="/images/og.png" />
+
+		<!-- JSON-LD — Base -->
 		<script is:inline type="application/ld+json" set:html={JSON.stringify(personSchema)} />
-		<script is:inline type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
-		
+		<script is:inline type="application/ld+json" set:html={JSON.stringify(professionalServiceSchema)} />
+		<script is:inline type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
+
+		<!-- JSON-LD — Conditional -->
+		{isFaq && faqSchema && (
+			<script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+		)}
+		{isServicios && serviceSchema && (
+			serviceSchema.map(schema => (
+				<script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
+			))
+		)}
+
 		{import.meta.env.PUBLIC_GSC_VERIFICATION && (
 			<meta name="google-site-verification" content={import.meta.env.PUBLIC_GSC_VERIFICATION} />
 		)}
@@ -60,7 +180,7 @@ const serviceSchema = {
 		{import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN && (
 			<script is:inline defer data-domain={import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN} src="https://plausible.io/js/script.tagged-events.outbound-links.js"></script>
 		)}
-		
+
 		<slot name="head" />
 	</head>
 	<body>
@@ -81,22 +201,18 @@ const serviceSchema = {
 				const href = link.getAttribute('href') || '';
 				const className = link.className || '';
 
-				// Download Media Kit
 				if (className.includes('plausible-event-name=Download+Media+Kit')) {
 					track('Download Media Kit');
 				}
 
-				// Reserva Cita Click
 				if (href.includes('/reserva-cita') || href.includes('calendar.app.google')) {
 					track('Reserva Cita Click');
 				}
 
-				// WhatsApp Click
 				if (href.startsWith('wa.me') || href.startsWith('whatsapp://') || href.startsWith('https://wa.me')) {
 					track('WhatsApp Click');
 				}
 
-				// Email Click
 				if (href.startsWith('mailto:')) {
 					track('Email Click');
 				}

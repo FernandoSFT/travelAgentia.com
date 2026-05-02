@@ -1,17 +1,22 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getBlog } from '../../lib/notion';
+import { getBlogPost, getBlog } from '../../lib/notion';
 import { Calendar, ChevronLeft, User } from 'lucide-react';
 
 export async function getStaticPaths() {
   const posts = await getBlog();
   return posts.map(post => ({
     params: { slug: post.Slug },
-    props: { post },
+    props: { slug: post.Slug },
   }));
 }
 
-const { post } = Astro.props;
+const { slug } = Astro.props;
+const post = await getBlogPost(slug);
+
+if (!post) {
+  return Astro.redirect('/404');
+}
 ---
 
 <Layout title={`${post.Título} | Blog | TravelAgentIA`}>
@@ -34,7 +39,7 @@ const { post } = Astro.props;
               Fernando Córdoba
             </span>
           </div>
-          
+
           <h1 class="text-4xl md:text-6xl text-white font-playfair mb-8 leading-tight">
             {post.Título}
           </h1>
@@ -47,7 +52,7 @@ const { post } = Astro.props;
         </header>
 
         <div class="glass p-8 md:p-12">
-          <div class="prose-luxury" set:html={post.Cuerpo}></div>
+          <div class="prose-luxury" set:html={post.Cuerpo || '<p>Contenido en preparación.</p>'}></div>
         </div>
       </article>
 

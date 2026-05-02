@@ -339,11 +339,54 @@ export async function getBlog(): Promise<any[]> {
     Slug: getPlainText(row.properties["Slug"]),
     Fecha: getDate(row.properties["Fecha publicación"]),
     Resumen: getPlainText(row.properties["Resumen (meta description)"]),
-    Cuerpo: "",  // Blog body content would come from page blocks, not a property
+    Cuerpo: "",
+    _pageId: row.id,  // needed to fetch blocks separately
     Categoría: getSelect(row.properties["Tipo"]),
     Tags: getMultiSelect(row.properties["Tags"]),
     Imagen: await getFiles(row.properties["Portada"]),
     Destacado: getCheckbox(row.properties["Destacado"]),
     Publicado: getCheckbox(row.properties["Publicado"]),
   }), [], [{ property: "Fecha publicación", direction: "descending" }]);
+}
+
+export async function getBlogPost(slug: string): Promise<any | null> {
+  if (IS_MOCK) return null;
+
+  try {
+    // Search for the post by slug property
+    const response = await notion!.dataSources.query({
+      data_source_id: getEnv("DS_BLOG"),
+      filter: {
+        property: "Slug",
+        rich_text: { equals: slug },
+      },
+    });
+
+    if (!response.results.length) return null;
+
+    const row = response.results[0];
+    const pageId = row.id;
+
+    // Fetch blocks using the page blocks API
+    const { NotionToMarkdown } = await import("notion-to-md");
+    const n2m = new NotionToMarkdown({ notionClient: notion! });
+    const mdBlocks = await n2m.pageToMarkdown(pageId);
+    const bodyMarkdown = n2m.toMarkdownString(mdBlocks);
+
+    return {
+      Título: getPlainText(row.properties["Título"]),
+      Slug: getPlainText(row.properties["Slug"]),
+      Fecha: getDate(row.properties["Fecha publicación"]),
+      Resumen: getPlainText(row.properties["Resumen (meta description)"]),
+      Cuerpo: bodyMarkdown.parent,
+      Categoría: getSelect(row.properties["Tipo"]),
+      Tags: getMultiSelect(row.properties["Tags"]),
+      Imagen: await getFiles(row.properties["Portada"]),
+      Destacado: getCheckbox(row.properties["Destacado"]),
+      Publicado: getCheckbox(row.properties["Publicado"]),
+    };
+  } catch (error: any) {
+    console.error(`[notion] ✗ Error fetching blog post "${slug}":`, error?.message?.slice(0, 200));
+    return null;
+  }
 }

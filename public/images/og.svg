@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0A0A0A"/>
+      <stop offset="100%" stop-color="#1A1A1A"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#C9A84C"/>
+      <stop offset="50%" stop-color="#E8D48B"/>
+      <stop offset="100%" stop-color="#C9A84C"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Subtle grid pattern -->
+  <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1A1A1A" stroke-width="1"/>
+  </pattern>
+  <rect width="1200" height="630" fill="url(#grid)" opacity="0.5"/>
+
+  <!-- Gold decorative line top -->
+  <rect x="400" y="80" width="400" height="2" fill="url(#gold)"/>
+
+  <!-- Star decoration -->
+  <text x="600" y="145" font-size="24" fill="#C9A84C" text-anchor="middle" font-family="serif">✦</text>
+
+  <!-- Main title -->
+  <text x="600" y="260" font-size="72" font-weight="700" fill="url(#gold)"
+        text-anchor="middle" font-family="Georgia, serif" letter-spacing="2">
+    TravelAgentIA
+  </text>
+
+  <!-- Tagline -->
+  <text x="600" y="330" font-size="28" fill="#A0A0A0"
+        text-anchor="middle" font-family="sans-serif">
+    De agente a agente
+  </text>
+
+  <!-- Gold decorative line bottom -->
+  <rect x="400" y="370" width="400" height="2" fill="url(#gold)"/>
+
+  <!-- Subtitle -->
+  <text x="600" y="440" font-size="22" fill="#F5F5F5"
+        text-anchor="middle" font-family="sans-serif">
+    Consultoría de IA para agencias de viajes
+  </text>
+
+  <!-- URL -->
+  <text x="600" y="520" font-size="18" fill="#666"
+        text-anchor="middle" font-family="monospace">
+    travelagentia.com
+  </text>
+
+  <!-- Logo placeholder box (replace with actual logo) -->
+  <!-- TODO: Replace with logo.png from /public/images/logo.png -->
+  <rect x="550" y="540" width="100" height="40" fill="none" stroke="#C9A84C" stroke-width="1" rx="4"/>
+  <text x="600" y="565" font-size="12" fill="#C9A84C" text-anchor="middle" font-family="monospace">[LOGO]</text>
+</svg>
