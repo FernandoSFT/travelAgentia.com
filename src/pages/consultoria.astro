@@ -1,12 +1,12 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import DynamicBackground from '../components/ui/DynamicBackground.astro';
-import { Monitor, Check, Clock, FileSearch, Zap, MessageSquare, ArrowRight } from 'lucide-react';
+import { Monitor, Check, Clock, Users, Zap, MessageSquare, ArrowRight } from 'lucide-react';
 ---
 
 <Layout
   title="Consultoría IA para Agencias de Viajes | 150€/hora | TravelAgentIA"
-  description="Consultoría de IA para agencias de viajes: yo hago el trabajo por ti. Búsquedas complejas, automatizaciones, respuestas difíciles. 150€/hora por videoconferencia."
+  description="Consultoría de IA para agencias de viajes: te guío personalmente para que implantes IA en tu oficina. Formación a tus empleados incluida. 150€/hora por videoconferencia."
   ogImage="/images/og/og-consultoria.png"
 >
   <main class="pt-32 pb-20">
@@ -19,10 +19,10 @@ import { Monitor, Check, Clock, FileSearch, Zap, MessageSquare, ArrowRight } fro
         <div class="max-w-3xl">
           <span class="label-gold">CONSULTORÍA</span>
           <h1 class="text-5xl md:text-6xl mb-6 text-gradient font-playfair">
-            Yo hago el trabajo.<br />Tú te centras en vender.
+            Te guío para que<br />lo implantes tú mismo.
           </h1>
           <p class="text-xl text-text-muted mb-4">
-            Videoconferencia. Sin compromiso. Empatía profesional de agente a agente.
+            Te acompaño en el proceso. Tú haces el trabajo; yo aseguro que se haga bien.
           </p>
           <div class="flex items-center gap-3 text-gold-primary text-lg font-jetbrains">
             <Clock class="w-5 h-5" />
@@ -39,12 +39,16 @@ import { Monitor, Check, Clock, FileSearch, Zap, MessageSquare, ArrowRight } fro
           <div>
             <h2 class="text-3xl font-playfair text-white mb-6">¿Qué es la consultoría?</h2>
             <p class="text-text-muted text-lg mb-6 leading-relaxed">
-              Es simple: me cuentas tu problema, yo lo investigo, lo pruebo y te doy la solución funcionando. 
-              No te enseño a pescar — <strong class="text-white">te echo el pez al cubo</strong>.
+              No te entrego una solución acabada — <strong class="text-white">te guío para que la construyas tú</strong>.
+              Reviso cómo trabajas, identifico dónde puedes aplicar IA, y te acompaño paso a paso en la implantación.
             </p>
-            <p class="text-text-muted text-lg mb-8 leading-relaxed">
+            <p class="text-text-muted text-lg mb-6 leading-relaxed">
               Como sigo gestionando mi agencia cada día, conozco de primera mano las herramientas, los flujos y los 
               problemas reales del sector. Sin teoría hueca.
+            </p>
+            <p class="text-text-muted text-lg mb-8 leading-relaxed">
+              <strong class="text-white">La formación a tus empleados es parte del proceso.</strong> 
+              Si tu equipo necesita aprender a usar lo que implantamos, lo trabajamos juntos.
             </p>
 
             <a href="/reservar" class="btn-primary inline-flex items-center gap-2">
@@ -53,12 +57,12 @@ import { Monitor, Check, Clock, FileSearch, Zap, MessageSquare, ArrowRight } fro
           </div>
 
           <div class="space-y-6">
-            <h3 class="text-sm font-jetbrains text-gold-primary uppercase tracking-widest">Ejemplos de lo que puedo hacer por ti</h3>
+            <h3 class="text-sm font-jetbrains text-gold-primary uppercase tracking-widest">Qué incluye la consultoría</h3>
             {[
-              { icon: FileSearch, title: 'Búsqueda compleja', desc: 'Ese hotel imposible, ese destino con condiciones raras, ese cliente VIP que necesita todo perfecto.' },
-              { icon: Zap, title: 'Automatizaciones', desc: 'Te monto flujos en n8n o Notion que hacen el trabajo repetitivo solos.' },
-              { icon: MessageSquare, title: 'Respuestas difíciles', desc: 'Redacto emails, reclamaciones, propuestas comerciales complicadas.' },
-              { icon: Monitor, title: 'Análisis de mercado', desc: 'Investigación de proveedores, competencia, tarifas, oportunidades.' },
+              { icon: Users, title: 'Guiado personal', desc: 'Sesiones one-to-one donde reviso tu situación, detecto oportunidades y te doy un plan de acción concreto.' },
+              { icon: Zap, title: 'Implantación en tu oficina', desc: 'No en abstracto — trabajo con tu entorno real, tus herramientas y tus procesos.' },
+              { icon: Monitor, title: 'Formación a tu equipo', desc: 'Tus empleados aprenden a usar lo que implantamos. Tú luego les guías con mi método.' },
+              { icon: MessageSquare, title: 'Sin dependencia', desc: 'Mi objetivo es que cada vez me necesites menos. Te doy las claves para que sigas solo.' },
             ].map(item => (
               <div class="premium-card flex gap-4 items-start">
                 <item.icon class="w-6 h-6 text-gold-primary shrink-0 mt-1" />
@@ -83,9 +87,9 @@ import { Monitor, Check, Clock, FileSearch, Zap, MessageSquare, ArrowRight } fro
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           {[
-            { n: '01', title: 'Me cuentas tu problema', desc: 'Sesión inicial breve para entender qué necesitas resolver. Gratuita y sin compromiso.' },
-            { n: '02', title: 'Yo trabajo en ello', desc: 'Investigo, pruebo y construyo la solución. Me grabo en vídeo para que veas cómo lo hago.' },
-            { n: '03', title: 'Te entrego funcionando', desc: 'Recibes la solución lista para usar: documento, automatismo, respuesta o flujo de trabajo.' },
+            { n: '01', title: 'Diagnóstico inicial', desc: 'Sesión breve para entender cómo trabajas, qué herramientas tienes y dónde está el potencial de IA.' },
+            { n: '02', title: 'Plan de implantación', desc: 'Te doy un roadmap concreto: qué hacer, en qué orden, con qué herramientas. Tú lo ejecutas con mi guía.' },
+            { n: '03', title: 'Seguimiento y ajuste', desc: 'Revisamos avances, resolvemos dudas, formamos a tu equipo. Sesiones según tu ritmo.' },
           ].map(step => (
             <div class="premium-card text-center relative">
               <span class="absolute -top-4 left-1/2 -translate-x-1/2 text-5xl font-playfair text-gold-primary/10">{step.n}</span>
@@ -103,12 +107,14 @@ import { Monitor, Check, Clock, FileSearch, Zap, MessageSquare, ArrowRight } fro
         <div class="premium-card p-8 md:p-12">
           <h2 class="text-2xl font-playfair text-white mb-6">⚠️ ¿Consultoría o Formación?</h2>
           <p class="text-text-muted mb-6 leading-relaxed">
-            <strong class="text-white">Consultoría = yo hago el trabajo por ti.</strong> Ideal cuando no tienes tiempo, 
-            cuando el problema es puntual o cuando necesitas una solución que no sabes ni por dónde empezar.
+            <strong class="text-white">Consultoría = te guío para que implantes IA en tu agencia.</strong> 
+            La formación a tus empleados es parte del proceso. Ideal cuando quieres que la IA quede integrada de 
+            verdad en tu día a día — no en una sesión formativa genérica.
           </p>
           <p class="text-text-muted leading-relaxed">
-            Si prefieres que tu equipo aprenda a hacerlo solos, mira <a href="/formacion" class="text-gold-primary underline">Formación</a>: 
-            sesiones formativas a 60€/hora para que tu plantilla gane autonomía con la IA.
+            Si solo necesitas que tu equipo aprenda a usar herramientas de IA sin un proceso de implantación 
+            personalizado, mira <a href="/formacion" class="text-gold-primary underline">Formación</a>: 
+            sesiones formativas a 60€/hora con contenido adaptado a su puesto.
           </p>
         </div>
       </div>
@@ -117,9 +123,9 @@ import { Monitor, Check, Clock, FileSearch, Zap, MessageSquare, ArrowRight } fro
     <!-- CTA FINAL -->
     <section class="py-20 border-t border-bg-border">
       <div class="container-custom text-center">
-        <h2 class="text-3xl font-playfair text-white mb-6">¿Tienes un problema que resolver?</h2>
+        <h2 class="text-3xl font-playfair text-white mb-6">¿Hablamos?</h2>
         <p class="text-text-muted mb-10 max-w-xl mx-auto">
-          Sesión inicial gratuita. Sin compromiso. Hablamos, veo si puedo ayudarte y te digo el alcance aproximado.
+          Sesión inicial gratuita. Sin compromiso. Vemos tu situación y te digo si la consultoría tiene sentido para ti.
         </p>
         <a href="/reservar" class="btn-primary px-12 py-4 text-lg">RESERVAR SESIÓN GRATUITA</a>
       </div>
