@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import DynamicBackground from '../../components/ui/DynamicBackground.astro';
 import { getBlog } from '../../lib/notion';
 import { Calendar, Tag, ArrowRight } from 'lucide-react';
 
@@ -8,15 +9,24 @@ const posts = await getBlog();
 
 <Layout title="Blog | IA para Agencias de Viajes | TravelAgentIA">
   <main class="pt-32 pb-20">
-    <div class="container-custom">
-      <div class="text-center max-w-3xl mx-auto mb-20">
-        <span class="label-gold">CONOCIMIENTO COMPARTIDO</span>
-        <h1 class="text-5xl md:text-6xl mb-6 text-gradient font-playfair">Blog de TravelAgentIA</h1>
-        <p class="text-lg text-text-muted">
-          Ideas, tutoriales y reflexiones sobre cómo la Inteligencia Artificial está cambiando las reglas del juego en el sector turístico.
-        </p>
+    <!-- HERO -->
+    <section class="relative pb-20 overflow-hidden">
+      <div class="absolute inset-0 z-0">
+        <DynamicBackground variant="hero" />
       </div>
+      <div class="container-custom relative z-10">
+        <div class="text-center max-w-3xl mx-auto">
+          <span class="label-gold">CONOCIMIENTO COMPARTIDO</span>
+          <h1 class="text-5xl md:text-6xl mb-6 text-gradient font-playfair">Blog de TravelAgentIA</h1>
+          <p class="text-lg text-text-muted">
+            Ideas, tutoriales y reflexiones sobre cómo la Inteligencia Artificial está cambiando las reglas del juego en el sector turístico.
+          </p>
+        </div>
+      </div>
+    </section>
 
+    <!-- POSTS GRID -->
+    <div class="container-custom">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {posts.length > 0 ? posts.map((post) => (
           <article class="premium-card flex flex-col group h-full">
@@ -34,7 +44,7 @@ const posts = await getBlog();
                 </span>
               )}
             </div>
-            
+
             <div class="flex items-center gap-4 text-xs text-text-muted mb-4 font-jetbrains">
               <span class="flex items-center gap-1">
                 <Calendar class="w-3 h-3" />
@@ -45,7 +55,7 @@ const posts = await getBlog();
             <h2 class="text-xl text-white font-playfair mb-4 group-hover:text-gold-primary transition-colors leading-tight">
               {post.Título}
             </h2>
-            
+
             <p class="text-sm text-text-muted mb-8 line-clamp-3 flex-grow">
               {post.Resumen}
             </p>

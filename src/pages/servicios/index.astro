@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import DynamicBackground from '../../components/ui/DynamicBackground.astro';
 import { Users, Compass, Key, Check, Zap, Layers, BarChart3, Bot } from 'lucide-react';
 ---
 
@@ -7,12 +8,7 @@ import { Users, Compass, Key, Check, Zap, Layers, BarChart3, Bot } from 'lucide-
   <main class="pt-32 pb-20">
     <section class="relative pt-32 pb-20 overflow-hidden">
       <div class="absolute inset-0 z-0">
-        <img 
-          src="https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=2074" 
-          alt="Services background" 
-          class="w-full h-full object-cover opacity-10 animate-ken-burns"
-        />
-        <div class="absolute inset-0 bg-gradient-to-b from-bg-dark via-transparent to-bg-dark"></div>
+        <DynamicBackground variant="hero" />
       </div>
       <div class="container-custom relative z-10">
         <div class="text-center max-w-3xl mx-auto mb-20 animate-soft-reveal">

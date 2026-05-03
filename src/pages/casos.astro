@@ -1,20 +1,29 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import DynamicBackground from '../components/ui/DynamicBackground.astro';
 import { Mail, FileText, Zap, BarChart3, Check } from 'lucide-react';
 ---
 
 <Layout title="Casos Reales de Éxito | TravelAgentIA">
   <main class="pt-32 pb-20">
-    <div class="container-custom">
-      <div class="text-center max-w-3xl mx-auto mb-20">
-        <span class="label-gold">RESULTADOS MEDIBLES</span>
-        <h1 class="text-5xl md:text-6xl mb-6 text-gradient font-playfair">Casos Reales</h1>
-        <p class="text-lg text-text-muted">
-          No teorizamos. Implementamos. Aquí tienes ejemplos reales de cómo la IA ha transformado la operativa diaria de SAFE TOUR y otras agencias colaboradoras.
-        </p>
+    <!-- HERO -->
+    <section class="relative pb-20 overflow-hidden">
+      <div class="absolute inset-0 z-0">
+        <DynamicBackground variant="hero" />
       </div>
+      <div class="container-custom relative z-10">
+        <div class="text-center max-w-3xl mx-auto">
+          <span class="label-gold">RESULTADOS MEDIBLES</span>
+          <h1 class="text-5xl md:text-6xl mb-6 text-gradient font-playfair">Casos Reales</h1>
+          <p class="text-lg text-text-muted">
+            No teorizamos. Implementamos. Aquí tienes ejemplos reales de cómo la IA ha transformado la operativa diaria de SAFE TOUR y otras agencias colaboradoras.
+          </p>
+        </div>
+      </div>
+    </section>
 
-      <div class="grid grid-cols-1 gap-12">
+    <!-- CASOS CONTENT -->
+    <div class="container-custom">
         {[
           { 
             icon: Mail, 

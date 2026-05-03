@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import DynamicBackground from '../components/ui/DynamicBackground.astro';
 import { getCharlas } from '../lib/notion';
 import { Mic2, MapPin, Calendar, Play, FileDown, ArrowRight } from 'lucide-react';
 
@@ -8,84 +9,89 @@ const charlas = await getCharlas();
 
 <Layout title="Prensa y Ponente | Fernando Córdoba | TravelAgentIA">
   <main class="pt-32 pb-20">
-    <div class="container-custom">
-      <!-- HERO -->
-      <section class="text-center max-w-4xl mx-auto mb-32">
-        <span class="label-gold">FERNANDO CÓRDOBA EN ESCENA</span>
-        <h1 class="text-5xl md:text-7xl mb-8 text-gradient font-playfair">Prensa y Ponencias</h1>
-        <p class="text-xl text-text-muted mb-12">
-          Divulgador de Inteligencia Artificial aplicada al sector turístico. Participo activamente en congresos, ferias y eventos sectoriales para ayudar a la industria a entender y adoptar el cambio tecnológico.
-        </p>
-        <div class="flex flex-wrap justify-center gap-6">
-          <a href="/reservar" class="btn-primary">SOLICITAR PONENCIA</a>
-          <a href="/images/logo.png" download class="btn-secondary flex items-center gap-2">
-            <FileDown class="w-4 h-4" /> DOSSIER DE PRENSA
-          </a>
+    <!-- HERO -->
+    <section class="relative pb-20 overflow-hidden">
+      <div class="absolute inset-0 z-0">
+        <DynamicBackground variant="hero" />
+      </div>
+      <div class="container-custom relative z-10">
+        <div class="text-center max-w-4xl mx-auto">
+          <span class="label-gold">FERNANDO CÓRDOBA EN ESCENA</span>
+          <h1 class="text-5xl md:text-7xl mb-8 text-gradient font-playfair">Prensa y Ponencias</h1>
+          <p class="text-xl text-text-muted mb-12">
+            Divulgador de Inteligencia Artificial aplicada al sector turístico. Participo activamente en congresos, ferias y eventos sectoriales para ayudar a la industria a entender y adoptar el cambio tecnológico.
+          </p>
+          <div class="flex flex-wrap justify-center gap-6">
+            <a href="/reservar" class="btn-primary">SOLICITAR PONENCIA</a>
+            <a href="/images/logo.png" download class="btn-secondary flex items-center gap-2">
+              <FileDown class="w-4 h-4" /> DOSSIER DE PRENSA
+            </a>
+          </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- LISTADO DE CHARLAS -->
-      <section>
-        <h2 class="text-3xl font-playfair mb-16 text-white text-center">Charlas y Conferencias</h2>
-        <div class="grid grid-cols-1 gap-12">
-          {charlas.length > 0 ? charlas.map((charla) => (
-            <div class="premium-card group overflow-hidden border-white/5 hover:border-gold-primary/30 transition-all">
-              <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                <!-- Imagen/Vídeo -->
-                <div class="lg:col-span-4 aspect-video lg:aspect-square bg-bg-card rounded-xl overflow-hidden border border-bg-border relative">
-                  {charla.Foto?.[0]?.url ? (
-                    <img src={charla.Foto[0].url} alt={charla.Título} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                  ) : (
-                    <div class="w-full h-full flex items-center justify-center bg-gold-primary/5">
-                       <Mic2 class="w-12 h-12 text-gold-primary/20" />
+    <!-- LISTADO DE CHARLAS -->
+    <section class="container-custom">
+      <h2 class="text-3xl font-playfair mb-16 text-white text-center">Charlas y Conferencias</h2>
+      <div class="grid grid-cols-1 gap-12">
+        {charlas.length > 0 ? charlas.map((charla) => (
+          <div class="premium-card group overflow-hidden border-white/5 hover:border-gold-primary/30 transition-all">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              <!-- Imagen/Vídeo -->
+              <div class="lg:col-span-4 aspect-video lg:aspect-square bg-bg-card rounded-xl overflow-hidden border border-bg-border relative">
+                {charla.Foto?.[0]?.url ? (
+                  <img src={charla.Foto[0].url} alt={charla.Título} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                ) : (
+                  <div class="w-full h-full flex items-center justify-center bg-gold-primary/5">
+                     <Mic2 class="w-12 h-12 text-gold-primary/20" />
+                  </div>
+                )}
+                {charla["Vídeo URL"] && (
+                  <a href={charla["Vídeo URL"]} target="_blank" class="absolute inset-0 flex items-center justify-center bg-bg-dark/20 hover:bg-bg-dark/40 transition-colors">
+                    <div class="w-16 h-16 rounded-full bg-gold-primary flex items-center justify-center text-bg-dark shadow-2xl">
+                       <Play class="w-8 w-8 fill-current ml-1" />
                     </div>
-                  )}
-                  {charla["Vídeo URL"] && (
-                    <a href={charla["Vídeo URL"]} target="_blank" class="absolute inset-0 flex items-center justify-center bg-bg-dark/20 hover:bg-bg-dark/40 transition-colors">
-                      <div class="w-16 h-16 rounded-full bg-gold-primary flex items-center justify-center text-bg-dark shadow-2xl">
-                         <Play class="w-8 h-8 fill-current ml-1" />
-                      </div>
+                  </a>
+                )}
+              </div>
+
+              <!-- Contenido -->
+              <div class="lg:col-span-8 p-4">
+                <div class="flex flex-wrap items-center gap-6 mb-6 text-xs font-jetbrains text-gold-light uppercase tracking-widest">
+                  <span class="flex items-center gap-2">
+                    <Calendar class="w-4 h-4" />
+                    {charla.Fecha?.start ? new Date(charla.Fecha.start).toLocaleDateString('es-ES', { month: 'long', year: 'numeric' }) : 'Próximamente'}
+                  </span>
+                  <span class="flex items-center gap-2">
+                    <MapPin class="w-4 h-4" />
+                    {charla.Lugar}
+                  </span>
+                </div>
+
+                <h3 class="text-2xl md:text-3xl text-white font-playfair mb-4 leading-tight">{charla.Título}</h3>
+                <p class="text-gold-primary/80 font-medium mb-6">{charla.Evento}</p>
+
+                <div class="text-text-muted text-sm leading-relaxed mb-8 max-w-2xl" set:html={charla.Resumen}></div>
+
+                <div class="flex flex-wrap gap-4">
+                  {charla["Slides URL"] && (
+                    <a href={charla["Slides URL"]} target="_blank" class="text-white hover:text-gold-primary transition-colors text-xs font-bold uppercase tracking-widest flex items-center gap-2">
+                      Ver Slides <ArrowRight class="w-4 h-4" />
                     </a>
                   )}
                 </div>
-
-                <!-- Contenido -->
-                <div class="lg:col-span-8 p-4">
-                  <div class="flex flex-wrap items-center gap-6 mb-6 text-xs font-jetbrains text-gold-light uppercase tracking-widest">
-                    <span class="flex items-center gap-2">
-                      <Calendar class="w-4 h-4" />
-                      {charla.Fecha?.start ? new Date(charla.Fecha.start).toLocaleDateString('es-ES', { month: 'long', year: 'numeric' }) : 'Próximamente'}
-                    </span>
-                    <span class="flex items-center gap-2">
-                      <MapPin class="w-4 h-4" />
-                      {charla.Lugar}
-                    </span>
-                  </div>
-
-                  <h3 class="text-2xl md:text-3xl text-white font-playfair mb-4 leading-tight">{charla.Título}</h3>
-                  <p class="text-gold-primary/80 font-medium mb-6">{charla.Evento}</p>
-                  
-                  <div class="text-text-muted text-sm leading-relaxed mb-8 max-w-2xl" set:html={charla.Resumen}></div>
-
-                  <div class="flex flex-wrap gap-4">
-                    {charla["Slides URL"] && (
-                      <a href={charla["Slides URL"]} target="_blank" class="text-white hover:text-gold-primary transition-colors text-xs font-bold uppercase tracking-widest flex items-center gap-2">
-                        Ver Slides <ArrowRight class="w-4 h-4" />
-                      </a>
-                    )}
-                  </div>
-                </div>
               </div>
             </div>
-          )) : (
-            <div class="text-center py-20 glass">
-              <p class="text-gold-primary text-4xl mb-4">🎤</p>
-              <p class="text-white text-xl font-playfair mb-3">Próximas apariciones</p>
-              <p class="text-text-muted italic">Próximamente publicaremos el calendario de charlas y ponencias.</p>
-            </div>
-          )}
-        </div>
-      </section>
-    </div>
+          </div>
+        )) : (
+          <div class="text-center py-20 glass">
+            <p class="text-gold-primary text-4xl mb-4">🎤</p>
+            <p class="text-white text-xl font-playfair mb-3">Próximas apariciones</p>
+            <p class="text-text-muted italic">Próximamente publicaremos el calendario de charlas y ponencias.</p>
+          </div>
+        )}
+      </div>
+    </section>
   </main>
 </Layout>

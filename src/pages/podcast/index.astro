@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import DynamicBackground from '../../components/ui/DynamicBackground.astro';
 import { getPodcasts } from '../../lib/notion';
 import { Mic2, Play, Calendar } from 'lucide-react';
 
@@ -8,16 +9,24 @@ const podcasts = await getPodcasts();
 
 <Layout title="Podcasts | IA para Agencias de Viajes | TravelAgentIA">
   <main class="pt-32 pb-20">
-    <div class="container-custom">
-      <div class="text-center max-w-3xl mx-auto mb-20">
-        <span class="label-gold">CONTENIDO EN AUDIO</span>
-        <h1 class="text-5xl md:text-6xl mb-6 text-gradient font-playfair">Podcasts & Charlas</h1>
-        <p class="text-lg text-text-muted">
-          Escucha nuestras reflexiones sobre la automatización y la IA aplicadas al sector travel. Episodios cortos, directos y llenos de valor.
-        </p>
+    <!-- HERO -->
+    <section class="relative pb-20 overflow-hidden">
+      <div class="absolute inset-0 z-0">
+        <DynamicBackground variant="hero" />
       </div>
+      <div class="container-custom relative z-10">
+        <div class="text-center max-w-3xl mx-auto">
+          <span class="label-gold">CONTENIDO EN AUDIO</span>
+          <h1 class="text-5xl md:text-6xl mb-6 text-gradient font-playfair">Podcasts & Charlas</h1>
+          <p class="text-lg text-text-muted">
+            Escucha nuestras reflexiones sobre la automatización y la IA aplicadas al sector travel. Episodios cortos, directos y llenos de valor.
+          </p>
+        </div>
+      </div>
+    </section>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <!-- PODCASTS GRID -->
+    <div class="container-custom">
         {podcasts.length > 0 ? podcasts.map((item) => (
           <div class="premium-card flex flex-col md:flex-row gap-8 items-center hover:border-gold-primary/30 transition-all">
             <div class="w-full md:w-48 aspect-square rounded-lg overflow-hidden border border-bg-border shrink-0 bg-bg-card relative group">

@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import DynamicBackground from '../components/ui/DynamicBackground.astro';
 import FAQAccordion from '../components/FAQAccordion';
 import { getFaqs } from '../lib/notion';
 
@@ -12,15 +13,24 @@ const faqItems = faqs.map(faq => ({
 
 <Layout title="Preguntas Frecuentes | TravelAgentIA">
   <main class="pt-32 pb-20">
-    <div class="container-custom">
-      <div class="text-center max-w-3xl mx-auto mb-20">
-        <span class="label-gold">RESOLVEMOS TUS DUDAS</span>
-        <h1 class="text-5xl md:text-6xl mb-6 text-gradient font-playfair">Preguntas Frecuentes</h1>
-        <p class="text-lg text-text-muted">
-          Sabemos que la IA puede generar incertidumbre. Aquí respondemos a las dudas más comunes que nos plantean otros agentes de viajes.
-        </p>
+    <!-- HERO -->
+    <section class="relative pb-20 overflow-hidden">
+      <div class="absolute inset-0 z-0">
+        <DynamicBackground variant="hero" />
       </div>
+      <div class="container-custom relative z-10">
+        <div class="text-center max-w-3xl mx-auto">
+          <span class="label-gold">RESOLVEMOS TUS DUDAS</span>
+          <h1 class="text-5xl md:text-6xl mb-6 text-gradient font-playfair">Preguntas Frecuentes</h1>
+          <p class="text-lg text-text-muted">
+            Sabemos que la IA puede generar incertidumbre. Aquí respondemos a las dudas más comunes que nos plantean otros agentes de viajes.
+          </p>
+        </div>
+      </div>
+    </section>
 
+    <!-- FAQ CONTENT -->
+    <div class="container-custom">
       <div class="max-w-4xl mx-auto">
         <FAQAccordion client:visible faqs={faqItems} />
       </div>

@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import FAQAccordion from '../components/FAQAccordion';
 import ContactoForm from '../components/ContactoForm';
+import DynamicBackground from '../components/ui/DynamicBackground.astro';
 import { Users, Compass, Key, Check, Clock, Bot, BookOpen, Layers, Mail, FileText, Zap, BarChart3, GraduationCap, Briefcase, Mic2, ShieldCheck, Wrench, Phone, Globe } from 'lucide-react';
 
 // Hardcoded content from briefing for reliability
@@ -12,14 +13,8 @@ import { Users, Compass, Key, Check, Clock, Bot, BookOpen, Layers, Mail, FileTex
     <!-- SECCIÓN 1: HERO -->
     <section class="relative min-h-[95vh] flex items-center justify-center overflow-hidden pt-20">
       <div class="absolute inset-0 z-0">
-        <img 
-          src="https://images.unsplash.com/photo-1436491865332-7a61a109c0f3?q=80&w=2070" 
-          alt="Luxury travel background" 
-          class="w-full h-full object-cover opacity-30 animate-ken-burns"
-        />
-        <div class="absolute inset-0 bg-gradient-to-b from-bg-dark via-bg-dark/60 to-bg-dark"></div>
+        <DynamicBackground variant="hero" />
       </div>
-      <div class="absolute inset-0 bg-noise pointer-events-none z-10"></div>
       
       <div class="container-custom relative z-10 text-center">
         <span class="label-gold animate-fade-in-up">DE AGENTE A AGENTE</span>
