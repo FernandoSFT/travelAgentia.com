@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils';
 import { Mail, Phone, Globe } from 'lucide-react';
 
 export const Contacto = () => {
-  const calendarUrl = "https://calendar.app.google/e4XRYFbL3gk7ZeMP6";
+  const calendarUrl = import.meta.env.PUBLIC_CALENDAR_URL || "";
 
   const handleBooking = () => {
     window.open(calendarUrl, '_blank');

@@ -42,7 +42,7 @@ export const mockSecciones: SeccionWeb[] = [
 export const mockAjustes: AjusteGlobal[] = [
   {
     Clave: "calendar_url",
-    Valor: "https://calendar.app.google/e4XRYFbL3gk7ZeMP6",
+    Valor: "",
     Tipo: "URL",
     Grupo: "Contacto",
     Notas: ""

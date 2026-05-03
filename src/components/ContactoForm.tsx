@@ -48,7 +48,7 @@ export default function ContactoForm() {
     };
 
     try {
-      const res = await fetch('https://n8n.automatiza2.com/webhook/lead-web', {
+      const res = await fetch(import.meta.env.PUBLIC_N8N_WEBHOOK || '', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

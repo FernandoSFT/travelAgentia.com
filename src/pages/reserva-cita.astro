@@ -4,7 +4,7 @@ import CalendarConsent from '../components/ui/CalendarConsent';
 import { getAjustes } from '../lib/notion';
 
 const ajustes = await getAjustes();
-const calendarUrl = ajustes["calendar_url"]?.Valor || "https://calendar.app.google/e4XRYFbL3gk7ZeMP6";
+const calendarUrl = ajustes["calendar_url"]?.Valor || import.meta.env.PUBLIC_CALENDAR_URL || "";
 ---
 
 <Layout title="Reserva tu cita">

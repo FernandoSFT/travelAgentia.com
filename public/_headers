@@ -14,7 +14,7 @@
 # Permite: self + Unsplash (imágenes) + Plausible analytics
 # Bloquea: inline scripts no necesarios, iframes no necesarios
 /*
-  Content-Security-Policy: default-src 'self'; img-src 'self' https://images.unsplash.com https://travelagentia.com data:; script-src 'self' 'unsafe-inline' https://plausible.io; style-src 'self' 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://plausible.io; frame-ancestors 'none';
+  Content-Security-Policy: default-src 'self'; img-src 'self' https://images.unsplash.com https://travelagentia.com https://img.youtube.com data:; script-src 'self' 'unsafe-inline' https://plausible.io; style-src 'self' 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://plausible.io https://www.youtube.com; frame-src 'self' https://calendar.app.google; frame-ancestors 'none';
 
 /favicon.svg
   X-Content-Type-Options: nosniff
