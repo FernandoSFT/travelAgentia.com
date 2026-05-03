@@ -1,20 +1,10 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import DynamicBackground from '../../components/ui/DynamicBackground.astro';
-import { getYouTubeVideos } from '../../lib/youtube';
 import { Play, Youtube } from 'lucide-react';
-
-let videos: Awaited<ReturnType<typeof getYouTubeVideos>> = [];
-let error: string | null = null;
-
-try {
-  videos = await getYouTubeVideos(12);
-} catch (e) {
-  error = e instanceof Error ? e.message : 'Error cargando vídeos';
-}
 ---
 
-<Layout title="Podcasts & Vídeos | IA para Agencias de Viajes | TravelAgentIA">
+<Layout title="YouTube | TravelAgentIA">
   <main class="pt-32 pb-20">
     <!-- HERO -->
     <section class="relative pb-20 overflow-hidden">
@@ -26,84 +16,156 @@ try {
           <span class="label-gold">CANAL OFICIAL</span>
           <h1 class="text-5xl md:text-6xl mb-6 text-gradient font-playfair">TravelAgentIA en YouTube</h1>
           <p class="text-lg text-text-muted">
-            Vídeos sobre IA aplicada a agencias de viajes: herramientas, prompting, automatización y casos reales. Nuevo contenido cada semana.
+            Vídeos sobre IA aplicada a agencias de viajes: herramientas, prompting, automatización y casos reales.
           </p>
+          <a
+            href="https://www.youtube.com/@travelagentia"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-primary mt-6 inline-flex items-center gap-2"
+          >
+            <Youtube class="w-4 h-4" /> Suscribirse al canal
+          </a>
         </div>
       </div>
     </section>
 
-    <!-- VIDEOS GRID -->
+    <!-- VIDEOS GRID — carga en cliente -->
     <div class="container-custom">
-      {error ? (
-        <div class="col-span-full py-20 text-center glass">
-          <p class="text-gold-primary text-4xl mb-4">⚠️</p>
-          <p class="text-white text-xl font-playfair mb-3">No se pudieron cargar los vídeos</p>
-          <p class="text-text-muted italic">{error}</p>
-          <a href="https://www.youtube.com/@travelagentia" target="_blank" rel="noopener" class="btn-primary mt-6 inline-flex items-center gap-2">
-            <Youtube class="w-4 h-4" /> Ver canal en YouTube
-          </a>
-        </div>
-      ) : videos.length > 0 ? (
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {videos.map((video) => (
-            <a
-              href={video.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="premium-card flex flex-col group overflow-hidden hover:border-gold-primary/40 transition-all"
-            >
-              <!-- Thumbnail -->
-              <div class="relative aspect-video bg-bg-card rounded-lg overflow-hidden mb-6">
-                <img
-                  src={video.thumbnail}
-                  alt={video.title}
-                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  loading="lazy"
-                />
-                <!-- Play button overlay -->
-                <div class="absolute inset-0 bg-bg-dark/30 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
-                  <div class="w-14 h-14 rounded-full bg-gold-primary flex items-center justify-center shadow-xl">
-                    <Play class="w-7 h-7 fill-current text-bg-dark ml-1" />
-                  </div>
-                </div>
-                <!-- YouTube badge -->
-                <div class="absolute top-3 right-3 bg-red-600 text-white text-[10px] font-bold px-2 py-1 rounded flex items-center gap-1">
-                  <Youtube class="w-3 h-3" /> YouTube
-                </div>
-              </div>
+      <div id="videos-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Skeleton loading -->
+        {Array.from({ length: 6 }).map(() => (
+          <div class="premium-card overflow-hidden animate-pulse">
+            <div class="aspect-video bg-bg-card rounded-lg mb-6"></div>
+            <div class="h-4 bg-bg-card rounded w-3/4 mb-2"></div>
+            <div class="h-3 bg-bg-card rounded w-1/2"></div>
+          </div>
+        ))}
+      </div>
 
-              <!-- Info -->
-              <div class="flex-grow">
-                <h2 class="text-lg text-white font-playfair mb-3 leading-tight group-hover:text-gold-primary transition-colors line-clamp-2">
-                  {video.title}
-                </h2>
-                <p class="text-xs text-text-muted mb-4 line-clamp-2">
-                  {video.description || 'Sin descripción'}
-                </p>
-              </div>
+      <!-- Error state -->
+      <div id="videos-error" class="hidden col-span-full py-20 text-center glass">
+        <p class="text-gold-primary text-4xl mb-4">⚠️</p>
+        <p class="text-white text-xl font-playfair mb-3">No se pudieron cargar los vídeos</p>
+        <a
+          href="https://www.youtube.com/@travelagentia"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-primary mt-6 inline-flex items-center gap-2"
+        >
+          <Youtube class="w-4 h-4" /> Ver canal en YouTube
+        </a>
+      </div>
 
-              <!-- Footer -->
-              <div class="flex items-center justify-between mt-auto pt-4 border-t border-white/5">
-                <span class="text-[10px] font-jetbrains text-gold-light uppercase tracking-widest">
-                  {new Date(video.published).toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' })}
-                </span>
-                <span class="text-[10px] text-text-muted uppercase tracking-widest flex items-center gap-1">
-                  Ver en YouTube <Play class="w-3 h-3" />
-                </span>
-              </div>
-            </a>
-          ))}
-        </div>
-      ) : (
-        <div class="col-span-full py-20 text-center glass">
-          <p class="text-gold-primary text-4xl mb-4">🎬</p>
-          <p class="text-white text-xl font-playfair mb-3">Próximamente</p>
-          <p class="text-text-muted italic">Estamos preparando contenido exclusivo sobre IA en turismo.</p>
-          <a href="https://www.youtube.com/@travelagentia" target="_blank" rel="noopener" class="btn-primary mt-6 inline-flex items-center gap-2">
-            <Youtube class="w-4 h-4" /> Suscribirse al canal
-          </a>
-        </div>
-      )}
+      <!-- Empty state -->
+      <div id="videos-empty" class="hidden col-span-full py-20 text-center glass">
+        <p class="text-gold-primary text-4xl mb-4">🎬</p>
+        <p class="text-white text-xl font-playfair mb-3">Próximamente</p>
+        <p class="text-text-muted italic">Estamos preparando contenido exclusivo sobre IA en turismo.</p>
+        <a
+          href="https://www.youtube.com/@travelagentia"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-primary mt-6 inline-flex items-center gap-2"
+        >
+          <Youtube class="w-4 h-4" /> Suscribirse al canal
+        </a>
+      </div>
     </div>
   </main>
 </Layout>
+
+<script>
+  const CHANNEL_ID = 'UCc2SjI5FP_DR2udtiVKpqWw';
+  const RSS_URL = `https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`;
+  const MAX = 12;
+
+  function getThumbnail(videoId: string) {
+    return `https://img.youtube.com/vi/${videoId}/mqdefault.jpg`;
+  }
+
+  function renderVideo(video: any) {
+    const date = new Date(video.published).toLocaleDateString('es-ES', {
+      day: '2-digit', month: 'short', year: 'numeric'
+    });
+    return `
+      <a href="${video.url}" target="_blank" rel="noopener noreferrer"
+         class="premium-card flex flex-col group overflow-hidden hover:border-gold-primary/40 transition-all">
+        <div class="relative aspect-video bg-bg-card rounded-lg overflow-hidden mb-6">
+          <img src="${video.thumbnail}" alt="${video.title}" loading="lazy"
+               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+          <div class="absolute inset-0 bg-bg-dark/30 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+            <div class="w-14 h-14 rounded-full bg-gold-primary flex items-center justify-center shadow-xl">
+              <svg class="w-7 h-7 fill-current text-bg-dark ml-1" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z"/></svg>
+            </div>
+          </div>
+          <div class="absolute top-3 right-3 bg-red-600 text-white text-[10px] font-bold px-2 py-1 rounded flex items-center gap-1">
+            <svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0C.488 3.45.029 5.804 0 12c.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0C23.512 20.55 23.971 18.196 24 12c-.029-6.185-.484-8.549-4.385-8.816zM9 16V8l8 3.993L9 16z"/></svg>
+            YouTube
+          </div>
+        </div>
+        <div class="flex-grow">
+          <h2 class="text-lg text-white font-playfair mb-3 leading-tight group-hover:text-gold-primary transition-colors line-clamp-2">
+            ${video.title}
+          </h2>
+          <p class="text-xs text-text-muted mb-4 line-clamp-2">
+            ${video.description || 'Sin descripción'}
+          </p>
+        </div>
+        <div class="flex items-center justify-between mt-auto pt-4 border-t border-white/5">
+          <span class="text-[10px] font-mono text-gold-light uppercase tracking-widest">${date}</span>
+          <span class="text-[10px] text-text-muted uppercase tracking-widest flex items-center gap-1">
+            Ver <svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </span>
+        </div>
+      </a>`;
+  }
+
+  async function loadVideos() {
+    const grid = document.getElementById('videos-grid');
+    const errorEl = document.getElementById('videos-error');
+    const emptyEl = document.getElementById('videos-empty');
+
+    try {
+      const res = await fetch(RSS_URL);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+      const xml = await res.text();
+      const entries = xml.match(/<entry[^>]*>[\s\S]*?<\/entry>/gi) ?? [];
+
+      if (!entries.length) {
+        grid!.classList.add('hidden');
+        emptyEl!.classList.remove('hidden');
+        return;
+      }
+
+      const videos = entries.slice(0, MAX).map(entry => {
+        const get = (tag: string) => {
+          const m = entry.match(new RegExp(`<${tag}[^>]*>([^<]*)</${tag}>`, 'i'));
+          return m?.[1]?.trim() ?? '';
+        };
+        const videoId = get('yt:videoId') || get('videoId') || '';
+        const title = get('title');
+        const published = get('published');
+        const description = (get('media:description') || get('description') || '').slice(0, 120);
+        return {
+          title,
+          videoId,
+          thumbnail: getThumbnail(videoId),
+          published,
+          description,
+          url: `https://www.youtube.com/watch?v=${videoId}`,
+        };
+      });
+
+      grid!.innerHTML = videos.map(renderVideo).join('');
+    } catch (err) {
+      console.error('[YouTube]', err);
+      grid!.classList.add('hidden');
+      errorEl!.classList.remove('hidden');
+    }
+  }
+
+  loadVideos();
+</script>
