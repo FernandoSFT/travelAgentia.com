@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getBlogPost, getBlog } from '../../lib/notion';
+import { sanitizeHtml } from '../../lib/sanitize';
 import { Calendar, ChevronLeft, User } from 'lucide-react';
 
 export async function getStaticPaths() {
@@ -52,7 +53,7 @@ if (!post) {
         </header>
 
         <div class="glass p-8 md:p-12">
-          <div class="prose-luxury" set:html={post.Cuerpo || '<p>Contenido en preparación.</p>'}></div>
+          <div class="prose-luxury" set:html={sanitizeHtml(post.Cuerpo || '<p>Contenido en preparación.</p>')}></div>
         </div>
       </article>
 

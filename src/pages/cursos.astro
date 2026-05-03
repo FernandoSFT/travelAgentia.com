@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import DynamicBackground from '../components/ui/DynamicBackground.astro';
 import { getCursos } from '../lib/notion';
+import { sanitizeHtml } from '../lib/sanitize';
 import { GraduationCap, Clock, Euro, CheckCircle2, ArrowRight } from 'lucide-react';
 
 const cursos = await getCursos();
@@ -44,7 +45,7 @@ const cursos = await getCursos();
                   <GraduationCap class="w-8 h-8 text-gold-primary" />
                 </div>
                 <h2 class="text-3xl text-white font-playfair mb-4 leading-tight">{curso.Nombre}</h2>
-                <div class="text-text-muted text-sm leading-relaxed mb-8" set:html={curso.Resumen}></div>
+                <div class="text-text-muted text-sm leading-relaxed mb-8" set:html={sanitizeHtml(curso.Resumen)}></div>
               </div>
 
               <div class="grid grid-cols-2 gap-4 mb-10 pt-8 border-t border-white/5">

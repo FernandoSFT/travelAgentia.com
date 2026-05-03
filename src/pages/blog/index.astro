@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import DynamicBackground from '../../components/ui/DynamicBackground.astro';
 import { getBlog } from '../../lib/notion';
+import { sanitizeHtml } from '../../lib/sanitize';
 import { Calendar, Tag, ArrowRight } from 'lucide-react';
 
 const posts = await getBlog();
@@ -57,7 +58,7 @@ const posts = await getBlog();
             </h2>
 
             <p class="text-sm text-text-muted mb-8 line-clamp-3 flex-grow">
-              {post.Resumen}
+              <Fragment set:html={sanitizeHtml(post.Resumen)} />
             </p>
 
             <a href={`/blog/${post.Slug}`} class="flex items-center gap-2 text-gold-primary font-bold text-xs uppercase tracking-widest hover:text-gold-light transition-colors mt-auto">

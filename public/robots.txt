@@ -1,0 +1,30 @@
+User-agent: *
+Allow: /
+
+# Bloquear páginas técnicas y legales que no aportan valor SEO
+Disallow: /gracias/
+Disallow: /cookies/
+Disallow: /privacidad/
+Disallow: /aviso-legal/
+Disallow: /reserva-cita/
+Disallow: /reservar/
+
+# Bloquear duplicados de servicios (las versiones canonical son /consultoria y /formacion)
+Disallow: /servicios/consultoria/
+Disallow: /servicios/formacion/
+
+# Allow crawling de páginas de contenido indexable
+Allow: /sobre-mi/
+Allow: /servicios/
+Allow: /blog/
+Allow: /casos/
+Allow: /faq/
+Allow: /consultoria/
+Allow: /formacion/
+Allow: /comunidad/
+Allow: /recursos/
+Allow: /prensa-y-ponente/
+Allow: /podcast/
+Allow: /contacto/
+
+Sitemap: https://travelagentia.com/sitemap-index.xml

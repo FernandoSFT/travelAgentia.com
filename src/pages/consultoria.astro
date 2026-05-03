@@ -1,0 +1,128 @@
+---
+import Layout from '../layouts/Layout.astro';
+import DynamicBackground from '../components/ui/DynamicBackground.astro';
+import { Monitor, Check, Clock, FileSearch, Zap, MessageSquare, ArrowRight } from 'lucide-react';
+---
+
+<Layout
+  title="Consultoría IA para Agencias de Viajes | 150€/hora | TravelAgentIA"
+  description="Consultoría de IA para agencias de viajes: yo hago el trabajo por ti. Búsquedas complejas, automatizaciones, respuestas difíciles. 150€/hora por videoconferencia."
+  ogImage="/images/og/og-consultoria.png"
+>
+  <main class="pt-32 pb-20">
+    <!-- HERO -->
+    <section class="relative pt-32 pb-24 overflow-hidden">
+      <div class="absolute inset-0 z-0">
+        <DynamicBackground variant="hero" />
+      </div>
+      <div class="container-custom relative z-10">
+        <div class="max-w-3xl">
+          <span class="label-gold">CONSULTORÍA</span>
+          <h1 class="text-5xl md:text-6xl mb-6 text-gradient font-playfair">
+            Yo hago el trabajo.<br />Tú te centras en vender.
+          </h1>
+          <p class="text-xl text-text-muted mb-4">
+            Videoconferencia. Sin compromiso. Empatía profesional de agente a agente.
+          </p>
+          <div class="flex items-center gap-3 text-gold-primary text-lg font-jetbrains">
+            <Clock class="w-5 h-5" />
+            <span>150€ / hora</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUÉ ES -->
+    <section class="py-20">
+      <div class="container-custom">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+          <div>
+            <h2 class="text-3xl font-playfair text-white mb-6">¿Qué es la consultoría?</h2>
+            <p class="text-text-muted text-lg mb-6 leading-relaxed">
+              Es simple: me cuentas tu problema, yo lo investigo, lo pruebo y te doy la solución funcionando. 
+              No te enseño a pescar — <strong class="text-white">te echo el pez al cubo</strong>.
+            </p>
+            <p class="text-text-muted text-lg mb-8 leading-relaxed">
+              Como sigo gestionando mi agencia cada día, conozco de primera mano las herramientas, los flujos y los 
+              problemas reales del sector. Sin teoría hueca.
+            </p>
+
+            <a href="/reservar" class="btn-primary inline-flex items-center gap-2">
+              PEDIR SESIÓN <ArrowRight class="w-4 h-4" />
+            </a>
+          </div>
+
+          <div class="space-y-6">
+            <h3 class="text-sm font-jetbrains text-gold-primary uppercase tracking-widest">Ejemplos de lo que puedo hacer por ti</h3>
+            {[
+              { icon: FileSearch, title: 'Búsqueda compleja', desc: 'Ese hotel imposible, ese destino con condiciones raras, ese cliente VIP que necesita todo perfecto.' },
+              { icon: Zap, title: 'Automatizaciones', desc: 'Te monto flujos en n8n o Notion que hacen el trabajo repetitivo solos.' },
+              { icon: MessageSquare, title: 'Respuestas difíciles', desc: 'Redacto emails, reclamaciones, propuestas comerciales complicadas.' },
+              { icon: Monitor, title: 'Análisis de mercado', desc: 'Investigación de proveedores, competencia, tarifas, oportunidades.' },
+            ].map(item => (
+              <div class="premium-card flex gap-4 items-start">
+                <item.icon class="w-6 h-6 text-gold-primary shrink-0 mt-1" />
+                <div>
+                  <h4 class="text-white font-playfair mb-1">{item.title}</h4>
+                  <p class="text-sm text-text-muted">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CÓMO FUNCIONA -->
+    <section class="py-20 border-t border-bg-border">
+      <div class="container-custom">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl font-playfair text-white mb-4">¿Cómo funciona?</h2>
+          <p class="text-text-muted">Tres pasos. Sin sorpresas.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {[
+            { n: '01', title: 'Me cuentas tu problema', desc: 'Sesión inicial breve para entender qué necesitas resolver. Gratuita y sin compromiso.' },
+            { n: '02', title: 'Yo trabajo en ello', desc: 'Investigo, pruebo y construyo la solución. Me grabo en vídeo para que veas cómo lo hago.' },
+            { n: '03', title: 'Te entrego funcionando', desc: 'Recibes la solución lista para usar: documento, automatismo, respuesta o flujo de trabajo.' },
+          ].map(step => (
+            <div class="premium-card text-center relative">
+              <span class="absolute -top-4 left-1/2 -translate-x-1/2 text-5xl font-playfair text-gold-primary/10">{step.n}</span>
+              <h3 class="text-xl text-white font-playfair mb-3 mt-4">{step.title}</h3>
+              <p class="text-sm text-text-muted">{step.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- DIFERENCIA CON FORMACIÓN -->
+    <section class="py-20 border-t border-bg-border">
+      <div class="container-custom">
+        <div class="premium-card p-8 md:p-12">
+          <h2 class="text-2xl font-playfair text-white mb-6">⚠️ ¿Consultoría o Formación?</h2>
+          <p class="text-text-muted mb-6 leading-relaxed">
+            <strong class="text-white">Consultoría = yo hago el trabajo por ti.</strong> Ideal cuando no tienes tiempo, 
+            cuando el problema es puntual o cuando necesitas una solución que no sabes ni por dónde empezar.
+          </p>
+          <p class="text-text-muted leading-relaxed">
+            Si prefieres que tu equipo aprenda a hacerlo solos, mira <a href="/formacion" class="text-gold-primary underline">Formación</a>: 
+            sesiones formativas a 60€/hora para que tu plantilla gane autonomía con la IA.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section class="py-20 border-t border-bg-border">
+      <div class="container-custom text-center">
+        <h2 class="text-3xl font-playfair text-white mb-6">¿Tienes un problema que resolver?</h2>
+        <p class="text-text-muted mb-10 max-w-xl mx-auto">
+          Sesión inicial gratuita. Sin compromiso. Hablamos, veo si puedo ayudarte y te digo el alcance aproximado.
+        </p>
+        <a href="/reservar" class="btn-primary px-12 py-4 text-lg">RESERVAR SESIÓN GRATUITA</a>
+      </div>
+    </section>
+  </main>
+</Layout>

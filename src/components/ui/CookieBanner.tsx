@@ -44,7 +44,7 @@ export function getConsent(): CookieConsent | null {
 export default function CookieBanner() {
   const [visible, setVisible] = useState(false);
   const [showPanel, setShowPanel] = useState(false);
-  const [analyticsOn, setAnalyticsOn] = useState(true);
+  const [analyticsOn, setAnalyticsOn] = useState(false);
   const [functionalOn, setFunctionalOn] = useState(false);
 
   useEffect(() => {

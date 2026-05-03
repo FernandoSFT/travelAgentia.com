@@ -1,0 +1,166 @@
+---
+import Layout from '../layouts/Layout.astro';
+import DynamicBackground from '../components/ui/DynamicBackground.astro';
+import { GraduationCap, Users, Clock, Video, Check, ArrowRight, MessageCircle } from 'lucide-react';
+---
+
+<Layout
+  title="Formación en IA para Agencias de Viajes | 60€/hora | TravelAgentIA"
+  description="Formación personalizada en IA para agencias de viajes: enseño a tu equipo a trabajar con inteligencia artificial. Sesiones por videoconferencia a 60€/hora."
+  ogImage="/images/og/og-formacion.png"
+>
+  <main class="pt-32 pb-20">
+    <!-- HERO -->
+    <section class="relative pt-32 pb-24 overflow-hidden">
+      <div class="absolute inset-0 z-0">
+        <DynamicBackground variant="hero" />
+      </div>
+      <div class="container-custom relative z-10">
+        <div class="max-w-3xl">
+          <span class="label-gold">FORMACIÓN</span>
+          <h1 class="text-5xl md:text-6xl mb-6 text-gradient font-playfair">
+            Que tu equipo sepa<br />lo que tú ya sabes.
+          </h1>
+          <p class="text-xl text-text-muted mb-4">
+            Sesiones formativas por videoconferencia. Para un agente, un equipo o toda la plantilla.
+          </p>
+          <div class="flex items-center gap-3 text-gold-primary text-lg font-jetbrains">
+            <Clock class="w-5 h-5" />
+            <span>60€ / hora</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUÉ ES -->
+    <section class="py-20">
+      <div class="container-custom">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+          <div>
+            <h2 class="text-3xl font-playfair text-white mb-6">¿Qué es la formación?</h2>
+            <p class="text-text-muted text-lg mb-6 leading-relaxed">
+              Te enseño a tu equipo a trabajar con IA de forma práctica y aplicada a su día a día. 
+              <strong class="text-white">Sesiones adaptadas a su puesto</strong>: comerciales, operaciones, marketing, dirección.
+            </p>
+            <p class="text-text-muted text-lg mb-8 leading-relaxed">
+              Nada de teoria genericca. Partimos de cómo trabaja cada persona y construimos desde ahí. 
+              Un agente senior no aprende igual que alguien que empieza.
+            </p>
+
+            <a href="/reservar" class="btn-primary inline-flex items-center gap-2">
+              SOLICITAR DIAGNÓSTICO <ArrowRight class="w-4 h-4" />
+            </a>
+          </div>
+
+          <div class="space-y-6">
+            <h3 class="text-sm font-jetbrains text-gold-primary uppercase tracking-widest">Qué puedes esperar</h3>
+            {[
+              { icon: Users, title: 'Para uno o para todos', desc: 'Sesión individual o grupal. Me adapto al tamaño de tu equipo.' },
+              { icon: Video, title: 'Por videoconferencia', desc: 'Grabación disponible bajo petición. Asistes desde donde quieras.' },
+              { icon: GraduationCap, title: 'A tu ritmo', desc: 'Contenido adaptado al nivel de cada participant.' },
+              { icon: MessageCircle, title: 'Dudas en tiempo real', desc: 'Sesión interactiva, no monologue. Pregunta lo que quieras.' },
+            ].map(item => (
+              <div class="premium-card flex gap-4 items-start">
+                <item.icon class="w-6 h-6 text-gold-primary shrink-0 mt-1" />
+                <div>
+                  <h4 class="text-white font-playfair mb-1">{item.title}</h4>
+                  <p class="text-sm text-text-muted">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TIPOS DE FORMACIÓN -->
+    <section class="py-20 border-t border-bg-border">
+      <div class="container-custom">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl font-playfair text-white mb-4">¿Qué tipo de formación necesitas?</h2>
+          <p class="text-text-muted">Tres modalidades según el nivel de tu equipo</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {[
+            {
+              title: 'Onboarding IA',
+              desc: 'Primeros pasos para no perderse.',
+              detail: '2-4 horas',
+              items: [
+                'Qué es y qué no es un LLM',
+                'Cómo hablar con la IA (prompting básico)',
+                'Primeros casos de uso reales en la agencia',
+                'Errores comunes y cómo evitarlos',
+              ]
+            },
+            {
+              title: 'Formación a medida',
+              desc: 'Contenido según el puesto y necesidades.',
+              detail: 'A definir',
+              items: [
+                'Para comerciales: propuestas y seguimiento',
+                'Para operaciones: gestión y expedientes',
+                'Para marketing: contenido y calendario',
+                'Lo que tu equipo necesite',
+              ]
+            },
+            {
+              title: 'Coaching avanzado',
+              desc: 'Para equipos que ya usan IA pero quieren más.',
+              detail: 'A definir',
+              items: [
+                'Sistematización de flujos',
+                'Prompting avanzado y chaining',
+                'Integración con herramientas del sector',
+                'Automatización de tareas recurrentes',
+              ]
+            },
+          ].map(t => (
+            <div class="premium-card flex flex-col">
+              <h3 class="text-xl text-white font-playfair mb-2">{t.title}</h3>
+              <p class="text-sm text-text-muted mb-4">{t.desc}</p>
+              <span class="text-xs font-jetbrains text-gold-primary uppercase tracking-widest mb-6">{t.detail}</span>
+              <ul class="space-y-3 flex-grow">
+                {t.items.map(item => (
+                  <li class="flex items-start gap-2 text-sm text-text-muted">
+                    <Check class="w-4 h-4 text-gold-primary shrink-0 mt-0.5" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- DIFERENCIA CON CONSULTORÍA -->
+    <section class="py-20 border-t border-bg-border">
+      <div class="container-custom">
+        <div class="premium-card p-8 md:p-12">
+          <h2 class="text-2xl font-playfair text-white mb-6">⚠️ ¿Formación o Consultoría?</h2>
+          <p class="text-text-muted mb-6 leading-relaxed">
+            <strong class="text-white">Formación = te enseño a hacerlo tú.</strong> Ideal cuando quieres que tu equipo gane 
+            autonomía con la IA y no dependa de externa para todo.
+          </p>
+          <p class="text-text-muted leading-relaxed">
+            Si tienes un problema concreto que resolver y prefieres que lo haga yo, mira <a href="/consultoria" class="text-gold-primary underline">Consultoría</a>: 
+            trabajo directo a 150€/hora con entrega de solución funcionando.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section class="py-20 border-t border-bg-border">
+      <div class="container-custom text-center">
+        <h2 class="text-3xl font-playfair text-white mb-6">¿Quiere que analice las necesidades de tu equipo?</h2>
+        <p class="text-text-muted mb-10 max-w-xl mx-auto">
+          Sesión de diagnóstico gratuita. Sin compromiso. Vemos el nivel actual, identificamos gaps y te propongo un plan de formación.
+        </p>
+        <a href="/reservar" class="btn-primary px-12 py-4 text-lg">RESERVAR DIAGNÓSTICO GRATUITO</a>
+      </div>
+    </section>
+  </main>
+</Layout>
