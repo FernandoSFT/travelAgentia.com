@@ -182,11 +182,11 @@ import { Users, Compass, Key, Check, Clock, Bot, BookOpen, Layers, Mail, FileTex
           <p class="text-text-muted">Tanto si estás empezando como si quieres un sistema completo, hay un servicio pensado para ti.</p>
         </div>
         
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-4xl mx-auto">
           <!-- Comunidad -->
           <div class="premium-card flex flex-col">
             <Users class="w-12 h-12 text-gold-primary mb-6" />
-            <h3 class="text-2xl mb-2 text-white font-playfair">Comunidad</h3>
+            <h3 class="text-2xl mb-2 text-white font-playfair">Comunidad IA</h3>
             <p class="text-gold-light text-sm mb-6">Aprende, comparte, avanza con otros agentes</p>
             <p class="text-sm text-text-muted mb-8 flex-grow">El punto de entrada. Un espacio vivo donde se comparten casos reales, herramientas probadas y soporte entre profesionales.</p>
             <ul class="space-y-3 mb-10">
@@ -197,12 +197,29 @@ import { Users, Compass, Key, Check, Clock, Bot, BookOpen, Layers, Mail, FileTex
                 </li>
               ))}
             </ul>
-            <a href="https://www.skool.com/automatiza2-1075/about" target="_blank" rel="noopener noreferrer" class="btn-secondary text-center py-3">ÚNETE A LA COMUNIDAD</a>
+            <a href="/comunidad" class="btn-secondary text-center py-3">ÚNETE A LA COMUNIDAD</a>
+          </div>
+
+          <!-- Agentes IA -->
+          <div class="premium-card border-gold-primary/50 relative flex flex-col">
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-gold-primary text-bg-dark text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">🆕 NUEVO</div>
+            <Bot class="w-12 h-12 text-gold-primary mb-6" />
+            <h3 class="text-2xl mb-2 text-white font-playfair">Agentes IA</h3>
+            <p class="text-gold-light text-sm mb-6">Automatización inteligente para tu agencia</p>
+            <p class="text-sm text-text-muted mb-8 flex-grow">Atención 24/7, propuestas automáticas, seguimiento comercial. Un agente IA que trabaja para tu agencia.</p>
+            <ul class="space-y-3 mb-10">
+              {['Atención al cliente 24/7', 'Propuestas en minutos', 'Seguimiento automático', 'Demo interactiva'].map(item => (
+                <li class="flex items-start gap-2 text-sm text-text-main">
+                  <Check class="w-4 h-4 text-gold-primary mt-0.5 shrink-0" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <a href="/agentes-ia" class="btn-primary text-center py-3">DESCUBRIR AGENTES IA</a>
           </div>
 
           <!-- Consultoría -->
-          <div class="premium-card border-gold-primary relative scale-105 shadow-2xl z-10 flex flex-col bg-bg-dark">
-            <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-gold-primary text-bg-dark text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-widest">✦ MÁS POPULAR</div>
+          <div class="premium-card flex flex-col">
             <Compass class="w-12 h-12 text-gold-primary mb-6" />
             <h3 class="text-2xl mb-2 text-white font-playfair">Consultoría "Hazlo Conmigo"</h3>
             <p class="text-gold-light text-sm mb-6">Implementación personalizada con acompañamiento</p>
@@ -215,7 +232,7 @@ import { Users, Compass, Key, Check, Clock, Bot, BookOpen, Layers, Mail, FileTex
                 </li>
               ))}
             </ul>
-            <a href="/reservar" class="btn-primary text-center py-3">RESERVA TU DIAGNÓSTICO</a>
+            <a href="/reservar" class="btn-secondary text-center py-3">RESERVA TU DIAGNÓSTICO</a>
           </div>
 
           <!-- Llaves en mano -->
@@ -232,7 +249,7 @@ import { Users, Compass, Key, Check, Clock, Bot, BookOpen, Layers, Mail, FileTex
                 </li>
               ))}
             </ul>
-            <a href="#contacto" class="btn-secondary text-center py-3">SOLICITA PRESUPUESTO</a>
+            <a href="/servicios" class="btn-secondary text-center py-3">SOLICITA PRESUPUESTO</a>
           </div>
         </div>
       </div>
@@ -280,6 +297,16 @@ import { Users, Compass, Key, Check, Clock, Bot, BookOpen, Layers, Mail, FileTex
             </div>
           ))}
         </div>
+      </div>
+    </section>
+
+    <!-- CTA INTERMEDIO AGENTES IA -->
+    <section class="section bg-bg-dark py-16">
+      <div class="container-custom text-center">
+        <h3 class="text-3xl md:text-4xl mb-6 text-gold-primary">¿Quieres que un agente IA trabaje para tu agencia?</h3>
+        <a href="/agentes-ia" class="btn-primary px-10 py-4 text-lg" data-analytics="click_agentes_cta" data-location="home_interstitial">
+          Descubre cómo →
+        </a>
       </div>
     </section>
 
@@ -368,6 +395,64 @@ import { Users, Compass, Key, Check, Clock, Bot, BookOpen, Layers, Mail, FileTex
       </div>
     </section>
   </main>
+
+  <!-- STICKY BOTTOM BAR -->
+  <div id="sticky-bar" class="fixed bottom-0 left-0 w-full bg-gold-primary text-[#121212] px-4 py-3 z-40 transform translate-y-full transition-transform duration-300">
+    <div class="container-custom flex items-center justify-between gap-4">
+      <p class="text-sm font-medium truncate">
+        ✦ Únete a la comunidad de IA para agencias → Acceder gratis
+      </p>
+      <div class="flex items-center gap-3 shrink-0">
+        <a
+          href="https://www.skool.com/automatiza2-1075?utm_source=travelagentia&utm_medium=sticky_bar&utm_campaign=comunidad"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="bg-[#121212] text-gold-primary px-4 py-2 rounded text-xs font-bold hover:bg-[#1a1a1a] transition-colors"
+          data-analytics="click_comunidad_cta"
+          data-location="sticky_bar"
+        >
+          Acceder
+        </a>
+        <button id="dismiss-sticky" class="text-[#121212] hover:opacity-70" aria-label="Cerrar">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script is:inline>
+    (function() {
+      const bar = document.getElementById('sticky-bar');
+      const dismissBtn = document.getElementById('dismiss-sticky');
+      const dismissed = localStorage.getItem('community_banner_dismissed');
+      const dismissedDate = dismissed ? parseInt(dismissed, 10) : 0;
+      const now = Date.now();
+      const sevenDays = 7 * 24 * 60 * 60 * 1000;
+
+      if (dismissedDate && (now - dismissedDate < sevenDays)) {
+        bar?.remove();
+        return;
+      }
+
+      let shown = false;
+      function checkScroll() {
+        if (shown) return;
+        if (window.scrollY > window.innerHeight * 0.5) {
+          shown = true;
+          bar?.classList.remove('translate-y-full');
+        }
+      }
+      window.addEventListener('scroll', checkScroll, { passive: true });
+
+      dismissBtn?.addEventListener('click', () => {
+        bar?.classList.add('translate-y-full');
+        localStorage.setItem('community_banner_dismissed', String(Date.now()));
+        // @ts-ignore
+        if (window.plausible) window.plausible('sticky_bar_dismiss');
+        setTimeout(() => bar?.remove(), 300);
+      });
+    })();
+  </script>
 </Layout>
 
 <style>

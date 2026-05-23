@@ -11,15 +11,39 @@
     <!-- Desktop Nav -->
     <div class="hidden lg:flex items-center gap-6">
       <a href="/sobre-mi" class="text-xs font-medium text-text-muted hover:text-gold-light transition-colors">Sobre mí</a>
-      <a href="/servicios" class="text-xs font-medium text-text-muted hover:text-gold-light transition-colors">Servicios</a>
+      
+      <!-- Servicios Dropdown -->
+      <div class="relative group">
+        <button class="text-xs font-medium text-text-muted hover:text-gold-light transition-colors flex items-center gap-1">
+          Servicios <span class="text-[10px]">▾</span>
+        </button>
+        <div class="absolute top-full left-0 mt-2 w-56 bg-bg-dark/95 backdrop-blur-md border border-bg-border rounded-lg shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 py-2">
+          <a href="/comunidad" class="block px-4 py-2.5 text-xs text-text-muted hover:text-gold-light hover:bg-white/5 transition-colors">Comunidad IA</a>
+          <a href="/agentes-ia" class="block px-4 py-2.5 text-xs text-text-muted hover:text-gold-light hover:bg-white/5 transition-colors flex items-center gap-1.5">
+            Agentes IA para Agencias <span class="text-[9px] bg-gold-primary text-bg-dark px-1 rounded">🆕</span>
+          </a>
+          <a href="/consultoria" class="block px-4 py-2.5 text-xs text-text-muted hover:text-gold-light hover:bg-white/5 transition-colors">Consultoría "Hazlo Conmigo"</a>
+          <a href="/servicios" class="block px-4 py-2.5 text-xs text-text-muted hover:text-gold-light hover:bg-white/5 transition-colors">"Lo Hacemos por Ti"</a>
+        </div>
+      </div>
+
       <a href="/casos" class="text-xs font-medium text-text-muted hover:text-gold-light transition-colors">Casos</a>
       <a href="/blog" class="text-xs font-medium text-text-muted hover:text-gold-light transition-colors">Blog</a>
       <a href="/formacion" class="text-xs font-medium text-text-muted hover:text-gold-light transition-colors">Formación</a>
-      <a href="/consultoria" class="text-xs font-medium text-text-muted hover:text-gold-light transition-colors">Consultoría</a>
       <a href="/podcast" class="text-xs font-medium text-text-muted hover:text-gold-light transition-colors">YouTube</a>
       <a href="/prensa-y-ponente" class="text-xs font-medium text-text-muted hover:text-gold-light transition-colors">Prensa</a>
       <a href="/faq" class="text-xs font-medium text-text-muted hover:text-gold-light transition-colors">FAQ</a>
-      <a href="/reservar" class="btn-primary py-2 px-4 text-[10px] italic">Reserva Sesión</a>
+      
+      <a 
+        href="https://www.skool.com/automatiza2-1075?utm_source=travelagentia&utm_medium=navbar&utm_campaign=comunidad" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        class="btn-primary py-2 px-4 text-[10px] italic flex items-center gap-1"
+        data-analytics="click_comunidad_cta"
+        data-location="navbar"
+      >
+        Comunidad <span class="text-gold-light">✦</span>
+      </a>
     </div>
 
     <!-- Mobile Toggle -->
@@ -30,19 +54,31 @@
   </div>
 
   <!-- Mobile Nav -->
-  <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-bg-dark border-b border-bg-border p-6 flex flex-col gap-6 animate-fade-in">
+  <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-bg-dark border-b border-bg-border p-6 flex flex-col gap-4 animate-fade-in">
     <a href="/sobre-mi" class="text-lg font-medium text-text-main">Sobre mí</a>
-    <a href="/servicios" class="text-lg font-medium text-text-main">Servicios</a>
+    <div class="flex flex-col gap-2">
+      <span class="text-xs text-gold-light uppercase tracking-widest">Servicios</span>
+      <a href="/comunidad" class="text-base font-medium text-text-muted pl-2">Comunidad IA</a>
+      <a href="/agentes-ia" class="text-base font-medium text-text-muted pl-2 flex items-center gap-1">Agentes IA <span class="text-[9px] bg-gold-primary text-bg-dark px-1 rounded">🆕</span></a>
+      <a href="/consultoria" class="text-base font-medium text-text-muted pl-2">Consultoría</a>
+      <a href="/servicios" class="text-base font-medium text-text-muted pl-2">Lo Hacemos por Ti</a>
+    </div>
     <a href="/casos" class="text-lg font-medium text-text-main">Casos reales</a>
-    <div class="h-px bg-white/10 my-2"></div>
     <a href="/blog" class="text-lg font-medium text-gold-light">Blog</a>
     <a href="/formacion" class="text-lg font-medium text-gold-light">Formación</a>
-    <a href="/consultoria" class="text-lg font-medium text-gold-light">Consultoría</a>
     <a href="/podcast" class="text-lg font-medium text-gold-light">YouTube</a>
     <a href="/prensa-y-ponente" class="text-lg font-medium text-gold-light">Prensa</a>
-    <div class="h-px bg-white/10 my-2"></div>
     <a href="/faq" class="text-lg font-medium text-text-main">FAQ</a>
-    <a href="/reservar" class="btn-primary text-center">Reserva Sesión</a>
+    <a 
+      href="https://www.skool.com/automatiza2-1075?utm_source=travelagentia&utm_medium=navbar&utm_campaign=comunidad"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="btn-primary text-center mt-2"
+      data-analytics="click_comunidad_cta"
+      data-location="navbar_mobile"
+    >
+      Comunidad ✦
+    </a>
   </div>
 </nav>
 
