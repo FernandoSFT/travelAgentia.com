@@ -48,18 +48,17 @@ import { Clock, Gift, ShieldCheck } from 'lucide-react';
         </div>
       </div>
 
-      <div class="glass p-4 md:p-8 rounded-2xl border-gold-primary/50 shadow-2xl relative overflow-hidden min-h-[700px]">
+      <div class="glass p-4 md:p-8 rounded-2xl border-gold-primary/50 shadow-2xl relative overflow-hidden min-h-[500px] md:min-h-[700px]">
         <div class="absolute inset-0 bg-noise opacity-5 pointer-events-none"></div>
 
-        <!-- Google Calendar Embed -->
+        <!-- Google Calendar Embed — responsive height -->
         <iframe
           src={import.meta.env.PUBLIC_CALENDAR_URL || ""}
           style="border: 0"
           width="100%"
-          height="800"
+          class="rounded-xl bg-white/5 h-[60vh] md:h-[700px]"
           frameborder="0"
           scrolling="no"
-          class="rounded-xl bg-white/5"
         ></iframe>
       </div>
     </div>

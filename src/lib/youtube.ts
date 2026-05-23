@@ -16,7 +16,7 @@ export interface YouTubeVideo {
 }
 
 const CHANNEL_ID = 'UCc2SjI5FP_DR2udtiVKpqWw';
-const RSS_URL = `https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`;
+const RSS_URL = `/youtube-rss?channel_id=${CHANNEL_ID}`;
 
 function parseDuration(seconds: number): string {
   const h = Math.floor(seconds / 3600);

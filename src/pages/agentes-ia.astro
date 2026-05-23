@@ -20,14 +20,20 @@ import { MessageSquare, Search, FileText, Bell } from 'lucide-react';
         <p class="text-lg md:text-xl text-text-muted mb-10 max-w-2xl mx-auto">
           Automatiza la atención al cliente, genera propuestas en minutos y no pierdas nunca más una venta por olvido. Probado en una agencia real. Implementado en más de 70.
         </p>
-        <div class="flex justify-center">
+        <div class="flex flex-col sm:flex-row justify-center gap-4">
           <a
-            href="#contacto-agentes"
+            href="/reservar"
             class="btn-primary px-10 py-4 text-lg"
             data-analytics="click_agentes_cta"
             data-location="hero"
           >
-            Solicita información →
+            Reservar sesión gratuita →
+          </a>
+          <a
+            href="#contacto-agentes"
+            class="border border-white/20 hover:border-white/40 text-gray-300 font-bold text-sm uppercase tracking-widest py-4 px-10 rounded-lg transition-colors"
+          >
+            Solicita información
           </a>
         </div>
       </div>
