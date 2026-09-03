@@ -21,6 +21,10 @@ export default function ContactoForm() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (import.meta.env.PUBLIC_PREVIEW === 'true') {
+      setError('El envío está desactivado en las previews. Usa esta página solo para revisar el diseño.');
+      return;
+    }
     setIsSubmitting(true);
     setError(null);
 
