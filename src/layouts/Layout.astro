@@ -20,6 +20,7 @@ const pathname = Astro.url.pathname;
 const isFaq = pathname === '/faq';
 const isServicios = pathname === '/servicios' || pathname.startsWith('/servicios/');
 const isHome = pathname === '/';
+const isPreview = import.meta.env.PUBLIC_PREVIEW === 'true';
 
 // Base schemas (always present)
 const personSchema = {
@@ -156,9 +157,10 @@ const serviceSchema = isServicios ? [
 		<meta property="og:title" content={`${title} | TravelAgentIA`} />
 		<meta property="og:description" content={description} />
 		<meta property="og:type" content="website" />
-		<meta property="og:url" content={Astro.url} />
+		{!isPreview && <meta property="og:url" content={Astro.url} />}
 		<meta property="og:image" content={ogImage} />
-		<link rel="canonical" href={Astro.url} />
+		{isPreview && <meta name="robots" content="noindex, nofollow, noarchive" />}
+		{!isPreview && <link rel="canonical" href={Astro.url} />}
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content={`${title} | TravelAgentIA`} />
 		<meta name="twitter:description" content={description} />
