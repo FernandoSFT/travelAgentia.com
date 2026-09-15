@@ -80,7 +80,7 @@ const faqItems = [
   {
     question: '¿Qué pasa si no puedo asistir en directo?',
     answer:
-      'Las sesiones se graban. La edición online, disponible desde el 15 de octubre, da acceso a las grabaciones del presencial, pero sin asistencia en directo ni descuentos en consultorías posteriores.',
+      'Las sesiones se graban. La edición online, disponible desde el 1 de noviembre, da acceso a las grabaciones del presencial, pero sin asistencia en directo ni descuentos en consultorías posteriores.',
   },
   {
     question: '¿Necesito conocimientos técnicos?',
@@ -104,7 +104,7 @@ const offers = [
     name: 'Programa completo — Edición presencial',
     price: '400',
     priceCurrency: 'EUR',
-    availability: 'https://schema.org/LimitedAvailability',
+    availability: 'https://schema.org/InStock',
     url: `${pageUrl}#formulario`,
   },
   {
@@ -168,9 +168,9 @@ const courseSchema = {
     },
     {
       '@type': 'CourseInstance',
-      name: 'Edición online desde el 15 de octubre de 2026',
+      name: 'Edición online desde el 1 de noviembre de 2026',
       courseMode: 'Online mediante grabaciones',
-      startDate: '2026-10-15',
+      startDate: '2026-11-01',
     },
   ],
   offers,
@@ -270,7 +270,7 @@ const faqSchema = {
           {[
             { icon: CalendarDays, title: '5 oct – 16 nov 2026', text: 'Inicio el 5 de octubre' },
             { icon: Clock3, title: 'Lun · Mié · Vie', text: '17:00–19:00' },
-            { icon: Users, title: '10–12 plazas', text: 'Grupo reducido' },
+            { icon: Users, title: 'Plazas abiertas', text: 'Grupo reducido' },
             { icon: ShieldCheck, title: 'Datos sintéticos', text: 'Privacidad desde el inicio' },
           ].map((item) => (
             <div class="rounded-xl border border-white/15 bg-black/45 p-4 backdrop-blur-sm">
@@ -460,7 +460,7 @@ const faqSchema = {
             <MonitorPlay className="mb-5 h-8 w-8 text-gold-primary" aria-hidden="true" />
             <p class="font-jetbrains text-xs uppercase tracking-widest text-gold-primary">Edición online</p>
             <h3 class="mt-3 font-playfair text-2xl font-bold text-white">Programa completo</h3>
-            <p class="mt-2 text-sm text-text-muted">Disponible desde el 15 de octubre · a tu ritmo.</p>
+            <p class="mt-2 text-sm text-text-muted">Disponible desde el 1 de noviembre · a tu ritmo.</p>
             <div class="my-7">
               <span class="font-playfair text-5xl font-bold text-white">350 €</span>
               <span class="text-sm text-text-muted"> + IVA</span>
@@ -551,7 +551,7 @@ const faqSchema = {
               { icon: UserCheck, title: '1 h de consultoría incluida', text: 'Sesión de arranque para configurar tu cuenta y trabajar 2–3 casos de uso de tu agencia. Valor: 50 €.' },
               { icon: Sparkles, title: 'Hasta 3 h más a 40 €/h', text: 'Bloques concretos para un proceso, una automatización o una revisión. Tarifa oficial posterior: 50 €/h.' },
               { icon: CalendarDays, title: 'Ventana de 2 semanas', text: 'El acompañamiento adicional se puede usar durante las dos semanas posteriores al curso.' },
-              { icon: Users, title: 'Solo las 10 primeras reservas', text: 'Acompañamiento exclusivo para las 10 primeras contrataciones del programa completo presencial.' },
+              { icon: Users, title: 'Acompañamiento adicional', text: 'Disponible para contrataciones del programa completo presencial, sujeto a planificación.' },
             ].map((item) => (
               <article class="premium-card p-6">
                 <item.icon className="mb-5 h-7 w-7 text-gold-primary" aria-hidden="true" />
@@ -563,7 +563,7 @@ const faqSchema = {
         </div>
 
         <div class="mt-10 rounded-xl border border-amber-300/25 bg-amber-300/5 p-5 text-center text-sm text-amber-100/90">
-          Plazas limitadas a 10–12 personas. El acompañamiento de implantación solo está disponible para las 10 primeras reservas del programa completo presencial.
+          Formato de grupo reducido. La disponibilidad y el acompañamiento de implantación se confirmarán antes de formalizar la inscripción.
         </div>
       </div>
     </section>
