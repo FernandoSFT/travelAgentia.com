@@ -27,6 +27,14 @@ export default function CourseLeadForm() {
   const handleSubmit = async (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    if (import.meta.env.PUBLIC_PREVIEW === 'true') {
+      setStatus({
+        type: 'error',
+        message: 'El envío está desactivado en esta vista previa. Usa esta página solo para revisar el diseño y el contenido.',
+      });
+      return;
+    }
+
     if (submissionLock.current) return;
 
     const form = event.currentTarget;
