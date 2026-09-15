@@ -2,6 +2,7 @@
 
 interface ImportMetaEnv {
   readonly PUBLIC_N8N_WEBHOOK: string;
+  readonly PUBLIC_N8N_COURSE_WEBHOOK?: string;
   readonly PUBLIC_CALENDAR_URL: string;
   readonly PUBLIC_PLAUSIBLE_DOMAIN?: string;
   readonly PUBLIC_GSC_VERIFICATION?: string;

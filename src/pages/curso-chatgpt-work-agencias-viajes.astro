@@ -1,0 +1,609 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CourseLeadForm from '../components/CourseLeadForm';
+import {
+  ArrowRight,
+  Bot,
+  BriefcaseBusiness,
+  CalendarDays,
+  Check,
+  CheckCircle2,
+  Clock3,
+  GraduationCap,
+  Laptop,
+  LockKeyhole,
+  MonitorPlay,
+  ShieldCheck,
+  Sparkles,
+  Target,
+  UserCheck,
+  Users,
+  X,
+} from 'lucide-react';
+
+const pageUrl = 'https://travelagentia.com/curso-chatgpt-work-agencias-viajes';
+const description =
+  'Curso ChatGPT Work para agencias de viajes: 17 sesiones prácticas del 5 de octubre al 16 de noviembre de 2026, con casos sintéticos, seguridad y acompañamiento de implantación.';
+
+const problems = [
+  {
+    icon: Bot,
+    title: 'Sin método',
+    description: 'Prompts sueltos que no se reutilizan ni se comparten en el equipo.',
+  },
+  {
+    icon: Clock3,
+    title: 'Sin ahorro real',
+    description: 'Cada expediente vuelve a empezar de cero. La IA no devuelve horas.',
+  },
+  {
+    icon: LockKeyhole,
+    title: 'Sin seguridad',
+    description: 'Datos de clientes y proveedores que entran en el chat sin control.',
+  },
+  {
+    icon: UserCheck,
+    title: 'Sin revisión humana',
+    description: 'La IA propone, pero nadie garantiza que lo que sale sea correcto.',
+  },
+];
+
+const courseOneTopics = [
+  'Descarga, cuenta y configuración',
+  'Aplicaciones conectadas',
+  'Internet, navegador y Site',
+  'Datos privados, permisos y seguridad',
+  'Skills y comportamientos reutilizables',
+  'Tareas programadas y monitorización',
+  'Work y automatizaciones',
+];
+
+const courseTwoTopics = [
+  'Captación y nueva solicitud',
+  'Investigación y presupuesto',
+  'Seguimiento comercial',
+  'Reserva y confirmaciones',
+  'Previaje y documentación',
+  'Gestión de incidencias',
+  'Postviaje y fidelización',
+  'Proveedores, contratos y tarifas',
+  'Administración, facturación y cobros',
+  'Dirección, KPIs y mejora continua',
+];
+
+const faqItems = [
+  {
+    question: '¿Puedo hacer solo un curso?',
+    answer:
+      'Sí. Cada curso se puede contratar por separado: 150 € online o 200 € presencial el Curso 1; 250 € online o 300 € presencial el Curso 2. El programa completo incluye ambos con descuento.',
+  },
+  {
+    question: '¿Qué pasa si no puedo asistir en directo?',
+    answer:
+      'Las sesiones se graban. La edición online, disponible desde el 15 de octubre, da acceso a las grabaciones del presencial, pero sin asistencia en directo ni descuentos en consultorías posteriores.',
+  },
+  {
+    question: '¿Necesito conocimientos técnicos?',
+    answer:
+      'No. El nivel de entrada es inicial/intermedio y el Curso 1 prepara todo lo necesario. Para el Curso 2 se requiere completar el Curso 1 o superar la validación de entrada.',
+  },
+  {
+    question: '¿La formación implanta sistemas en mi agencia?',
+    answer:
+      'No. El programa forma, no instala. Produce plantillas, checklists y mapas de proceso listos para revisión y decisión interna. Cualquier implantación posterior requiere un proyecto separado.',
+  },
+  {
+    question: '¿Uso mis datos reales en las prácticas?',
+    answer: 'No. Todas las prácticas usan datos 100 % sintéticos, por seguridad y privacidad.',
+  },
+];
+
+const offers = [
+  {
+    '@type': 'Offer',
+    name: 'Programa completo — Edición presencial',
+    price: '400',
+    priceCurrency: 'EUR',
+    availability: 'https://schema.org/LimitedAvailability',
+    url: `${pageUrl}#formulario`,
+  },
+  {
+    '@type': 'Offer',
+    name: 'Programa completo — Edición online',
+    price: '350',
+    priceCurrency: 'EUR',
+    availability: 'https://schema.org/InStock',
+    url: `${pageUrl}#formulario`,
+  },
+  {
+    '@type': 'Offer',
+    name: 'Curso 1 — Preparar ChatGPT (online)',
+    price: '150',
+    priceCurrency: 'EUR',
+    availability: 'https://schema.org/InStock',
+    url: `${pageUrl}#formulario`,
+  },
+  {
+    '@type': 'Offer',
+    name: 'Curso 2 — Aplicar a tu agencia (online)',
+    price: '250',
+    priceCurrency: 'EUR',
+    availability: 'https://schema.org/InStock',
+    url: `${pageUrl}#formulario`,
+  },
+];
+
+const courseSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Course',
+  name: 'Curso ChatGPT Work para agencias de viajes',
+  description,
+  url: pageUrl,
+  provider: {
+    '@type': 'Organization',
+    name: 'TravelAgentIA',
+    sameAs: 'https://travelagentia.com',
+  },
+  instructor: {
+    '@type': 'Person',
+    name: 'Fernando Córdoba',
+    jobTitle: 'Agente de viajes y consultor de inteligencia artificial',
+  },
+  educationalLevel: 'Inicial e intermedio',
+  timeRequired: 'PT34H',
+  hasCourseInstance: [
+    {
+      '@type': 'CourseInstance',
+      name: 'Edición presencial octubre–noviembre 2026',
+      courseMode: 'Presencial en directo',
+      startDate: '2026-10-05',
+      endDate: '2026-11-16',
+      courseSchedule: {
+        '@type': 'Schedule',
+        repeatFrequency: 'P1W',
+        byDay: ['Monday', 'Wednesday', 'Friday'],
+        startTime: '17:00',
+        endTime: '19:00',
+      },
+    },
+    {
+      '@type': 'CourseInstance',
+      name: 'Edición online desde el 15 de octubre de 2026',
+      courseMode: 'Online mediante grabaciones',
+      startDate: '2026-10-15',
+    },
+  ],
+  offers,
+};
+
+const offerSchema = {
+  '@context': 'https://schema.org',
+  ...offers[0],
+  description:
+    'Programa completo con 17 sesiones en directo y grabadas, preguntas en vivo y una hora de consultoría incluida.',
+  priceSpecification: {
+    '@type': 'UnitPriceSpecification',
+    price: '400',
+    priceCurrency: 'EUR',
+    valueAddedTaxIncluded: false,
+  },
+  seller: {
+    '@type': 'Organization',
+    name: 'TravelAgentIA',
+    url: 'https://travelagentia.com',
+  },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.answer,
+    },
+  })),
+};
+---
+
+<Layout
+  title="Curso ChatGPT Work para agencias de viajes"
+  description={description}
+  ogImage="/images/og/og-formacion.png"
+>
+  <Fragment slot="head">
+    <meta name="robots" content="noindex,nofollow" />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(courseSchema)} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(offerSchema)} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  </Fragment>
+
+  <main class="overflow-x-clip bg-bg-dark">
+    <!-- Hero -->
+    <section class="relative flex min-h-[760px] items-center overflow-hidden pb-20 pt-32 sm:pt-36 lg:min-h-[820px]">
+      <div class="absolute inset-0" aria-hidden="true">
+        <img
+          src="/images/hero.jpg"
+          alt=""
+          class="h-full w-full object-cover object-center motion-safe:animate-ken-burns"
+          width="1920"
+          height="1080"
+          fetchpriority="high"
+        />
+        <div class="absolute inset-0 bg-black/80"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-bg-dark via-bg-dark/90 to-bg-dark/55"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-bg-dark via-transparent to-black/30"></div>
+      </div>
+
+      <div class="container-custom relative z-10 w-full">
+        <div class="max-w-4xl">
+          <span class="label-gold">Programa presencial · Oct–Nov 2026</span>
+          <h1 class="max-w-4xl text-4xl leading-[1.08] text-white sm:text-5xl md:text-6xl lg:text-7xl">
+            Curso <span class="text-gradient">ChatGPT Work</span> para agencias de viajes
+          </h1>
+          <p class="mt-7 max-w-3xl text-lg text-text-muted sm:text-xl md:text-2xl">
+            Convierte ChatGPT en una herramienta de trabajo segura y aplicable a tu agencia: 17 sesiones, dos cursos, casos 100 % sintéticos y acompañamiento de implantación.
+          </p>
+          <p class="mt-4 max-w-3xl text-base text-white/80 sm:text-lg">
+            De agente a agente: quien te enseña ya lo usa cada día en su propia agencia.
+          </p>
+
+          <div class="mt-9 flex flex-col gap-4 sm:flex-row">
+            <a
+              href="#formulario"
+              class="btn-primary inline-flex min-h-12 items-center justify-center gap-2 text-center focus:outline-none focus:ring-2 focus:ring-gold-light focus:ring-offset-2 focus:ring-offset-bg-dark"
+            >
+              Quiero información <ArrowRight className="h-5 w-5" aria-hidden="true" />
+            </a>
+            <a
+              href="#precios"
+              class="btn-secondary inline-flex min-h-12 items-center justify-center text-center focus:outline-none focus:ring-2 focus:ring-gold-light focus:ring-offset-2 focus:ring-offset-bg-dark"
+            >
+              Ver precios y plazas
+            </a>
+          </div>
+        </div>
+
+        <div class="mt-12 grid max-w-5xl grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            { icon: CalendarDays, title: '5 oct – 16 nov 2026', text: 'Inicio el 5 de octubre' },
+            { icon: Clock3, title: 'Lun · Mié · Vie', text: '17:00–19:00' },
+            { icon: Users, title: '10–12 plazas', text: 'Grupo reducido' },
+            { icon: ShieldCheck, title: 'Datos sintéticos', text: 'Privacidad desde el inicio' },
+          ].map((item) => (
+            <div class="rounded-xl border border-white/15 bg-black/45 p-4 backdrop-blur-sm">
+              <item.icon className="mb-3 h-5 w-5 text-gold-primary" aria-hidden="true" />
+              <p class="font-semibold text-white">{item.title}</p>
+              <p class="mt-1 text-sm text-text-muted">{item.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Problem -->
+    <section class="section border-t border-bg-border" aria-labelledby="problema-title">
+      <div class="container-custom">
+        <div class="mx-auto mb-14 max-w-3xl text-center">
+          <span class="label-gold">El problema</span>
+          <h2 id="problema-title" class="text-3xl text-white sm:text-4xl md:text-5xl">
+            Tu agencia usa ChatGPT a base de prueba y error
+          </h2>
+          <p class="mx-auto mt-6 text-lg text-text-muted">
+            Cada agente inventa sus prompts desde cero, pierde tiempo y nadie garantiza que los datos de tus clientes estén protegidos. El reto no es probar la IA: es integrarla con procesos, seguridad y revisión humana.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {problems.map((problem) => (
+            <article class="premium-card h-full p-6">
+              <problem.icon className="mb-5 h-8 w-8 text-gold-primary" aria-hidden="true" />
+              <h3 class="text-xl text-white">{problem.title}</h3>
+              <p class="mt-3 text-sm text-text-muted">{problem.description}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Instructor -->
+    <section class="section border-t border-bg-border bg-[#0D0D0D]" aria-labelledby="instructor-title">
+      <div class="container-custom">
+        <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+          <div class="relative mx-auto w-full max-w-md">
+            <div class="absolute -inset-4 rounded-3xl bg-gold-primary/10 blur-2xl" aria-hidden="true"></div>
+            <div class="relative aspect-[4/5] overflow-hidden rounded-2xl border border-gold-primary/30 bg-bg-card">
+              <img
+                src="/images/fernando-elegante.jpg"
+                alt="Fernando Córdoba, formador del curso ChatGPT Work para agencias de viajes"
+                class="h-full w-full object-cover"
+                width="800"
+                height="1000"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-bg-dark/90 via-transparent to-transparent" aria-hidden="true"></div>
+              <div class="absolute bottom-0 left-0 p-6">
+                <p class="font-playfair text-2xl font-bold text-white">Fernando Córdoba</p>
+                <p class="mt-1 text-sm text-gold-light">SAFE TOUR · TravelAgentIA</p>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <span class="label-gold">De agente a agente</span>
+            <h2 id="instructor-title" class="text-3xl text-white sm:text-4xl md:text-5xl">
+              Te enseña quien ya lo vive cada día
+            </h2>
+            <p class="mt-6 text-lg text-text-muted">
+              No te forma un consultor que nunca ha vendido un viaje, ni un técnico que solo ha visto la agencia desde fuera. Fernando es agente de viajes en activo y consultor de IA. Todo lo que aprenderás ya está funcionando en una agencia real.
+            </p>
+
+            <div class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
+              {[
+                { title: 'Agente desde 2008', text: '18 años en el sector, al frente de SAFE TOUR.' },
+                { title: 'Consultor de IA', text: '3 años aplicando IA y automatización en agencias.' },
+                { title: 'Formación universitaria', text: 'Curso Superior en IA Generativa, UCAM: 750 h y 30 ECTS.' },
+                { title: 'Experiencia docente', text: '+15 ponencias y +200 agentes formados.' },
+              ].map((item) => (
+                <div class="rounded-xl border border-bg-border bg-bg-card p-5">
+                  <CheckCircle2 className="mb-3 h-5 w-5 text-gold-primary" aria-hidden="true" />
+                  <h3 class="text-base text-white">{item.title}</h3>
+                  <p class="mt-2 text-sm text-text-muted">{item.text}</p>
+                </div>
+              ))}
+            </div>
+
+            <div class="mt-7 flex flex-wrap gap-2" aria-label="Organizaciones y eventos donde Fernando Córdoba ha participado">
+              {['AEVAV', 'FITUR', 'Traveltool Summit', 'DIT Gestión', 'TravelAgentIA'].map((name) => (
+                <span class="rounded-full border border-gold-primary/25 bg-gold-primary/5 px-3 py-2 font-jetbrains text-xs text-gold-light">
+                  {name}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Courses -->
+    <section class="section border-t border-bg-border" aria-labelledby="programa-title">
+      <div class="container-custom">
+        <div class="mx-auto mb-14 max-w-3xl text-center">
+          <span class="label-gold">Qué vas a conseguir</span>
+          <h2 id="programa-title" class="text-3xl text-white sm:text-4xl md:text-5xl">
+            Dos cursos. Resultados claros.
+          </h2>
+          <p class="mx-auto mt-5 text-lg text-text-muted">
+            Cada bloque tiene un objetivo concreto y un temario pensado para que salgas con algo usable en tu agencia.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
+          <article class="premium-card flex h-full flex-col p-6 sm:p-8">
+            <div class="mb-6 flex items-start justify-between gap-4">
+              <div>
+                <span class="font-jetbrains text-xs uppercase tracking-widest text-gold-primary">Curso 1 · 7 sesiones</span>
+                <h3 class="mt-3 font-playfair text-2xl font-bold text-white sm:text-3xl">Preparar ChatGPT</h3>
+              </div>
+              <Laptop className="h-9 w-9 shrink-0 text-gold-primary" aria-hidden="true" />
+            </div>
+            <div class="mb-7 rounded-xl border border-gold-primary/25 bg-gold-primary/10 p-4">
+              <p class="font-medium text-gold-light">Resultado: ChatGPT configurado como herramienta de trabajo segura para tu agencia.</p>
+            </div>
+            <ol class="space-y-3">
+              {courseOneTopics.map((topic, index) => (
+                <li class="flex items-start gap-3 text-text-muted">
+                  <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gold-primary/10 font-jetbrains text-xs text-gold-light">
+                    {index + 1}
+                  </span>
+                  <span class="pt-0.5">{topic}</span>
+                </li>
+              ))}
+            </ol>
+          </article>
+
+          <article class="relative flex h-full flex-col rounded-xl border border-gold-primary bg-bg-card p-6 shadow-[0_0_40px_rgba(201,168,76,0.08)] sm:p-8">
+            <span class="absolute right-4 top-0 -translate-y-1/2 rounded-full bg-gold-primary px-3 py-1 font-jetbrains text-[10px] font-bold uppercase tracking-wider text-bg-dark sm:right-6">
+              El más interesante
+            </span>
+            <div class="mb-6 flex items-start justify-between gap-4">
+              <div>
+                <span class="font-jetbrains text-xs uppercase tracking-widest text-gold-primary">Curso 2 · 10 sesiones</span>
+                <h3 class="mt-3 font-playfair text-2xl font-bold text-white sm:text-3xl">Aplicar a tu agencia</h3>
+              </div>
+              <BriefcaseBusiness className="h-9 w-9 shrink-0 text-gold-primary" aria-hidden="true" />
+            </div>
+            <div class="mb-7 rounded-xl border border-gold-primary/25 bg-gold-primary/10 p-4">
+              <p class="font-medium text-gold-light">Resultado: aplicar la IA a los procesos estándar de tu agencia y empezar a ahorrar tiempo desde el primer día.</p>
+            </div>
+            <ol class="space-y-3">
+              {courseTwoTopics.map((topic, index) => (
+                <li class="flex items-start gap-3 text-text-muted">
+                  <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gold-primary/10 font-jetbrains text-xs text-gold-light">
+                    {index + 1}
+                  </span>
+                  <span class="pt-0.5">{topic}</span>
+                </li>
+              ))}
+            </ol>
+            <p class="mt-7 border-t border-bg-border pt-5 text-sm text-text-muted">
+              Requiere completar el Curso 1 o validar la entrada antes de comenzar.
+            </p>
+          </article>
+        </div>
+
+        <div class="mx-auto mt-8 max-w-4xl rounded-xl border border-white/10 bg-white/5 p-5 text-center text-sm text-text-muted">
+          <Sparkles className="mx-auto mb-3 h-5 w-5 text-gold-primary" aria-hidden="true" />
+          Los prompts, skills y flujos exactos se trabajan en las sesiones. Aquí ves el mapa; el método completo forma parte del programa.
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="precios" class="section scroll-mt-24 border-t border-bg-border bg-[#0D0D0D]" aria-labelledby="precios-title">
+      <div class="container-custom">
+        <div class="mx-auto mb-14 max-w-3xl text-center">
+          <span class="label-gold">Precios y ediciones</span>
+          <h2 id="precios-title" class="text-3xl text-white sm:text-4xl md:text-5xl">Elige cómo quieres aprender</h2>
+          <p class="mx-auto mt-5 text-lg text-text-muted">
+            Contrata un curso por separado o el programa completo con descuento. Todos los precios son más IVA.
+          </p>
+          <p class="mx-auto mt-3 max-w-2xl text-sm text-amber-100/80">
+            Fechas, plazas y precios son provisionales y quedan sujetos a confirmación antes de cualquier inscripción.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 items-stretch gap-6 lg:grid-cols-3">
+          <article class="premium-card flex h-full flex-col p-6">
+            <MonitorPlay className="mb-5 h-8 w-8 text-gold-primary" aria-hidden="true" />
+            <p class="font-jetbrains text-xs uppercase tracking-widest text-gold-primary">Edición online</p>
+            <h3 class="mt-3 font-playfair text-2xl font-bold text-white">Programa completo</h3>
+            <p class="mt-2 text-sm text-text-muted">Disponible desde el 15 de octubre · a tu ritmo.</p>
+            <div class="my-7">
+              <span class="font-playfair text-5xl font-bold text-white">350 €</span>
+              <span class="text-sm text-text-muted"> + IVA</span>
+              <p class="mt-2 text-sm text-gold-light">Ahorras 50 € (12,5 %)</p>
+            </div>
+            <ul class="mb-8 flex-grow space-y-3 text-sm">
+              {['Curso 1 + Curso 2', 'Grabaciones de la edición presencial', 'Material y plantillas de apoyo'].map((item) => (
+                <li class="flex items-start gap-2 text-text-muted"><Check className="mt-0.5 h-4 w-4 shrink-0 text-gold-primary" aria-hidden="true" />{item}</li>
+              ))}
+              {['Sin asistencia en directo', 'Sin descuento en consultoría posterior'].map((item) => (
+                <li class="flex items-start gap-2 text-text-muted"><X className="mt-0.5 h-4 w-4 shrink-0 text-text-muted/60" aria-hidden="true" />{item}</li>
+              ))}
+            </ul>
+            <a href="#formulario" class="btn-secondary inline-flex min-h-12 items-center justify-center px-5 py-3 text-center text-xs focus:outline-none focus:ring-2 focus:ring-gold-light">Consultar disponibilidad</a>
+          </article>
+
+          <article class="relative flex h-full flex-col rounded-xl border border-gold-primary bg-bg-card p-6 shadow-[0_0_50px_rgba(201,168,76,0.12)] lg:-translate-y-3">
+            <span class="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full bg-gold-primary px-4 py-1.5 font-jetbrains text-[10px] font-bold uppercase tracking-wider text-bg-dark">
+              Recomendado
+            </span>
+            <GraduationCap className="mb-5 h-8 w-8 text-gold-primary" aria-hidden="true" />
+            <p class="font-jetbrains text-xs uppercase tracking-widest text-gold-primary">Edición presencial</p>
+            <h3 class="mt-3 font-playfair text-2xl font-bold text-white">Programa completo</h3>
+            <p class="mt-2 text-sm text-text-muted">En directo + acompañamiento de implantación.</p>
+            <div class="my-7">
+              <span class="font-playfair text-5xl font-bold text-white">400 €</span>
+              <span class="text-sm text-text-muted"> + IVA</span>
+              <p class="mt-2 text-sm text-gold-light">Ahorras 100 € (20 %)</p>
+            </div>
+            <ul class="mb-8 flex-grow space-y-3 text-sm text-text-muted">
+              {[
+                'Curso 1 + Curso 2',
+                '17 sesiones en directo y grabadas',
+                'Preguntas y dudas en vivo',
+                '1 h de consultoría incluida (valor 50 €)',
+                'Hasta 3 h adicionales a 40 €/h',
+              ].map((item) => (
+                <li class="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-gold-primary" aria-hidden="true" />{item}</li>
+              ))}
+            </ul>
+            <a href="#formulario" class="btn-primary inline-flex min-h-12 items-center justify-center px-5 py-3 text-center text-xs focus:outline-none focus:ring-2 focus:ring-gold-light">Solicitar plaza</a>
+          </article>
+
+          <article class="premium-card flex h-full flex-col p-6">
+            <Target className="mb-5 h-8 w-8 text-gold-primary" aria-hidden="true" />
+            <p class="font-jetbrains text-xs uppercase tracking-widest text-gold-primary">Solo un curso</p>
+            <h3 class="mt-3 font-playfair text-2xl font-bold text-white">Elige tu bloque</h3>
+            <p class="mt-2 text-sm text-text-muted">Ideal si ya dominas la otra parte.</p>
+            <div class="my-7">
+              <span class="font-playfair text-5xl font-bold text-white">150 €</span>
+              <span class="text-sm text-text-muted"> desde</span>
+            </div>
+            <div class="mb-8 flex-grow space-y-5">
+              <div class="rounded-lg border border-bg-border p-4">
+                <p class="font-semibold text-white">Curso 1 · 7 sesiones</p>
+                <p class="mt-2 text-sm text-text-muted">150 € online / 200 € presencial</p>
+              </div>
+              <div class="rounded-lg border border-bg-border p-4">
+                <p class="font-semibold text-white">Curso 2 · 10 sesiones</p>
+                <p class="mt-2 text-sm text-text-muted">250 € online / 300 € presencial</p>
+              </div>
+            </div>
+            <a href="#formulario" class="btn-secondary inline-flex min-h-12 items-center justify-center px-5 py-3 text-center text-xs focus:outline-none focus:ring-2 focus:ring-gold-light">Consultar opciones</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- In-person reasons -->
+    <section class="section border-t border-bg-border" aria-labelledby="presencial-title">
+      <div class="container-custom">
+        <div class="grid grid-cols-1 gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
+          <div class="lg:sticky lg:top-28">
+            <span class="label-gold">Lo que conviene reservar</span>
+            <h2 id="presencial-title" class="text-3xl text-white sm:text-4xl md:text-5xl">¿Por qué la presencial?</h2>
+            <p class="mt-6 text-lg text-text-muted">
+              El salto de 50 € compra asistencia en vivo y acompañamiento real. La presencial es el producto estrella; la online, la alternativa accesible.
+            </p>
+            <div class="mt-8 rounded-xl border border-gold-primary/30 bg-gold-primary/10 p-5">
+              <p class="font-jetbrains text-xs uppercase tracking-widest text-gold-primary">Inicio</p>
+              <p class="mt-2 font-playfair text-2xl font-bold text-white">5 de octubre de 2026</p>
+              <p class="mt-2 text-sm text-text-muted">Lunes, miércoles y viernes · 17:00–19:00 · hasta el 16 de noviembre.</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+            {[
+              { icon: UserCheck, title: '1 h de consultoría incluida', text: 'Sesión de arranque para configurar tu cuenta y trabajar 2–3 casos de uso de tu agencia. Valor: 50 €.' },
+              { icon: Sparkles, title: 'Hasta 3 h más a 40 €/h', text: 'Bloques concretos para un proceso, una automatización o una revisión. Tarifa oficial posterior: 50 €/h.' },
+              { icon: CalendarDays, title: 'Ventana de 2 semanas', text: 'El acompañamiento adicional se puede usar durante las dos semanas posteriores al curso.' },
+              { icon: Users, title: 'Solo las 10 primeras reservas', text: 'Acompañamiento exclusivo para las 10 primeras contrataciones del programa completo presencial.' },
+            ].map((item) => (
+              <article class="premium-card p-6">
+                <item.icon className="mb-5 h-7 w-7 text-gold-primary" aria-hidden="true" />
+                <h3 class="text-xl text-white">{item.title}</h3>
+                <p class="mt-3 text-sm text-text-muted">{item.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+
+        <div class="mt-10 rounded-xl border border-amber-300/25 bg-amber-300/5 p-5 text-center text-sm text-amber-100/90">
+          Plazas limitadas a 10–12 personas. El acompañamiento de implantación solo está disponible para las 10 primeras reservas del programa completo presencial.
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section border-t border-bg-border bg-[#0D0D0D]" aria-labelledby="faq-title">
+      <div class="container-custom max-w-4xl">
+        <div class="mb-12 text-center">
+          <span class="label-gold">Preguntas frecuentes</span>
+          <h2 id="faq-title" class="text-3xl text-white sm:text-4xl md:text-5xl">Resolvemos tus dudas</h2>
+        </div>
+
+        <div class="space-y-4">
+          {faqItems.map((item) => (
+            <details class="group rounded-xl border border-bg-border bg-bg-card open:border-gold-primary/40">
+              <summary class="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 font-semibold text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-gold-primary sm:px-6">
+                <span>{item.question}</span>
+                <span class="text-xl text-gold-primary transition-transform group-open:rotate-45 motion-reduce:transition-none" aria-hidden="true">+</span>
+              </summary>
+              <div class="border-t border-bg-border px-5 py-5 sm:px-6">
+                <p class="text-text-muted">{item.answer}</p>
+              </div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Form -->
+    <section id="formulario" class="section scroll-mt-20 border-t border-bg-border" aria-labelledby="formulario-title">
+      <div class="container-custom">
+        <div class="mx-auto mb-10 max-w-3xl text-center">
+          <span class="label-gold">Consulta informativa</span>
+          <h2 id="formulario-title" class="text-3xl text-white sm:text-4xl md:text-5xl">Solicita información</h2>
+          <p class="mx-auto mt-5 text-lg text-text-muted">
+            Cuéntanos qué te interesa y te respondemos sin compromiso. Este formulario no es una inscripción ni reserva una plaza.
+          </p>
+        </div>
+        <CourseLeadForm client:visible />
+      </div>
+    </section>
+  </main>
+</Layout>

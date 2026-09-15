@@ -22,6 +22,7 @@
           <a href="/agentes-ia" class="block px-4 py-2.5 text-xs text-text-muted hover:text-gold-light hover:bg-white/5 transition-colors flex items-center gap-1.5">
             Agentes IA para Agencias <span class="text-[9px] bg-gold-primary text-bg-dark px-1 rounded">🆕</span>
           </a>
+          <a href="/curso-chatgpt-work-agencias-viajes" class="block px-4 py-2.5 text-xs text-text-muted hover:text-gold-light hover:bg-white/5 transition-colors">Curso ChatGPT Work</a>
           <a href="/consultoria" class="block px-4 py-2.5 text-xs text-text-muted hover:text-gold-light hover:bg-white/5 transition-colors">Consultoría "Hazlo Conmigo"</a>
           <a href="/servicios" class="block px-4 py-2.5 text-xs text-text-muted hover:text-gold-light hover:bg-white/5 transition-colors">"Lo Hacemos por Ti"</a>
         </div>
@@ -47,7 +48,7 @@
     </div>
 
     <!-- Mobile Toggle -->
-    <button id="mobile-toggle" class="md:hidden text-gold-primary" aria-label="Menu">
+    <button id="mobile-toggle" type="button" class="lg:hidden text-gold-primary" aria-label="Abrir menú" aria-controls="mobile-menu" aria-expanded="false">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="menu-icon"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg>
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="close-icon hidden"><line x1="18" x2="6" y1="6" y2="18"></line><line x1="6" x2="18" y1="6" y2="18"></line></svg>
     </button>
@@ -60,6 +61,7 @@
       <span class="text-xs text-gold-light uppercase tracking-widest">Servicios</span>
       <a href="/comunidad" class="text-base font-medium text-text-muted pl-2">Comunidad IA</a>
       <a href="/agentes-ia" class="text-base font-medium text-text-muted pl-2 flex items-center gap-1">Agentes IA <span class="text-[9px] bg-gold-primary text-bg-dark px-1 rounded">🆕</span></a>
+      <a href="/curso-chatgpt-work-agencias-viajes" class="text-base font-medium text-gold-light pl-2">Curso ChatGPT Work</a>
       <a href="/consultoria" class="text-base font-medium text-text-muted pl-2">Consultoría</a>
       <a href="/servicios" class="text-base font-medium text-text-muted pl-2">Lo Hacemos por Ti</a>
     </div>
@@ -103,6 +105,9 @@
     menu?.classList.toggle('hidden');
     menuIcon?.classList.toggle('hidden');
     closeIcon?.classList.toggle('hidden');
+    const isOpen = !menu?.classList.contains('hidden');
+    toggle.setAttribute('aria-expanded', String(isOpen));
+    toggle.setAttribute('aria-label', isOpen ? 'Cerrar menú' : 'Abrir menú');
   });
 
   // Close menu on link click
@@ -111,6 +116,8 @@
       menu?.classList.add('hidden');
       menuIcon?.classList.remove('hidden');
       closeIcon?.classList.add('hidden');
+      toggle?.setAttribute('aria-expanded', 'false');
+      toggle?.setAttribute('aria-label', 'Abrir menú');
     });
   });
 </script>
