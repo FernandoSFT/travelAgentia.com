@@ -23,7 +23,7 @@ import {
 
 const pageUrl = 'https://travelagentia.com/curso-chatgpt-work-agencias-viajes';
 const description =
-  'Curso ChatGPT Work para agencias de viajes: 17 sesiones prácticas del 5 de octubre al 16 de noviembre de 2026, con casos sintéticos, seguridad y acompañamiento de implantación.';
+  'Curso ChatGPT Work para agencias de viajes: 17 sesiones prácticas planificadas del 5 de octubre al 11 de noviembre de 2026 (Curso 1 del 5 al 22 de octubre; Curso 2 a continuación, inicio estimado entre el 23 y el 26 de octubre), con casos sintéticos, seguridad y acompañamiento de implantación.';
 
 const problems = [
   {
@@ -75,12 +75,12 @@ const faqItems = [
   {
     question: '¿Puedo hacer solo un curso?',
     answer:
-      'Sí. Cada curso se puede contratar por separado. Con IVA vigente del 21 % incluido: Curso 1 online, 181,50 €; Curso 1 presencial, 242 €; Curso 2 online, 302,50 €; y Curso 2 presencial, 363 €. El programa completo incluye ambos con descuento.',
+      'Sí. Cada curso se puede solicitar por separado. El Curso 2 exige haber realizado el Curso 1 o superar una validación humana previa; no se cobra antes de validar. Con IVA del 21 % incluido: Curso 1 online, 182 €; Curso 1 presencial, 242 €; Curso 2 online, 303 €; y Curso 2 presencial, 363 €. El programa completo incluye ambos con descuento.',
   },
   {
     question: '¿Qué pasa si no puedo asistir en directo?',
     answer:
-      'Las sesiones se graban. La edición online, disponible desde el 1 de noviembre, da acceso a las grabaciones del presencial, pero sin asistencia en directo ni descuentos en consultorías posteriores.',
+      'La edición online, disponible desde el 1 de noviembre, se prepara con grabaciones que muestran solo al instructor, las diapositivas y las demostraciones. La cámara, el micrófono, el nombre y el chat de participantes quedan excluidos por defecto. Las preguntas solo se reutilizan si el instructor las parafrasea y anonimiza o si existe un permiso explícito separado.',
   },
   {
     question: '¿Necesito conocimientos técnicos?',
@@ -104,7 +104,7 @@ const offers = [
     name: 'Programa completo — Edición presencial',
     price: '484.00',
     priceCurrency: 'EUR',
-    availability: 'https://schema.org/InStock',
+    availability: 'https://schema.org/PreOrder',
     url: `${pageUrl}#formulario`,
     priceSpecification: {
       '@type': 'UnitPriceSpecification',
@@ -118,7 +118,7 @@ const offers = [
     name: 'Programa completo — Edición online',
     price: '423.50',
     priceCurrency: 'EUR',
-    availability: 'https://schema.org/InStock',
+    availability: 'https://schema.org/PreOrder',
     url: `${pageUrl}#formulario`,
     priceSpecification: {
       '@type': 'UnitPriceSpecification',
@@ -132,7 +132,7 @@ const offers = [
     name: 'Curso 1 — Preparar ChatGPT (online)',
     price: '181.50',
     priceCurrency: 'EUR',
-    availability: 'https://schema.org/InStock',
+    availability: 'https://schema.org/PreOrder',
     url: `${pageUrl}#formulario`,
     priceSpecification: {
       '@type': 'UnitPriceSpecification',
@@ -146,7 +146,7 @@ const offers = [
     name: 'Curso 1 — Preparar ChatGPT (presencial)',
     price: '242.00',
     priceCurrency: 'EUR',
-    availability: 'https://schema.org/InStock',
+    availability: 'https://schema.org/PreOrder',
     url: `${pageUrl}#formulario`,
     priceSpecification: {
       '@type': 'UnitPriceSpecification',
@@ -160,7 +160,7 @@ const offers = [
     name: 'Curso 2 — Aplicar a tu agencia (online)',
     price: '302.50',
     priceCurrency: 'EUR',
-    availability: 'https://schema.org/InStock',
+    availability: 'https://schema.org/PreOrder',
     url: `${pageUrl}#formulario`,
     priceSpecification: {
       '@type': 'UnitPriceSpecification',
@@ -174,7 +174,7 @@ const offers = [
     name: 'Curso 2 — Aplicar a tu agencia (presencial)',
     price: '363.00',
     priceCurrency: 'EUR',
-    availability: 'https://schema.org/InStock',
+    availability: 'https://schema.org/PreOrder',
     url: `${pageUrl}#formulario`,
     priceSpecification: {
       '@type': 'UnitPriceSpecification',
@@ -209,14 +209,9 @@ const courseSchema = {
       name: 'Edición presencial octubre–noviembre 2026',
       courseMode: 'Presencial en directo',
       startDate: '2026-10-05',
-      endDate: '2026-11-16',
-      courseSchedule: {
-        '@type': 'Schedule',
-        repeatFrequency: 'P1W',
-        byDay: ['Monday', 'Wednesday', 'Friday'],
-        startTime: '17:00',
-        endTime: '19:00',
-      },
+      endDate: '2026-11-11',
+      description:
+        '17 sesiones planificadas principalmente los lunes, miércoles y viernes, de 17:00 a 19:00, repartidas entre Curso 1 (5–22 de octubre de 2026) y Curso 2 (a continuación, inicio estimado entre el 23 y el 26 de octubre de 2026). Cada fecha exacta se confirma previamente por correo operativo.',
     },
     {
       '@type': 'CourseInstance',
@@ -313,7 +308,7 @@ const faqSchema = {
               href="#precios"
               class="btn-secondary inline-flex min-h-12 items-center justify-center text-center focus:outline-none focus:ring-2 focus:ring-gold-light focus:ring-offset-2 focus:ring-offset-bg-dark"
             >
-              Ver precios y plazas
+              Ver precios y modalidades
             </a>
           </div>
         </div>
@@ -321,8 +316,8 @@ const faqSchema = {
         <div class="mt-12 grid max-w-5xl grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {[
             { icon: CalendarDays, title: '5 oct – 16 nov 2026', text: 'Inicio el 5 de octubre' },
-            { icon: Clock3, title: 'Lun · Mié · Vie', text: '17:00–19:00' },
-            { icon: Users, title: 'Plazas abiertas', text: 'Grupo reducido' },
+            { icon: Clock3, title: 'Principalmente lun · mié · vie', text: '17:00–19:00 · fechas por confirmar' },
+            { icon: Users, title: 'Preinscripción', text: 'Solicitud sujeta a confirmación' },
             { icon: ShieldCheck, title: 'Datos sintéticos', text: 'Privacidad desde el inicio' },
           ].map((item) => (
             <div class="rounded-xl border border-white/15 bg-black/45 p-4 backdrop-blur-sm">
@@ -454,6 +449,9 @@ const faqSchema = {
                 </li>
               ))}
             </ol>
+            <p class="mt-7 border-t border-bg-border pt-5 text-sm text-text-muted">
+              El Curso 1 comienza el 5 de octubre de 2026.
+            </p>
           </article>
 
           <article class="relative flex h-full flex-col rounded-xl border border-gold-primary bg-bg-card p-6 shadow-[0_0_40px_rgba(201,168,76,0.08)] sm:p-8">
@@ -481,9 +479,13 @@ const faqSchema = {
               ))}
             </ol>
             <p class="mt-7 border-t border-bg-border pt-5 text-sm text-text-muted">
-              Requiere completar el Curso 1 o validar la entrada antes de comenzar.
+              El Curso 2 continúa después, con inicio previsto entre el 23 y el 26 de octubre de 2026. Se puede solicitar por separado, pero exige haber realizado el Curso 1 o superar una validación humana previa. No se cobra antes de validar.
             </p>
           </article>
+        </div>
+
+        <div class="mx-auto mt-8 max-w-4xl rounded-xl border border-gold-primary/25 bg-gold-primary/10 p-5 text-center text-sm text-gold-light">
+          Son 17 sesiones dentro de la ventana del 5 de octubre al 11 de noviembre de 2026, con Curso 1 del 5 al 22 de octubre y Curso 2 a continuación (inicio estimado entre el 23 y el 26 de octubre). Las sesiones se planifican principalmente los lunes, miércoles y viernes. El calendario exacto está sujeto a confirmación escrita y cada sesión se confirma previamente por email operativo, no promocional.
         </div>
 
         <div class="mx-auto mt-8 max-w-4xl rounded-xl border border-white/10 bg-white/5 p-5 text-center text-sm text-text-muted">
@@ -500,10 +502,10 @@ const faqSchema = {
           <span class="label-gold">Precios y ediciones</span>
           <h2 id="precios-title" class="text-3xl text-white sm:text-4xl md:text-5xl">Elige cómo quieres aprender</h2>
           <p class="mx-auto mt-5 text-lg text-text-muted">
-            Contrata un curso por separado o el programa completo con descuento. Aplicamos el IVA vigente del 21 % y mostramos siempre el total final.
+            Todos los importes incluyen el IVA vigente del 21 %. Los seis precios finales indicados son firmes.
           </p>
           <p class="mx-auto mt-3 max-w-2xl text-sm text-amber-100/80">
-            Fechas, plazas y precios son provisionales y quedan sujetos a confirmación antes de cualquier inscripción.
+            La disponibilidad y el calendario exacto se confirman por escrito antes de enviar cualquier enlace de pago, que no se publica en esta página.
           </p>
         </div>
 
@@ -514,10 +516,9 @@ const faqSchema = {
             <h3 class="mt-3 font-playfair text-2xl font-bold text-white">Programa completo</h3>
             <p class="mt-2 text-sm text-text-muted">Disponible desde el 1 de noviembre · a tu ritmo.</p>
             <div class="my-7">
-              <span class="font-playfair text-5xl font-bold text-white">423,50 €</span>
+              <span class="font-playfair text-5xl font-bold text-white">424 €</span>
               <span class="text-sm text-text-muted"> IVA incluido</span>
-              <p class="mt-2 text-sm text-text-muted">350 € + 73,50 € de IVA (21 %)</p>
-              <p class="mt-2 text-sm text-gold-light">Ahorras 60,50 € IVA incluido (12,5 %)</p>
+              <p class="mt-2 text-sm text-gold-light">Ahorras 60 € IVA incluido frente a cursos sueltos</p>
             </div>
             <ul class="mb-8 flex-grow space-y-3 text-sm">
               {['Curso 1 + Curso 2', 'Grabaciones de la edición presencial', 'Material y plantillas de apoyo'].map((item) => (
@@ -541,21 +542,20 @@ const faqSchema = {
             <div class="my-7">
               <span class="font-playfair text-5xl font-bold text-white">484 €</span>
               <span class="text-sm text-text-muted"> IVA incluido</span>
-              <p class="mt-2 text-sm text-text-muted">400 € + 84 € de IVA (21 %)</p>
-              <p class="mt-2 text-sm text-gold-light">Ahorras 121 € IVA incluido (20 %)</p>
+              <p class="mt-2 text-sm text-gold-light">Ahorras 121 € IVA incluido frente a cursos sueltos</p>
             </div>
             <ul class="mb-8 flex-grow space-y-3 text-sm text-text-muted">
               {[
                 'Curso 1 + Curso 2',
                 '17 sesiones en directo y grabadas',
                 'Preguntas y dudas en vivo',
-                '1 h de consultoría incluida (valor 50 €)',
-                'Hasta 3 h adicionales a 40 €/h',
+                '1 h de consultoría incluida (50 € base = 60,50 € IVA incluido)',
+                'Hasta 3 h adicionales a 40 €/h base = 48,40 €/h IVA incluido',
               ].map((item) => (
                 <li class="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-gold-primary" aria-hidden="true" />{item}</li>
               ))}
             </ul>
-            <a href="#formulario" class="btn-primary inline-flex min-h-12 items-center justify-center px-5 py-3 text-center text-xs focus:outline-none focus:ring-2 focus:ring-gold-light">Solicitar plaza</a>
+            <a href="#formulario" class="btn-primary inline-flex min-h-12 items-center justify-center px-5 py-3 text-center text-xs focus:outline-none focus:ring-2 focus:ring-gold-light">Solicitar preinscripción</a>
           </article>
 
           <article class="premium-card flex h-full flex-col p-6">
@@ -564,17 +564,18 @@ const faqSchema = {
             <h3 class="mt-3 font-playfair text-2xl font-bold text-white">Elige tu bloque</h3>
             <p class="mt-2 text-sm text-text-muted">Ideal si ya dominas la otra parte.</p>
             <div class="my-7">
-              <span class="font-playfair text-5xl font-bold text-white">181,50 €</span>
+              <span class="font-playfair text-5xl font-bold text-white">182 €</span>
               <span class="text-sm text-text-muted"> desde · IVA incluido</span>
             </div>
             <div class="mb-8 flex-grow space-y-5">
               <div class="rounded-lg border border-bg-border p-4">
                 <p class="font-semibold text-white">Curso 1 · 7 sesiones</p>
-                <p class="mt-2 text-sm text-text-muted">Online: 181,50 € (150 € + IVA 21 %) · Presencial: 242 € (200 € + IVA 21 %)</p>
+                <p class="mt-2 text-sm text-text-muted">Online: 182 € · Presencial: 242 €</p>
               </div>
               <div class="rounded-lg border border-bg-border p-4">
                 <p class="font-semibold text-white">Curso 2 · 10 sesiones</p>
-                <p class="mt-2 text-sm text-text-muted">Online: 302,50 € (250 € + IVA 21 %) · Presencial: 363 € (300 € + IVA 21 %)</p>
+                <p class="mt-2 text-sm text-text-muted">Online: 303 € · Presencial: 363 €</p>
+                <p class="mt-2 text-xs text-text-muted">Puede solicitarse por separado, sujeto a haber realizado el Curso 1 o a validación humana previa. No se cobra antes de validar.</p>
               </div>
             </div>
             <a href="#formulario" class="btn-secondary inline-flex min-h-12 items-center justify-center px-5 py-3 text-center text-xs focus:outline-none focus:ring-2 focus:ring-gold-light">Consultar opciones</a>
@@ -596,14 +597,14 @@ const faqSchema = {
             <div class="mt-8 rounded-xl border border-gold-primary/30 bg-gold-primary/10 p-5">
               <p class="font-jetbrains text-xs uppercase tracking-widest text-gold-primary">Inicio</p>
               <p class="mt-2 font-playfair text-2xl font-bold text-white">5 de octubre de 2026</p>
-              <p class="mt-2 text-sm text-text-muted">Lunes, miércoles y viernes · 17:00–19:00 · hasta el 16 de noviembre.</p>
+              <p class="mt-2 text-sm text-text-muted">17 sesiones planificadas principalmente lunes, miércoles y viernes · 17:00–19:00 · ventana hasta el 16 de noviembre. Cada fecha exacta se confirma previamente por email operativo.</p>
             </div>
           </div>
 
           <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
             {[
-              { icon: UserCheck, title: '1 h de consultoría incluida', text: 'Sesión de arranque para configurar tu cuenta y trabajar 2–3 casos de uso de tu agencia. Valor: 50 €.' },
-              { icon: Sparkles, title: 'Hasta 3 h más a 40 €/h', text: 'Bloques concretos para un proceso, una automatización o una revisión. Tarifa oficial posterior: 50 €/h.' },
+              { icon: UserCheck, title: '1 h de consultoría incluida', text: 'Sesión de arranque para configurar tu cuenta y trabajar 2–3 casos de uso de tu agencia. 50 € base = 60,50 € IVA incluido.' },
+              { icon: Sparkles, title: 'Hasta 3 h más a 40 €/h base', text: 'Bloques concretos para un proceso, una automatización o una revisión. 40 €/h base = 48,40 €/h IVA incluido. Tarifa posterior: 50 €/h base = 60,50 €/h IVA incluido.' },
               { icon: CalendarDays, title: 'Ventana de 2 semanas', text: 'El acompañamiento adicional se puede usar durante las dos semanas posteriores al curso.' },
               { icon: Users, title: 'Acompañamiento adicional', text: 'Disponible para contrataciones del programa completo presencial, sujeto a planificación.' },
             ].map((item) => (
