@@ -30,6 +30,14 @@ import { Users, Compass, Key, Check, Clock, Bot, BookOpen, Layers, Mail, FileTex
         <div class="flex flex-col sm:flex-row gap-6 justify-center items-center animate-fade-in-up" style="animation-delay: 0.3s;">
           <a href="/reservar" class="btn-primary min-w-[200px]">RESERVAR SESIÓN GRATIS</a>
           <a href="/servicios" class="btn-secondary min-w-[200px]">VER SERVICIOS</a>
+          <a
+            href="/curso-chatgpt-work-agencias-viajes"
+            class="btn-secondary min-w-[200px] border-gold-primary text-gold-primary hover:bg-gold-primary hover:text-bg-dark"
+            data-analytics="click_curso_chatgpt_cta"
+            data-location="home_hero"
+          >
+            🎓 CURSO CHATGPT PARA AGENCIAS
+          </a>
         </div>
         
         <div class="mt-20 animate-fade-in" style="animation-delay: 0.6s;">
@@ -183,6 +191,24 @@ import { Users, Compass, Key, Check, Clock, Bot, BookOpen, Layers, Mail, FileTex
         </div>
         
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <!-- Curso ChatGPT -->
+          <div class="premium-card border-gold-primary/50 relative flex flex-col">
+            <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-gold-primary text-bg-dark text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">🆕 NUEVO</div>
+            <GraduationCap class="w-12 h-12 text-gold-primary mb-6" />
+            <h3 class="text-2xl mb-2 text-white font-playfair">Curso ChatGPT para Agencias</h3>
+            <p class="text-gold-light text-sm mb-6">Formación práctica para usar ChatGPT en tu día a día</p>
+            <p class="text-sm text-text-muted mb-8 flex-grow">Curso pensado al 100% para agencias de viajes. Aprende a crear prompts, automatizar expedientes y montar tus primeros agentes paso a paso.</p>
+            <ul class="space-y-3 mb-10">
+              {['Aplicado a expedientes reales', 'Sin teoría genérica de IA', 'Acceso a prompts y plantillas', 'Para equipos no técnicos'].map(item => (
+                <li class="flex items-start gap-2 text-sm text-text-main">
+                  <Check class="w-4 h-4 text-gold-primary mt-0.5 shrink-0" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+            <a href="/curso-chatgpt-work-agencias-viajes" class="btn-primary text-center py-3" data-analytics="click_curso_chatgpt_cta" data-location="home_servicios">VER EL CURSO</a>
+          </div>
+
           <!-- Comunidad -->
           <div class="premium-card flex flex-col">
             <Users class="w-12 h-12 text-gold-primary mb-6" />
