@@ -21,6 +21,7 @@ export default defineConfig({
               '/servicios/formacion/',
               '/servicios/llaves-en-mano/',
               '/servicios/ponencias/',
+              '/checkout-curso-chatgpt/',
             ].some(path => page.includes(path)),
         })]
       : []),

@@ -4,7 +4,7 @@ import { AlertCircle, CheckCircle2, Loader2, Send } from 'lucide-react';
 const REQUEST_TIMEOUT_MS = 12_000;
 
 const interestOptions = [
-  'Programa completo — Edición presencial (484 € IVA incluido)',
+  'Programa completo — En directo por Google Meet (484 € IVA incluido)',
   'Programa completo — Edición online (424 € IVA incluido)',
   'Curso 1 — Preparar ChatGPT',
   'Curso 2 — Aplicar a tu agencia',

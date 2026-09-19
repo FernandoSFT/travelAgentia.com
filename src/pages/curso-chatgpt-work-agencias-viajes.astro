@@ -23,7 +23,7 @@ import {
 
 const pageUrl = 'https://travelagentia.com/curso-chatgpt-work-agencias-viajes';
 const description =
-  'Curso ChatGPT Work para agencias de viajes: 17 sesiones prácticas planificadas del 5 de octubre al 11 de noviembre de 2026 (Curso 1 del 5 al 22 de octubre; Curso 2 a continuación, inicio estimado entre el 23 y el 26 de octubre), con casos sintéticos, seguridad y acompañamiento de implantación.';
+  'Curso ChatGPT Work para agencias de viajes: 17 sesiones prácticas en directo por Google Meet, planificadas lunes, miércoles y viernes desde el 5 de octubre de 2026, con casos sintéticos, seguridad y acompañamiento de implantación.';
 
 const problems = [
   {
@@ -75,7 +75,7 @@ const faqItems = [
   {
     question: '¿Puedo hacer solo un curso?',
     answer:
-      'Sí. Cada curso se puede solicitar por separado. El Curso 2 exige haber realizado el Curso 1 o superar una validación humana previa; no se cobra antes de validar. Con IVA del 21 % incluido: Curso 1 online, 182 €; Curso 1 presencial, 242 €; Curso 2 online, 303 €; y Curso 2 presencial, 363 €. El programa completo incluye ambos con descuento.',
+      'Sí. Cada curso se puede solicitar por separado. El Curso 2 exige haber realizado el Curso 1 o superar una validación humana previa; no se cobra antes de validar. Con IVA del 21 % incluido: Curso 1 online, 182 €; Curso 1 en directo por Google Meet, 242 €; Curso 2 online, 303 €; y Curso 2 en directo por Google Meet, 363 €. El programa completo incluye ambos con descuento.',
   },
   {
     question: '¿Qué pasa si no puedo asistir en directo?',
@@ -101,7 +101,7 @@ const faqItems = [
 const offers = [
   {
     '@type': 'Offer',
-    name: 'Programa completo — Edición presencial',
+    name: 'Programa completo — Edición en directo por Google Meet',
     price: '484.00',
     priceCurrency: 'EUR',
     availability: 'https://schema.org/PreOrder',
@@ -116,13 +116,13 @@ const offers = [
   {
     '@type': 'Offer',
     name: 'Programa completo — Edición online',
-    price: '423.50',
+    price: '424.00',
     priceCurrency: 'EUR',
     availability: 'https://schema.org/PreOrder',
     url: `${pageUrl}#formulario`,
     priceSpecification: {
       '@type': 'UnitPriceSpecification',
-      price: '423.50',
+      price: '424.00',
       priceCurrency: 'EUR',
       valueAddedTaxIncluded: true,
     },
@@ -143,7 +143,7 @@ const offers = [
   },
   {
     '@type': 'Offer',
-    name: 'Curso 1 — Preparar ChatGPT (presencial)',
+    name: 'Curso 1 — Preparar ChatGPT (en directo por Google Meet)',
     price: '242.00',
     priceCurrency: 'EUR',
     availability: 'https://schema.org/PreOrder',
@@ -158,20 +158,20 @@ const offers = [
   {
     '@type': 'Offer',
     name: 'Curso 2 — Aplicar a tu agencia (online)',
-    price: '302.50',
+    price: '303.00',
     priceCurrency: 'EUR',
     availability: 'https://schema.org/PreOrder',
     url: `${pageUrl}#formulario`,
     priceSpecification: {
       '@type': 'UnitPriceSpecification',
-      price: '302.50',
+      price: '303.00',
       priceCurrency: 'EUR',
       valueAddedTaxIncluded: true,
     },
   },
   {
     '@type': 'Offer',
-    name: 'Curso 2 — Aplicar a tu agencia (presencial)',
+    name: 'Curso 2 — Aplicar a tu agencia (en directo por Google Meet)',
     price: '363.00',
     priceCurrency: 'EUR',
     availability: 'https://schema.org/PreOrder',
@@ -206,12 +206,12 @@ const courseSchema = {
   hasCourseInstance: [
     {
       '@type': 'CourseInstance',
-      name: 'Edición presencial octubre–noviembre 2026',
-      courseMode: 'Presencial en directo',
+      name: 'Edición en directo por Google Meet octubre–noviembre 2026',
+      courseMode: 'Online en directo',
       startDate: '2026-10-05',
       endDate: '2026-11-11',
       description:
-        '17 sesiones planificadas principalmente los lunes, miércoles y viernes, de 17:00 a 19:00, repartidas entre Curso 1 (5–22 de octubre de 2026) y Curso 2 (a continuación, inicio estimado entre el 23 y el 26 de octubre de 2026). Cada fecha exacta se confirma previamente por correo operativo.',
+        '17 sesiones en directo por Google Meet, planificadas lunes, miércoles y viernes desde el 5 de octubre de 2026, de 17:00 a 19:00. Las fechas pueden cambiar por festivos y se confirman por correo operativo.',
     },
     {
       '@type': 'CourseInstance',
@@ -261,7 +261,7 @@ const faqSchema = {
   ogImage="/images/og/og-formacion.png"
 >
   <Fragment slot="head">
-    <meta name="robots" content="noindex,nofollow" />
+    <meta name="robots" content="index,follow" />
     <script is:inline type="application/ld+json" set:html={JSON.stringify(courseSchema)} />
     <script is:inline type="application/ld+json" set:html={JSON.stringify(offerSchema)} />
     <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
@@ -286,7 +286,7 @@ const faqSchema = {
 
       <div class="container-custom relative z-10 w-full">
         <div class="max-w-4xl">
-          <span class="label-gold">Programa presencial · Oct–Nov 2026</span>
+          <span class="label-gold">Programa en directo por Google Meet · Oct–Nov 2026</span>
           <h1 class="max-w-4xl text-4xl leading-[1.08] text-white sm:text-5xl md:text-6xl lg:text-7xl">
             Curso <span class="text-gradient">ChatGPT Work</span> para agencias de viajes
           </h1>
@@ -315,7 +315,7 @@ const faqSchema = {
 
         <div class="mt-12 grid max-w-5xl grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {[
-            { icon: CalendarDays, title: '5 oct – 16 nov 2026', text: 'Inicio el 5 de octubre' },
+          { icon: CalendarDays, title: 'Desde el 5 de octubre de 2026', text: 'Lunes · miércoles · viernes' },
             { icon: Clock3, title: 'Principalmente lun · mié · vie', text: '17:00–19:00 · fechas por confirmar' },
             { icon: Users, title: 'Preinscripción', text: 'Solicitud sujeta a confirmación' },
             { icon: ShieldCheck, title: 'Datos sintéticos', text: 'Privacidad desde el inicio' },
@@ -548,17 +548,17 @@ const faqSchema = {
             <div class="my-7">
               <span class="font-playfair text-5xl font-bold text-white">424 €</span>
               <span class="text-sm text-text-muted"> IVA incluido</span>
-              <p class="mt-2 text-sm text-gold-light">Ahorras 60 € IVA incluido frente a cursos sueltos</p>
+              <p class="mt-2 text-sm text-gold-light">Ahorras 61 € IVA incluido frente a cursos sueltos</p>
             </div>
             <ul class="mb-8 flex-grow space-y-3 text-sm">
-              {['Curso 1 + Curso 2', 'Grabaciones de la edición presencial', 'Material y plantillas de apoyo'].map((item) => (
+              {['Curso 1 + Curso 2', 'Grabaciones de la edición en directo por Google Meet', 'Material y plantillas de apoyo'].map((item) => (
                 <li class="flex items-start gap-2 text-text-muted"><Check className="mt-0.5 h-4 w-4 shrink-0 text-gold-primary" aria-hidden="true" />{item}</li>
               ))}
               {['Sin asistencia en directo', 'Sin descuento en consultoría posterior'].map((item) => (
                 <li class="flex items-start gap-2 text-text-muted"><X className="mt-0.5 h-4 w-4 shrink-0 text-text-muted/60" aria-hidden="true" />{item}</li>
               ))}
             </ul>
-            <a href="#formulario" class="btn-secondary inline-flex min-h-12 items-center justify-center px-5 py-3 text-center text-xs focus:outline-none focus:ring-2 focus:ring-gold-light">Consultar disponibilidad</a>
+            <a href="/checkout-curso-chatgpt?product=PROGRAM_ONLINE" class="btn-secondary inline-flex min-h-12 items-center justify-center px-5 py-3 text-center text-xs focus:outline-none focus:ring-2 focus:ring-gold-light">Confirma tu plaza</a>
           </article>
 
           <article class="relative flex h-full flex-col rounded-xl border border-gold-primary bg-bg-card p-6 shadow-[0_0_50px_rgba(201,168,76,0.12)] lg:-translate-y-3">
@@ -566,7 +566,7 @@ const faqSchema = {
               Recomendado
             </span>
             <GraduationCap className="mb-5 h-8 w-8 text-gold-primary" aria-hidden="true" />
-            <p class="font-jetbrains text-xs uppercase tracking-widest text-gold-primary">Edición presencial</p>
+            <p class="font-jetbrains text-xs uppercase tracking-widest text-gold-primary">Edición en directo por Google Meet</p>
             <h3 class="mt-3 font-playfair text-2xl font-bold text-white">Programa completo</h3>
             <p class="mt-2 text-sm text-text-muted">En directo + acompañamiento de implantación.</p>
             <div class="my-7">
@@ -585,7 +585,7 @@ const faqSchema = {
                 <li class="flex items-start gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-gold-primary" aria-hidden="true" />{item}</li>
               ))}
             </ul>
-            <a href="#formulario" class="btn-primary inline-flex min-h-12 items-center justify-center px-5 py-3 text-center text-xs focus:outline-none focus:ring-2 focus:ring-gold-light">Solicitar preinscripción</a>
+            <a href="/checkout-curso-chatgpt?product=PROGRAM_PRESENTIAL" class="btn-primary inline-flex min-h-12 items-center justify-center px-5 py-3 text-center text-xs focus:outline-none focus:ring-2 focus:ring-gold-light">Confirma tu plaza</a>
           </article>
 
           <article class="premium-card flex h-full flex-col p-6">
@@ -600,15 +600,15 @@ const faqSchema = {
             <div class="mb-8 flex-grow space-y-5">
               <div class="rounded-lg border border-bg-border p-4">
                 <p class="font-semibold text-white">Curso 1 · 7 sesiones</p>
-                <p class="mt-2 text-sm text-text-muted">Online: 182 € · Presencial: 242 €</p>
+                <p class="mt-2 text-sm text-text-muted">Online: 182 € · En directo por Google Meet: 242 €</p>
               </div>
               <div class="rounded-lg border border-bg-border p-4">
                 <p class="font-semibold text-white">Curso 2 · 10 sesiones</p>
-                <p class="mt-2 text-sm text-text-muted">Online: 303 € · Presencial: 363 €</p>
+                <p class="mt-2 text-sm text-text-muted">Online: 303 € · En directo por Google Meet: 363 €</p>
                 <p class="mt-2 text-xs text-text-muted">Puede solicitarse por separado, sujeto a haber realizado el Curso 1 o a validación humana previa. No se cobra antes de validar.</p>
               </div>
             </div>
-            <a href="#formulario" class="btn-secondary inline-flex min-h-12 items-center justify-center px-5 py-3 text-center text-xs focus:outline-none focus:ring-2 focus:ring-gold-light">Consultar opciones</a>
+            <a href="/checkout-curso-chatgpt?product=COURSE_1_ONLINE" class="btn-secondary inline-flex min-h-12 items-center justify-center px-5 py-3 text-center text-xs focus:outline-none focus:ring-2 focus:ring-gold-light">Confirma tu plaza</a>
           </article>
         </div>
       </div>
@@ -638,13 +638,13 @@ const faqSchema = {
                   C1 online<br /><span class="mt-1 block text-base font-bold text-white sm:text-lg">182 €</span>
                 </th>
                 <th scope="col" class="w-[18%] p-4 text-center font-jetbrains text-xs uppercase tracking-widest text-gold-light sm:p-5">
-                  C1 presencial<br /><span class="mt-1 block text-base font-bold text-white sm:text-lg">242 €</span>
+                  C1 en directo por Google Meet<br /><span class="mt-1 block text-base font-bold text-white sm:text-lg">242 €</span>
                 </th>
                 <th scope="col" class="w-[18%] p-4 text-center font-jetbrains text-xs uppercase tracking-widest text-gold-light sm:p-5">
                   C2 online<br /><span class="mt-1 block text-base font-bold text-white sm:text-lg">303 €</span>
                 </th>
                 <th scope="col" class="w-[18%] p-4 text-center font-jetbrains text-xs uppercase tracking-widest text-gold-light sm:p-5">
-                  C2 presencial<br /><span class="mt-1 block text-base font-bold text-white sm:text-lg">363 €</span>
+                  C2 en directo por Google Meet<br /><span class="mt-1 block text-base font-bold text-white sm:text-lg">363 €</span>
                 </th>
               </tr>
             </thead>
@@ -712,10 +712,10 @@ const faqSchema = {
                 <td class="p-4 text-center text-xs text-text-muted sm:p-5" aria-label="Requisito">—</td>
               </tr>
 
-              <!-- Bloque: Extras del pack presencial -->
+              <!-- Bloque: Extras del pack en directo por Google Meet -->
               <tr>
                 <th colspan="5" scope="colgroup" class="bg-gold-primary/5 px-4 py-3 text-left font-jetbrains text-xs uppercase tracking-widest text-gold-primary sm:px-5">
-                  Solo en el programa completo presencial
+                  Solo en el programa completo en directo por Google Meet
                 </th>
               </tr>
               <tr class="hover:bg-white/[0.02]">
@@ -746,9 +746,9 @@ const faqSchema = {
                   <span class="mt-1 block text-xs text-gold-light">Ahorras 61 €</span>
                 </td>
                 <td colspan="2" class="p-4 text-center sm:p-5">
-                  <span class="block text-xs uppercase tracking-widest text-text-muted">Presencial suelto</span>
+                  <span class="block text-xs uppercase tracking-widest text-text-muted">En directo suelto</span>
                   <span class="mt-1 block text-xl text-white line-through decoration-text-muted/60">605 €</span>
-                  <span class="mt-2 block font-jetbrains text-xs text-gold-light">Pack presencial: 484 €</span>
+                  <span class="mt-2 block font-jetbrains text-xs text-gold-light">Pack en directo por Google Meet: 484 €</span>
                   <span class="mt-1 block text-xs text-gold-light">Ahorras 121 €</span>
                 </td>
               </tr>
@@ -778,19 +778,19 @@ const faqSchema = {
     </section>
 
     <!-- In-person reasons -->
-    <section class="section border-t border-bg-border" aria-labelledby="presencial-title">
+    <section class="section border-t border-bg-border" aria-labelledby="directo-title">
       <div class="container-custom">
         <div class="grid grid-cols-1 gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
           <div class="lg:sticky lg:top-28">
             <span class="label-gold">Lo que conviene reservar</span>
-            <h2 id="presencial-title" class="text-3xl text-white sm:text-4xl md:text-5xl">¿Por qué la presencial?</h2>
+            <h2 id="directo-title" class="text-3xl text-white sm:text-4xl md:text-5xl">¿Por qué el directo por Google Meet?</h2>
             <p class="mt-6 text-lg text-text-muted">
-              El salto de 50 € compra asistencia en vivo y acompañamiento real. La presencial es el producto estrella; la online, la alternativa accesible.
+              El salto de 50 € compra asistencia en vivo y acompañamiento real. El directo por Google Meet es el producto estrella; la online, la alternativa accesible.
             </p>
             <div class="mt-8 rounded-xl border border-gold-primary/30 bg-gold-primary/10 p-5">
               <p class="font-jetbrains text-xs uppercase tracking-widest text-gold-primary">Inicio</p>
               <p class="mt-2 font-playfair text-2xl font-bold text-white">5 de octubre de 2026</p>
-              <p class="mt-2 text-sm text-text-muted">17 sesiones planificadas principalmente lunes, miércoles y viernes · 17:00–19:00 · ventana hasta el 16 de noviembre. Cada fecha exacta se confirma previamente por email operativo.</p>
+              <p class="mt-2 text-sm text-text-muted">17 sesiones planificadas lunes, miércoles y viernes · 17:00–19:00. Las fechas pueden cambiar por festivos y se confirman previamente por email operativo.</p>
             </div>
           </div>
 
@@ -799,7 +799,7 @@ const faqSchema = {
               { icon: UserCheck, title: '1 h de consultoría incluida', text: 'Sesión de arranque para configurar tu cuenta y trabajar 2–3 casos de uso de tu agencia. 50 € base = 60,50 € IVA incluido.' },
               { icon: Sparkles, title: 'Hasta 3 h más a 40 €/h base', text: 'Bloques concretos para un proceso, una automatización o una revisión. 40 €/h base = 48,40 €/h IVA incluido. Tarifa posterior: 50 €/h base = 60,50 €/h IVA incluido.' },
               { icon: CalendarDays, title: 'Ventana de 2 semanas', text: 'El acompañamiento adicional se puede usar durante las dos semanas posteriores al curso.' },
-              { icon: Users, title: 'Acompañamiento adicional', text: 'Disponible para contrataciones del programa completo presencial, sujeto a planificación.' },
+              { icon: Users, title: 'Acompañamiento adicional', text: 'Disponible para contrataciones del programa completo en directo por Google Meet, sujeto a planificación.' },
             ].map((item) => (
               <article class="premium-card p-6">
                 <item.icon className="mb-5 h-7 w-7 text-gold-primary" aria-hidden="true" />
