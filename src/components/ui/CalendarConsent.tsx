@@ -4,9 +4,10 @@ import { getConsent, saveConsent, type CookieConsent } from './CookieBanner';
 interface Props {
   calendarUrl: string;
   fallbackUrl?: string;
+  activationLabel?: string;
 }
 
-export default function CalendarConsent({ calendarUrl, fallbackUrl }: Props) {
+export default function CalendarConsent({ calendarUrl, fallbackUrl, activationLabel = 'Activar calendario' }: Props) {
   const [consent, setConsent] = useState<CookieConsent | null>(null);
   const [allowForThisVisit, setAllowForThisVisit] = useState(false);
   const [ready, setReady] = useState(false);
@@ -78,7 +79,7 @@ export default function CalendarConsent({ calendarUrl, fallbackUrl }: Props) {
             onClick={acceptFunctional}
             className="bg-[#C9A84C] hover:bg-[#E8D48B] text-[#0A0A0A] font-bold text-sm uppercase tracking-widest py-3 px-6 rounded-lg transition-colors"
           >
-            Activar calendario
+            {activationLabel}
           </button>
           {fallbackUrl && (
             <a
