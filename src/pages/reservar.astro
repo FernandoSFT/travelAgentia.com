@@ -1,9 +1,11 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import CalendarConsent from '../components/ui/CalendarConsent';
+import FreeSessionBooking from '../components/FreeSessionBooking';
 import DynamicBackground from '../components/ui/DynamicBackground.astro';
 import { Clock, Gift, ShieldCheck } from 'lucide-react';
 
+const nativeBooking = import.meta.env.PUBLIC_NATIVE_BOOKING === 'true' && import.meta.env.PUBLIC_PREVIEW !== 'true';
 const calendarUrl = 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ2voXjEdtOEf2nO2doSLUvF0pt1P6H7d9YxFfdmA3ot9cMo2B7Zi4zgQea1jum0jPQfww6YDbzv?gv=true';
 ---
 
@@ -55,7 +57,10 @@ const calendarUrl = 'https://calendar.google.com/calendar/appointments/schedules
         <div class="px-2 pt-2 text-center">
           <h2 id="booking-heading" class="text-2xl font-semibold text-white">Elige el horario de tu sesión gratuita</h2>
         </div>
-        <CalendarConsent calendarUrl={calendarUrl} activationLabel="Ver horarios disponibles" client:load />
+        {nativeBooking
+          ? <FreeSessionBooking client:load />
+          : <CalendarConsent calendarUrl={calendarUrl} activationLabel="Ver horarios disponibles" client:load />}
+        {nativeBooking && <noscript><p class="p-4 text-text-muted">Activa JavaScript para consultar los horarios y reservar.</p></noscript>}
       </section>
     </div>
   </main>
