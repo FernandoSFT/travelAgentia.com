@@ -1,7 +1,11 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import CalendarConsent from '../components/ui/CalendarConsent';
 import DynamicBackground from '../components/ui/DynamicBackground.astro';
 import { Clock, Gift, ShieldCheck } from 'lucide-react';
+
+const bookingUrl = 'https://calendar.app.google/n9UQE75z4RwFqxMJ9';
+const calendarUrl = 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ2voXjEdtOEf2nO2doSLUvF0pt1P6H7d9YxFfdmA3ot9cMo2B7Zi4zgQea1jum0jPQfww6YDbzv?gv=true';
 ---
 
 <Layout title="Reserva tu Consultoría IA GRATUITA (60 min) | TravelAgentIA">
@@ -48,19 +52,15 @@ import { Clock, Gift, ShieldCheck } from 'lucide-react';
         </div>
       </div>
 
-      <div class="glass p-4 md:p-8 rounded-2xl border-gold-primary/50 shadow-2xl relative overflow-hidden min-h-[500px] md:min-h-[700px]">
-        <div class="absolute inset-0 bg-noise opacity-5 pointer-events-none"></div>
-
-        <!-- Google Calendar Embed — responsive height -->
-        <iframe
-          src={import.meta.env.PUBLIC_CALENDAR_URL || ""}
-          style="border: 0"
-          width="100%"
-          class="rounded-xl bg-white/5 h-[60vh] md:h-[700px]"
-          frameborder="0"
-          scrolling="no"
-        ></iframe>
-      </div>
+      <section class="glass min-w-0 space-y-4 rounded-2xl border-gold-primary/50 p-2 shadow-2xl sm:p-6" aria-labelledby="booking-heading">
+        <div class="px-2 pt-2 text-center">
+          <h2 id="booking-heading" class="text-2xl font-semibold text-white">Elige el horario de tu sesión gratuita</h2>
+          <a href={bookingUrl} target="_blank" rel="noopener noreferrer" class="btn-secondary mt-4 inline-block px-4 sm:px-6">
+            Reservar en Google Calendar (nueva pestaña)
+          </a>
+        </div>
+        <CalendarConsent calendarUrl={calendarUrl} client:load />
+      </section>
     </div>
   </main>
 </Layout>

@@ -24,7 +24,7 @@ function loadConsent(): CookieConsent | null {
   }
 }
 
-function saveConsent(analytics: boolean, functional: boolean): CookieConsent {
+export function saveConsent(analytics: boolean, functional: boolean): CookieConsent {
   const consent: CookieConsent = {
     version: CONSENT_VERSION,
     timestamp: Date.now(),
@@ -53,15 +53,20 @@ export default function CookieBanner() {
       setVisible(true);
     }
 
-    const handler = () => {
-      const c = loadConsent();
-      if (!c) setVisible(true);
-    };
-    window.addEventListener('openCookiePanel', () => {
+    const openPreferences = () => {
       setShowPanel(true);
       setVisible(true);
-    });
-    return () => window.removeEventListener('openCookiePanel', handler);
+    };
+    const closeAfterConsent = () => {
+      setShowPanel(false);
+      setVisible(false);
+    };
+    window.addEventListener('openCookiePanel', openPreferences);
+    window.addEventListener('cookieConsentChange', closeAfterConsent);
+    return () => {
+      window.removeEventListener('openCookiePanel', openPreferences);
+      window.removeEventListener('cookieConsentChange', closeAfterConsent);
+    };
   }, []);
 
   function acceptAll() {

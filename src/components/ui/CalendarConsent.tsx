@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
-import { getConsent, type CookieConsent } from './CookieBanner';
+import { getConsent, saveConsent, type CookieConsent } from './CookieBanner';
 
 interface Props {
   calendarUrl: string;
-  fallbackUrl: string;
+  fallbackUrl?: string;
 }
 
 export default function CalendarConsent({ calendarUrl, fallbackUrl }: Props) {
   const [consent, setConsent] = useState<CookieConsent | null>(null);
+  const [allowForThisVisit, setAllowForThisVisit] = useState(false);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
@@ -16,6 +17,7 @@ export default function CalendarConsent({ calendarUrl, fallbackUrl }: Props) {
 
     const handler = (e: Event) => {
       setConsent((e as CustomEvent<CookieConsent>).detail);
+      setAllowForThisVisit(false);
     };
     window.addEventListener('cookieConsentChange', handler);
     return () => window.removeEventListener('cookieConsentChange', handler);
@@ -23,46 +25,38 @@ export default function CalendarConsent({ calendarUrl, fallbackUrl }: Props) {
 
   function acceptFunctional() {
     try {
-      const raw = localStorage.getItem('cookie-consent');
-      const existing = raw ? JSON.parse(raw) : {};
-      const updated = { ...existing, functional: true, timestamp: Date.now() };
-      localStorage.setItem('cookie-consent', JSON.stringify(updated));
-      window.dispatchEvent(new CustomEvent('cookieConsentChange', { detail: updated }));
-      setConsent(updated);
+      setConsent(saveConsent(consent?.analytics ?? false, true));
     } catch {
-      setConsent(prev => prev ? { ...prev, functional: true } : null);
+      setAllowForThisVisit(true);
     }
   }
 
-  if (!ready) return null;
+  if (!ready || !calendarUrl) return null;
 
-  if (consent?.functional) {
+  if (consent?.functional || allowForThisVisit) {
     return (
-      <div className="w-full h-[700px] rounded-xl overflow-hidden shadow-2xl border border-white/10 bg-white/5 relative">
-        <div className="absolute inset-0 flex flex-col items-center justify-center p-8 text-center bg-[#111]">
-          <p className="text-xl mb-6">Si el calendario no carga automáticamente, puedes reservar directamente aquí:</p>
+      <div className="space-y-4">
+        <iframe
+          src={calendarUrl}
+          className="block h-[780px] w-full rounded-xl border-0 bg-white md:h-[730px]"
+          title="Reservar cita en Google Calendar"
+        />
+        {fallbackUrl && (
           <a
             href={fallbackUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-[#C9A84C] text-[#0A0A0A] font-inter font-bold uppercase tracking-widest px-8 py-4 rounded hover:bg-[#E8D48B] transition-all"
+            className="btn-secondary"
           >
-            ABRIR CALENDARIO
+            Abrir calendario en nueva pestaña
           </a>
-        </div>
-        <iframe
-          src={calendarUrl}
-          className="w-full h-full relative z-10 bg-white"
-          frameBorder={0}
-          scrolling="yes"
-          title="Reservar cita en Google Calendar"
-        />
+        )}
       </div>
     );
   }
 
   return (
-    <div className="w-full h-[700px] rounded-xl border border-white/10 bg-[#111] flex flex-col items-center justify-center p-8 text-center shadow-2xl">
+    <div className="flex w-full flex-col items-center justify-center rounded-xl border border-white/10 bg-[#111] p-4 text-center sm:p-8">
       <div className="max-w-md">
         <svg className="mx-auto mb-4 text-[#C9A84C]" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
           <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
@@ -80,19 +74,22 @@ export default function CalendarConsent({ calendarUrl, fallbackUrl }: Props) {
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <button
+            type="button"
             onClick={acceptFunctional}
             className="bg-[#C9A84C] hover:bg-[#E8D48B] text-[#0A0A0A] font-bold text-sm uppercase tracking-widest py-3 px-6 rounded-lg transition-colors"
           >
             Activar calendario
           </button>
-          <a
-            href={fallbackUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="border border-white/20 hover:border-white/40 text-gray-300 font-bold text-sm uppercase tracking-widest py-3 px-6 rounded-lg transition-colors"
-          >
-            Abrir en nueva pestaña
-          </a>
+          {fallbackUrl && (
+            <a
+              href={fallbackUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="border border-white/20 hover:border-white/40 text-gray-300 font-bold text-sm uppercase tracking-widest py-3 px-6 rounded-lg transition-colors"
+            >
+              Abrir en nueva pestaña
+            </a>
+          )}
         </div>
       </div>
     </div>
